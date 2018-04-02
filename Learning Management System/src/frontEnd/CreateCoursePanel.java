@@ -20,7 +20,7 @@ public class CreateCoursePanel extends ContentPanel {
 		ICourseName = new JTextField();
 		add(ICourseName);
 		ICourseName.setColumns(10);
-		ICourseName.setMaximumSize(new Dimension(370, 20));
+		ICourseName.setMaximumSize(new Dimension(500, 20));
 		
 		CourseNumber = new JLabel("Course Number:");
 		add(CourseNumber);
@@ -28,7 +28,7 @@ public class CreateCoursePanel extends ContentPanel {
 		ICourseNumber = new JTextField();
 		add(ICourseNumber);
 		ICourseNumber.setColumns(10);
-		ICourseNumber.setMaximumSize(new Dimension(370, 20));
+		ICourseNumber.setMaximumSize(new Dimension(500, 20));
 		
 		JLabel lblActive = new JLabel("Active?");
 		add(lblActive);
