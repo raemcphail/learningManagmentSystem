@@ -13,11 +13,12 @@ import java.awt.Dimension;
 import java.awt.Color;
 
 public class LoginFrame extends JFrame {
-	private JPasswordField IUser;
+	private JTextField IUser;
 	private JPasswordField IPassword;
 	private JLabel Password;
 	private JLabel User;
 	private JLabel invalidMessage;
+	private JButton btnLogin;
 	public LoginFrame()
 	{
 		setSize(200, 200);
@@ -34,7 +35,7 @@ public class LoginFrame extends JFrame {
 		User.setHorizontalAlignment(SwingConstants.CENTER);
 		main.add(User);
 		
-		IUser = new JPasswordField(8);		
+		IUser = new JTextField(8);		
 		IUser.setMaximumSize(new Dimension(370, 20));
 		IUser.setHorizontalAlignment(SwingConstants.CENTER);
 		main.add(IUser);
@@ -47,13 +48,28 @@ public class LoginFrame extends JFrame {
 		IPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		main.add(IPassword);
 		
-		JButton btnLogin = new JButton("Login");
+		btnLogin = new JButton("Login");
 		main.add(btnLogin);
 		
 		invalidMessage = new JLabel("Invalid Username or Password");
-		invalidMessage.setEnabled(false);
+		invalidMessage.setVisible(false);
 		invalidMessage.setForeground(Color.RED);
 		main.add(invalidMessage);
+	}
+	
+	public JButton getbtnLogin()
+	{
+		return btnLogin;
+	}
+	
+	public JTextField getUserName()
+	{
+		return IUser;
+	}
+	
+	public JPasswordField getpassword()
+	{
+		return IPassword;
 	}
 	
 }
