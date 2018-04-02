@@ -16,9 +16,9 @@ import java.util.concurrent.ExecutorService;
 public class Server {
 	private ServerSocket serverSocket;
 	private Socket aSocket;
-//	private ObjectInputStream input;
-//	private ObjectOutputStream output;
 	ExecutorService pool;
+	BufferedReader in;
+	PrintWriter out;
 	
 	public Server (int portnumber)
 	{
@@ -26,6 +26,8 @@ public class Server {
 		{
 			serverSocket = new ServerSocket(portnumber);
 			pool = Executors.newCachedThreadPool();
+			
+			
 		}catch(IOException e)
 		{
 			System.err.println("Server error");
@@ -34,9 +36,19 @@ public class Server {
 	
 	public void runServer() throws IOException
 	{
+		String line = "yo yo";
 			while(true)
 			{
 				aSocket = serverSocket.accept();
+				in = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
+				out = new PrintWriter(aSocket.getOutputStream(),true);
+				while(true)
+				{
+					System.out.println(line);
+					line = in.readLine();
+					System.out.println(line);
+					out.println("Server says " + line);
+				}
 		
 			}
 	}
@@ -44,8 +56,12 @@ public class Server {
 	public static void main(String[] args) throws IOException
 	{
 		Server server = new Server(9090);
+	
 		System.out.println("Server is now running");
 		server.runServer();
+		server.in.close();
+		server.out.close();
+		
 	}
 	
 	
