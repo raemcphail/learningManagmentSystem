@@ -1,6 +1,8 @@
 package frontEnd;
 
 import javax.swing.*;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
 public class DashboardFrame extends JFrame {
 	/**
 	 * the overlaying panel
@@ -31,21 +33,38 @@ public class DashboardFrame extends JFrame {
 	 * the divider between the title and the courseBar
 	 */
 	JSplitPane upperMiddle;
+	/**
+	 * content Panel to be set visible by default
+	 */
+	protected ContentPanel myCourses;
+	/**
+	 * content Panel to be set visible if user presses the createCourse button
+	 */
+	protected ContentPanel createCourses;
 	
 	public DashboardFrame() {
-		setSize(700,700);
+		setSize(581,276);
 		mainPanel = new JPanel();
 		this.setContentPane(mainPanel);
 		
 		upperPanel = new JPanel();
 		lowerPanel = new JPanel();
+		lowerPanel.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		title = new TitlePanel();
 		
 		middleBar = new CoursePanel();
 		
+		myCourses = new MyCoursesPanel();
+		
+		createCourses = new CreateCoursePanel();
+		
+		//lowerPanel.add(myCourses);
+		myCourses.setEnabled(false);
+		lowerPanel.add(createCourses);
+		createCourses.setLayout(new BoxLayout(createCourses, BoxLayout.Y_AXIS));
 		addDividers();
-		this.pack();
+		pack();
 	}
 	
 	public void addDividers()

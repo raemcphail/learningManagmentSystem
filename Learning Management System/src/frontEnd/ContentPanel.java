@@ -1,6 +1,7 @@
 package frontEnd;
 
-import javax.swing.JPanel;
+import javax.swing.*;
+
 /**
  * ContentPanel will be a panel that three main panels will inherit,
  * they will all redefine setEnabled
