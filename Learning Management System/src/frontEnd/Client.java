@@ -8,6 +8,7 @@ public class Client
 	private Socket aSocket;
 	private PrintWriter socketOut;
 	private BufferedReader stdin, socketIn;
+	private LoginFrame login;
 	
 	
 	public Client(String servername, int portnumber)
@@ -18,6 +19,7 @@ public class Client
 			stdin = new BufferedReader(new InputStreamReader(System.in));
 			socketIn = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
 			socketOut = new PrintWriter(aSocket.getOutputStream(),true);
+			login = new LoginFrame();
 			
 			
 		}catch(IOException e) {
@@ -31,6 +33,8 @@ public class Client
 		System.out.println("run Client run");
 		String line = "";
 		String response = "";
+		login.setVisible(true);
+		login.getbtnLogin().addActionListener(new server.LoginListener(login));
 		int i = 0;
 		while(i<5)
 		{
