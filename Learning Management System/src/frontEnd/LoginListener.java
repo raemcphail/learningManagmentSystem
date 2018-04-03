@@ -39,6 +39,8 @@ public class LoginListener implements ActionListener
 		if(Arrays.equals(cPassword, input))
 		{
 			System.out.println("Password is correct");
+			socketOut.println("QUIT");
+			login.dispose();
 		}
 		else
 		{

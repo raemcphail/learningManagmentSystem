@@ -3,7 +3,11 @@ package server;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+
+import dbManagers.UserManager;
+
 import java.io.*;
+
 
 public class LoginHandler {
 	private Socket aSocket;
@@ -22,10 +26,19 @@ public class LoginHandler {
 		System.out.println("Handler is running");
 		try
 		{
+			while(true)
+			{
 			String username = in.readLine();
+			if(username.equals("QUIT"))
+			{
+				break;
+			}
 			System.out.println(username);
-			String password = "password";
+			dbManagers.UserManager u = new UserManager();
+			String password = u.findClientPassword(Integer.parseInt(username));
 			out.println(password);
+			}
+			System.out.println("broke from loop");
 		}catch(IOException e)
 		{
 			System.out.println("runHandler error");

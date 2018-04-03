@@ -11,9 +11,9 @@ public class UserManager extends Manager {
 	*/
 	
 	/**
-	 * default constructor connects to the database using the code in Managers
+	 * default constructor connects to the database using the code in Managers		
 	 */
-	UserManager()
+	public UserManager()
 	{
 		super();
 	}
