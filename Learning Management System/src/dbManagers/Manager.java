@@ -9,10 +9,10 @@ import java.sql.*;
 
 public class Manager {
 	protected final String username = "root";
-	protected String password = "ensf409";
+	protected String password = "Xcountry381";	//to be adjusted******
 	protected Connection connection;
-	protected String dbName = "mydb";
-	protected Statement statement;
+	protected String dbName = "awesomed2lproject";
+	protected PreparedStatement statement;
 	
 	public Manager()
 	{
@@ -20,13 +20,12 @@ public class Manager {
 			Driver driver = new com.mysql.jdbc.Driver();
 			DriverManager.registerDriver(driver);
 			
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/mydb",
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/" + dbName,
 					username, password);
 		} catch (SQLException e)
 		{
 			e.printStackTrace();
 		}
-	
 		
 	}
 	
