@@ -72,4 +72,9 @@ public class LoginFrame extends JFrame {
 		return IPassword;
 	}
 	
+	public void enableErrorMessage()
+	{
+		invalidMessage.setVisible(true);
+	}
+	
 }

@@ -44,6 +44,7 @@ public class LoginListener implements ActionListener
 		}
 		else
 		{
+			login.enableErrorMessage();
 			System.out.println("The password is wrong");
 		}
 		
