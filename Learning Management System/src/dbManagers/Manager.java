@@ -9,7 +9,7 @@ import java.sql.*;
 
 public class Manager {
 	protected final String username = "root";
-	protected String password = "Xcountry381";	//to be adjusted******
+	protected String password = "ensf409";
 	protected Connection connection;
 	protected String dbName = "awesomed2lproject";
 	protected PreparedStatement statement;
