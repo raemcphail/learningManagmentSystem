@@ -28,9 +28,9 @@ public class LoginListener implements ActionListener
 		System.out.println("login was pressed");
 		//sends LoginHandler the username over the socket to find in database then LoginHandler returns the expected password  
 		String username = login.getUserName().getText();
-		if(username.length() != 8)
+		if(username.length() != 8 || input.toString().length() >20)
 		{
-			
+			login.enableErrorMessage();
 			return;
 		}
 		socketOut.println(username);
