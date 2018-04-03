@@ -2,7 +2,13 @@ package server;
 
 import java.net.Socket;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
+	/**
+	 * the class id for serializing
+	 */
+	final static long serialVersionUID = 1L;
 	/**
 	 * the users id
 	 */
