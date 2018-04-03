@@ -3,6 +3,7 @@ package server;
 import java.net.Socket;
 
 public class User {
+//Need to add a course array
 	/**
 	 * the users id
 	 */
