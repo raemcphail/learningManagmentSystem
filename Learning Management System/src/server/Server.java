@@ -14,12 +14,13 @@ import java.util.concurrent.ExecutorService;
  * @author raemc
  *
  */
-public class Server {
+public class Server implements Runnable{
 	private ServerSocket serverSocket;
 	private Socket aSocket;
 	ExecutorService pool;
 	BufferedReader in;
 	PrintWriter out;
+	LoginHandler loginhandler;
 	
 	public Server (int portnumber)
 	{
@@ -27,7 +28,6 @@ public class Server {
 		{
 			serverSocket = new ServerSocket(portnumber);
 			pool = Executors.newCachedThreadPool();
-			
 			
 		}catch(IOException e)
 		{
@@ -44,9 +44,8 @@ public class Server {
 				aSocket = serverSocket.accept();
 				in = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
 				out = new PrintWriter(aSocket.getOutputStream(),true);
-				//pool.execute();
-				LoginHandler loginhandler = new LoginHandler(aSocket, in, out); 
-				loginhandler.runHandler();
+				loginhandler = new LoginHandler(aSocket, in, out); 
+				pool.execute(this);
 //				while(true)
 //				{
 //					System.out.println(line);
@@ -58,6 +57,12 @@ public class Server {
 			}
 	}
 	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		loginhandler.runHandler();
+		
+	}	
 	public static void main(String[] args) throws IOException
 	{
 		Server server = new Server(9090);
@@ -68,6 +73,8 @@ public class Server {
 		server.out.close();
 		
 	}
+
+
 	
 	
 }
