@@ -23,26 +23,31 @@ public class LoginListener implements ActionListener
 	{
 		try
 		{
-		char [] input = login.getpassword().getPassword();
-		//char [] correct = { 'p', 'a', 's', 's', 'w', 'o', 'r', 'd' }; 
+		char [] input = login.getpassword().getPassword(); 
 		System.out.println("login was pressed");
+		//sends LoginHandler the username over the socket to find in database then LoginHandler returns the expected password  
 		String username = login.getUserName().getText();
 		socketOut.println(username);
 		System.out.println(username);
-		username = socketIn.readLine();
+		
+		String password = socketIn.readLine();
+		System.out.println("Required password is " + password);
+		char [] cPassword = password.toCharArray();
+		
 		System.out.println(username);
+
+		if(Arrays.equals(cPassword, input))
+		{
+			System.out.println("Password is correct");
+		}
+		else
+		{
+			System.out.println("The password is wrong");
+		}
+		
 		}catch(IOException i)
 		{
 			System.out.println("IOException in loginlistener");
 		}
-		
-//		if(Arrays.equals(input, correct))
-//		{
-//			System.out.println("Password is correct");
-//		}
-//		else
-//		{
-//			System.out.println("The password is wrong");
-//		}
 	}
 }

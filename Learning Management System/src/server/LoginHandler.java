@@ -24,7 +24,8 @@ public class LoginHandler {
 		{
 			String username = in.readLine();
 			System.out.println(username);
-			out.println("Login Handler got username: " + username);
+			String password = "password";
+			out.println(password);
 		}catch(IOException e)
 		{
 			System.out.println("runHandler error");
