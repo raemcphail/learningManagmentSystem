@@ -38,18 +38,22 @@ public class Server {
 	public void runServer() throws IOException
 	{
 		String line = "yo yo";
+		
 			while(true)
 			{
 				aSocket = serverSocket.accept();
 				in = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
 				out = new PrintWriter(aSocket.getOutputStream(),true);
-				while(true)
-				{
-					System.out.println(line);
-					line = in.readLine();
-					System.out.println(line);
-					out.println("Server says " + line);
-				}
+				//pool.execute();
+				LoginHandler loginhandler = new LoginHandler(aSocket, in, out); 
+				loginhandler.runHandler();
+//				while(true)
+//				{
+//					System.out.println(line);
+//					line = in.readLine();
+//					System.out.println(line);
+//					out.println("Server says " + line);
+//				}
 		
 			}
 	}
