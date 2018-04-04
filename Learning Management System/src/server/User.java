@@ -3,6 +3,11 @@ package server;
 import java.net.Socket;
 import java.io.Serializable;
 
+/**
+ * This class represents all the data for a User
+ * @author raemc
+ *
+ */
 public class User implements Serializable {
 	/**
 	 * the class id for serializing
@@ -41,7 +46,9 @@ public class User implements Serializable {
 	 * the socket from the server that will communicate with the client
 	 */
 	Socket aSocket;
-	
+	/**
+	 * the courses which the user has
+	 */
 	Course [] courses;
 	
 	public User(Socket aSocket)
