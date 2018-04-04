@@ -16,8 +16,8 @@ public class MyCoursesPanel extends ContentPanel {
 	}
 	
 	@Override
-	protected boolean setEnabled() {
-		return this.isEnabled();
+	protected void setVisible() {
+		this.setVisible(true);
 	}
 	
 

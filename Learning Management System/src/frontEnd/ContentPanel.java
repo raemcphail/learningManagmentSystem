@@ -9,6 +9,6 @@ import javax.swing.*;
  *
  */
 public abstract class ContentPanel extends JPanel {
-	abstract protected boolean setEnabled();
+	abstract protected void setVisible();
 	
 }

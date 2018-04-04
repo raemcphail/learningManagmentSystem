@@ -49,9 +49,8 @@ public class CreateCoursePanel extends ContentPanel {
 	}
 	
 	@Override
-	protected boolean setEnabled() {
-		// TODO Auto-generated method stub
-		return this.isEnabled();
+	protected void setVisible() {
+		this.setVisible(true);
 	}
 
 }
