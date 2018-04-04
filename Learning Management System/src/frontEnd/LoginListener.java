@@ -45,9 +45,9 @@ public class LoginListener implements ActionListener
 		socketOut.println(username);
 		System.out.println(username);
 		socketOut.println(input);
-		socketIn.mark(100000);
+
 		String result = socketIn.readLine();	//find out if the password's matched or not
-		socketIn.reset();
+		System.out.println(result);
 		if(result.equals("success"))
 		{
 			//read user object

@@ -41,13 +41,11 @@ public class Server implements Runnable{
 		String line = "yo yo";
 		
 			while(true)
-			{
-				aSocket = serverSocket.accept();
-				in = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
-				out = new PrintWriter(aSocket.getOutputStream(),true);
-				loginhandler = new LoginHandler(aSocket, in, out); 
+			{				
+				loginhandler = new LoginHandler(serverSocket.accept()); 
 				
 				pool.execute(this);
+				
 //				while(true)
 //				{
 //					System.out.println(line);
@@ -64,7 +62,6 @@ public class Server implements Runnable{
 		// TODO Auto-generated method stub
 		User user = new User();
 		loginhandler.runHandler(user);
-		
 		
 	}	
 	public static void main(String[] args) throws IOException

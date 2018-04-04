@@ -15,12 +15,12 @@ public class LoginHandler {
 	User user;
 	ObjectOutputStream outObj = null;
 	
-	LoginHandler(Socket s, BufferedReader r, PrintWriter w)
+	LoginHandler(Socket s)
 	{
 		aSocket = s;
-		in = r;
-		out = w;
 		try {
+			in = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
+			out = new PrintWriter(aSocket.getOutputStream(),true);
 			outObj = new ObjectOutputStream(aSocket.getOutputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -75,7 +75,7 @@ public class LoginHandler {
 
 				outObj.writeObject(user);
 				outObj.flush();
-				outObj.close();
+				//outObj.close();
 				break;
 			}
 			else
@@ -83,7 +83,6 @@ public class LoginHandler {
 				out.println("failure");
 			}
 			
-			out.println(password);
 			}
 			System.out.println("broke from loop");
 		}catch(IOException e)

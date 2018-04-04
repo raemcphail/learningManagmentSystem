@@ -35,7 +35,7 @@ public class Client
 		//String response = "";
 		login.setVisible(true);
 		login.getbtnLogin().addActionListener(new LoginListener(login, aSocket, socketIn, socketOut, in));
-			
+
 		}
 	
 	public static void main(String [] args) throws ClassNotFoundException
