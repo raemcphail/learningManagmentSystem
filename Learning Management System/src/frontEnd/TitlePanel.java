@@ -14,7 +14,9 @@ import java.awt.Color;
 public class TitlePanel extends JPanel {
 	private JTextField welcomeMessage;
 	private JTextField ClientName;
-	public TitlePanel() {
+	private String theUserName;
+	public TitlePanel(String firstname, String lastname) {
+		theUserName = firstname + " " + lastname;
 		setTitlePanel();
 		populatePanel();
 	}
@@ -23,13 +25,13 @@ public class TitlePanel extends JPanel {
 	 */
 	public void setTitlePanel()
 	{
-		setLayout(new FormLayout(new ColumnSpec[] {
+		/*setLayout(new FormLayout(new ColumnSpec[] {
 				FormSpecs.LABEL_COMPONENT_GAP_COLSPEC,
 				ColumnSpec.decode("444px:grow"),},
 			new RowSpec[] {
 				FormSpecs.LINE_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("21px"),}));
+				RowSpec.decode("21px"),}));*/
 		setBackground(new Color(176, 224, 230));
 		setSize(700, 200);
 	}
@@ -50,7 +52,7 @@ public class TitlePanel extends JPanel {
 		ClientName.setEditable(false);
 		ClientName.setForeground(new Color(255, 0, 0));
 		ClientName.setBackground(new Color(176, 224, 230));
-		ClientName.setText("Client Name");
+		ClientName.setText(theUserName);
 		add(ClientName, "2, 3, center, center");
 		ClientName.setColumns(55);
 	}

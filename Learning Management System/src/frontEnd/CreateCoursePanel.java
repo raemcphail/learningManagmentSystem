@@ -33,9 +33,11 @@ public class CreateCoursePanel extends ContentPanel {
 		JLabel lblActive = new JLabel("Active?");
 		add(lblActive);
 		
+		ButtonGroup group = new ButtonGroup();
 		JRadioButton rdbtnYes = new JRadioButton("yes");
-
+		group.add(rdbtnYes);
 		JRadioButton rdbtnNo = new JRadioButton("no");
+		group.add(rdbtnNo);
 		
 		add(rdbtnYes);
 		

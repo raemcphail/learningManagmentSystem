@@ -1,6 +1,9 @@
 package frontEnd;
 
 import javax.swing.*;
+
+import server.User;
+
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
 public class DashboardFrame extends JFrame {
@@ -41,9 +44,14 @@ public class DashboardFrame extends JFrame {
 	 * content Panel to be set visible if user presses the createCourse button
 	 */
 	protected ContentPanel createCourses;
+	/**
+	 * 
+	 */
+	protected User user;
 	
-	public DashboardFrame() {
-		setSize(581,276);
+	public DashboardFrame(User user) {
+		this.user = user;
+		setSize(450,276);
 		mainPanel = new JPanel();
 		this.setContentPane(mainPanel);
 		
@@ -51,7 +59,7 @@ public class DashboardFrame extends JFrame {
 		lowerPanel = new JPanel();
 		lowerPanel.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		title = new TitlePanel();
+		title = new TitlePanel(user.getFirstname(), user.getLastname());
 		
 		middleBar = new CoursePanel();
 		

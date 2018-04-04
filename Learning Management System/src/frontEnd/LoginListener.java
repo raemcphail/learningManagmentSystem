@@ -18,6 +18,7 @@ public class LoginListener implements ActionListener
 	private BufferedReader socketIn;
 	private LoginFrame login;
 	ObjectInputStream in = null;
+	User user;
 
 	public LoginListener (LoginFrame l, Socket s, BufferedReader r, PrintWriter w, ObjectInputStream in)
 	{
@@ -52,7 +53,7 @@ public class LoginListener implements ActionListener
 		{
 			//read user object
 			try {
-				User user = (User)in.readObject();
+				user = (User)in.readObject();
 				in.close();
 				System.out.println(user.getEmail());
 			} catch (ClassNotFoundException e1) {
@@ -73,5 +74,9 @@ public class LoginListener implements ActionListener
 		{
 			i.printStackTrace();
 		}
+	}
+	public User getUser()
+	{
+		return user;
 	}
 }

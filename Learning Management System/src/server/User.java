@@ -94,5 +94,17 @@ public class User implements Serializable {
 	{
 		return Email;
 	}
+	public char getType()
+	{
+		return Type;
+	}
+	public String getFirstname()
+	{
+		return firstName;
+	}
+	public String getLastname()
+	{
+		return lastName;
+	}
 	
 }

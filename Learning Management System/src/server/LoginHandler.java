@@ -50,14 +50,17 @@ public class LoginHandler {
 			if (match)
 			{
 				char[] type = u.findClientType(userN);
-				/*if (type[0] == 'S')
+				if (type[0] == 'S')
 				{
-					
+					user = new Student(userN, password.toString(), u.findClientEmail(userN),
+							u.findClientFirstname(userN), u.findClientLastname(userN), 'S');
+
 				}
 				else if (type[0] == 'P')
 				{
-					
-				}*/
+					user = new Professor(userN, password.toString(), u.findClientEmail(userN),
+							u.findClientFirstname(userN), u.findClientLastname(userN), 'P');
+				}
 				String email = u.findClientEmail(userN);
 				user.setEmail(email);
 				

@@ -2,6 +2,8 @@ package frontEnd;
 import java.io.*;
 import java.net.Socket;
 
+import server.User;
+
 
 public class Client 
 {
@@ -10,6 +12,7 @@ public class Client
 	private BufferedReader stdin, socketIn;
 	private LoginFrame login;
 	ObjectInputStream in = null;
+	User user;
 	
 	
 	public Client(String servername, int portnumber)
@@ -34,8 +37,19 @@ public class Client
 		//String line = "";
 		//String response = "";
 		login.setVisible(true);
-		login.getbtnLogin().addActionListener(new LoginListener(login, aSocket, socketIn, socketOut, in));
-
+		LoginListener listener = new LoginListener(login, aSocket, socketIn, socketOut, in);
+		login.getbtnLogin().addActionListener(listener);
+		while (true)	//wait until a user has been sucessfully added
+		{
+			if (listener.getUser() != null)
+			{
+				user = listener.getUser();
+				break;
+			}
+		}
+		System.out.println("Client sees: " + user.getFirstname());
+		DashboardFrame Dashboard = new DashboardFrame(user);
+		Dashboard.setVisible(true);
 		}
 	
 	public static void main(String [] args) throws ClassNotFoundException
