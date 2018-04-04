@@ -9,8 +9,6 @@ public class User implements Serializable {
 	 * the class id for serializing
 	 */
 	static final long serialVersionUID = 1L;
-public class User {
-//Need to add a course array
 	/**
 	 * the users id
 	 */

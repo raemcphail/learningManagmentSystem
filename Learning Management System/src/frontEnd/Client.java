@@ -9,6 +9,7 @@ public class Client
 	private PrintWriter socketOut;
 	private BufferedReader stdin, socketIn;
 	private LoginFrame login;
+	ObjectInputStream in = null;
 	
 	
 	public Client(String servername, int portnumber)
@@ -20,7 +21,7 @@ public class Client
 			socketIn = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
 			socketOut = new PrintWriter(aSocket.getOutputStream(),true);
 			login = new LoginFrame();
-			
+			in = new ObjectInputStream(aSocket.getInputStream());
 			
 		}catch(IOException e) {
 			System.out.println("Client error");
@@ -30,11 +31,10 @@ public class Client
 	
 	public void runClient()
 	{
-		System.out.println("run Client run");
 		//String line = "";
 		//String response = "";
 		login.setVisible(true);
-		login.getbtnLogin().addActionListener(new LoginListener(login, aSocket, socketIn, socketOut));
+		login.getbtnLogin().addActionListener(new LoginListener(login, aSocket, socketIn, socketOut, in));
 			
 		}
 	

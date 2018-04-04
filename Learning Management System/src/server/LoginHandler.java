@@ -44,7 +44,7 @@ public class LoginHandler {
 			System.out.println(password);
 			dbManagers.UserManager u = new UserManager();
 			String actualPassword = u.findClientPassword(userN);
-			
+			System.out.println("Actual password is:" + actualPassword);
 			boolean match = checkPassword(password, actualPassword);
 			
 			if (match)
@@ -74,6 +74,7 @@ public class LoginHandler {
 				out.println("success");
 
 				outObj.writeObject(user);
+				outObj.flush();
 				outObj.close();
 				break;
 			}
