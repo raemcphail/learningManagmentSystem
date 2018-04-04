@@ -13,12 +13,21 @@ public class LoginListener implements ActionListener
 	private PrintWriter socketOut;
 	private BufferedReader socketIn;
 	private LoginFrame login;
+	ObjectInputStream in = null;
+
 	public LoginListener (LoginFrame l, Socket s, BufferedReader r, PrintWriter w)
 	{
 		login = l;
 		aSocket = s;
 		socketIn = r;
 		socketOut = w;
+		try {
+			in = new ObjectInputStream(aSocket.getInputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 	public void actionPerformed(ActionEvent e)
 	{
@@ -35,20 +44,24 @@ public class LoginListener implements ActionListener
 		}
 		socketOut.println(username);
 		System.out.println(username);
+		socketOut.println(input.toString());
 		
-		String password = socketIn.readLine();
-		System.out.println("Required password is " + password);
-		char [] cPassword = password.toCharArray();
+		String result = socketIn.readLine();	//find out if the password's matched or not
 		
-		System.out.println(username);
-
-		if(Arrays.equals(cPassword, input))
+		if(result.equals("success"))
 		{
+			//read user object
+			try {
+				server.User user = (server.User)in.readObject();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			System.out.println("Password is correct");
 			socketOut.println("QUIT");
 			login.dispose();
 		}
-		else
+		else	//
 		{
 			login.enableErrorMessage();
 			System.out.println("The password is wrong");

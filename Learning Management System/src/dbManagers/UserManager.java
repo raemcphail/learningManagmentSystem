@@ -31,7 +31,69 @@ public class UserManager extends Manager {
 				s = client.getString("password");
 			}
 		} catch (SQLException e) { e.printStackTrace(); }
-		System.out.println(s);	//to be deleted, for debugging purposes only****
+		return s;
+	}
+	public String findClientEmail(int UserID)
+	{
+		String sql = "SELECT email FROM " + tableName + " WHERE ID=" + UserID;
+		ResultSet client;
+		String s = null;
+		try {
+			statement = connection.prepareStatement(sql);
+			client = statement.executeQuery();
+			if (client.next())
+			{
+				s = client.getString("email");
+			}
+		} catch (SQLException e) { e.printStackTrace(); }
+		return s;
+	}
+	
+	public String findClientFirstname(int UserID)
+	{
+		String sql = "SELECT firstname FROM " + tableName + " WHERE ID=" + UserID;
+		ResultSet client;
+		String s = null;
+		try {
+			statement = connection.prepareStatement(sql);
+			client = statement.executeQuery();
+			if (client.next())
+			{
+				s = client.getString("firstname");
+			}
+		} catch (SQLException e) { e.printStackTrace(); }
+		return s;
+	}
+	
+	public String findClientLastname(int UserID)
+	{
+		String sql = "SELECT lastname FROM " + tableName + " WHERE ID=" + UserID;
+		ResultSet client;
+		String s = null;
+		try {
+			statement = connection.prepareStatement(sql);
+			client = statement.executeQuery();
+			if (client.next())
+			{
+				s = client.getString("lastname");
+			}
+		} catch (SQLException e) { e.printStackTrace(); }
+		return s;
+	}
+	
+	public char[] findClientType(int UserID)
+	{
+		String sql = "SELECT type FROM " + tableName + " WHERE ID=" + UserID;
+		ResultSet client;
+		char s [] = null;
+		try {
+			statement = connection.prepareStatement(sql);
+			client = statement.executeQuery();
+			if (client.next())
+			{
+				s = client.getString("type").toCharArray();
+			}
+		} catch (SQLException e) { e.printStackTrace(); }
 		return s;
 	}
 	/**

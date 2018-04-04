@@ -1,9 +1,14 @@
 package server;
 
 import java.net.Socket;
+import java.io.Serializable;
 
-public class User {
-//Need to add a course array
+public class User implements Serializable {
+	/**
+	 * the class id for serializing
+	 */
+	final static long serialVersionUID = 1L;
+
 	/**
 	 * the users id
 	 */
@@ -37,6 +42,8 @@ public class User {
 	 */
 	Socket aSocket;
 	
+	Course [] courses;
+	
 	public User(Socket aSocket)
 	{
 		this.aSocket = aSocket;
@@ -51,6 +58,7 @@ public class User {
 		this.firstName = firstname;
 		this.lastName = lastName;
 		this.Type = Type;
+		courses = new Course [10];
 	}
 	
 	/**

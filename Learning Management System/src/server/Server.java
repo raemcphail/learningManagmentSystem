@@ -22,6 +22,7 @@ public class Server implements Runnable{
 	PrintWriter out;
 	LoginHandler loginhandler;
 	
+	
 	public Server (int portnumber)
 	{
 		try
@@ -45,6 +46,7 @@ public class Server implements Runnable{
 				in = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
 				out = new PrintWriter(aSocket.getOutputStream(),true);
 				loginhandler = new LoginHandler(aSocket, in, out); 
+				
 				pool.execute(this);
 //				while(true)
 //				{
@@ -60,7 +62,9 @@ public class Server implements Runnable{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		loginhandler.runHandler();
+		User user = new User(aSocket);
+		loginhandler.runHandler(user);
+		
 		
 	}	
 	public static void main(String[] args) throws IOException
