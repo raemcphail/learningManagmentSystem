@@ -35,35 +35,7 @@ public class Client
 		//String response = "";
 		login.setVisible(true);
 		login.getbtnLogin().addActionListener(new LoginListener(login, aSocket, socketIn, socketOut));
-		
-//		int i = 0;
-//		while(i<5)
-//		{
-//			try
-//			{
-//				System.out.println("Please enter word");
-//				line = stdin.readLine();
-//				System.out.println(line);
-//				socketOut.println(line);
-//				response = socketIn.readLine();
-//				System.out.println(response);
-//				
-//			}catch(IOException e)
-//			{
-//				System.out.println("Run client error");
-//			}
-//			i++;
-//		}
-//		try
-//		{
-////			stdin.close();
-////			socketIn.close();
-////			socketOut.close();
-//		}catch(IOException e)
-//		{
-//			System.out.println("The the sockets won't close");
-//		}
-//		
+			
 		}
 	
 	public static void main(String [] args) throws ClassNotFoundException

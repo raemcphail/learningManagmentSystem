@@ -1,5 +1,6 @@
 package frontEnd;
 import java.awt.event.*;
+import java.awt.event.*;
 import javax.swing.*;
 
 import server.User;
@@ -41,6 +42,11 @@ public class LoginListener implements ActionListener
 		//sends LoginHandler the username over the socket to find in database then LoginHandler returns the expected password  
 		String username = login.getUserName().getText();
 		System.out.println(input);
+		if(username.length() != 8 || input.toString().length() >20)
+		{
+			login.enableErrorMessage();
+			return;
+		}
 		socketOut.println(username);
 		System.out.println(username);
 		socketOut.println(input);
