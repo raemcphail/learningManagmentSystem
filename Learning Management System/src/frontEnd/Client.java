@@ -66,7 +66,7 @@ public class Client
 //		
 		}
 	
-	public static void main(String [] args)throws ClassNotFoundException
+	public static void main(String [] args) throws ClassNotFoundException
 	{
 		Client client = new Client("localhost", 9090);
 		System.out.println("Client is running");

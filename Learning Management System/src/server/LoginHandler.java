@@ -36,7 +36,7 @@ public class LoginHandler {
 			while(true)
 			{
 			String username = in.readLine();
-			String password = in.readLine();
+			char [] password = in.readLine().toCharArray();
 			
 			int userN = Integer.parseInt(username);
 
@@ -49,7 +49,6 @@ public class LoginHandler {
 			
 			if (match)
 			{
-				out.println("success");
 				char[] type = u.findClientType(userN);
 				/*if (type[0] == 'S')
 				{
@@ -72,9 +71,10 @@ public class LoginHandler {
 				user.setPassword(actualPassword);
 				
 				user.setType(type[0]);
-				
+				out.println("success");
+
 				outObj.writeObject(user);
-				
+				outObj.close();
 				break;
 			}
 			else
@@ -87,16 +87,20 @@ public class LoginHandler {
 			System.out.println("broke from loop");
 		}catch(IOException e)
 		{
+			e.printStackTrace();
 			System.out.println("runHandler error");
 		}
 		
 	}
 	
-	 public boolean checkPassword(String password, String actualPassword)
+	 public boolean checkPassword(char [] password, String actualPassword)
 	 {
-		 char [] cPassword = password.toCharArray();
+		 if (actualPassword == null)
+		 {
+			 return false;
+		 }
 		 char [] AcPassword = actualPassword.toCharArray();
-		 return Arrays.equals(cPassword, AcPassword);
+		 return Arrays.equals(password, AcPassword);
 	 }
 
 }

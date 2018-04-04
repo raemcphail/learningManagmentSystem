@@ -1,10 +1,14 @@
 package frontEnd;
 import java.awt.event.*;
 import javax.swing.*;
+
+import server.User;
+
 import java.awt.event.ActionEvent;
 import java.io.*;
 import java.net.Socket;
 import java.util.*;
+
 
 public class LoginListener implements ActionListener
 {
@@ -36,9 +40,10 @@ public class LoginListener implements ActionListener
 		System.out.println("login was pressed");
 		//sends LoginHandler the username over the socket to find in database then LoginHandler returns the expected password  
 		String username = login.getUserName().getText();
+		System.out.println(input);
 		socketOut.println(username);
 		System.out.println(username);
-		socketOut.println(input.toString());
+		socketOut.println(input);
 		
 		String result = socketIn.readLine();	//find out if the password's matched or not
 		
@@ -46,7 +51,9 @@ public class LoginListener implements ActionListener
 		{
 			//read user object
 			try {
-				server.User user = (server.User)in.readObject();
+				User user = (User)in.readObject();
+				System.out.println(user.getEmail());
+				in.close();
 			} catch (ClassNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -63,7 +70,7 @@ public class LoginListener implements ActionListener
 		
 		}catch(IOException i)
 		{
-			System.out.println("IOException in loginlistener");
+			i.printStackTrace();
 		}
 	}
 }

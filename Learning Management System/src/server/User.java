@@ -8,7 +8,7 @@ public class User implements Serializable {
 	/**
 	 * the class id for serializing
 	 */
-	final static long serialVersionUID = 1L;
+	static final long serialVersionUID = 1L;
 	/**
 	 * the users id
 	 */
@@ -37,14 +37,9 @@ public class User implements Serializable {
 	 * the course[10] will go below
 	 */
 	
-	/**
-	 * the socket from the server that will communicate with the client
-	 */
-	Socket aSocket;
-	
-	public User(Socket aSocket)
+	public User()
 	{
-		this.aSocket = aSocket;
+		
 	}
 	
 	public User (int ID, String Password, String Email,
@@ -84,6 +79,13 @@ public class User implements Serializable {
 	public void setType(char Type)
 	{
 		this.Type = Type;
+	}
+	/**
+	 * getters
+	 */
+	public String getEmail()
+	{
+		return Email;
 	}
 	
 }
