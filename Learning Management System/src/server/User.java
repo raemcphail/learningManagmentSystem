@@ -1,14 +1,19 @@
 package server;
 
 import java.net.Socket;
-
 import java.io.Serializable;
 
+/**
+ * This class represents all the data for a User
+ * @author raemc
+ *
+ */
 public class User implements Serializable {
 	/**
 	 * the class id for serializing
 	 */
-	static final long serialVersionUID = 1L;
+	final static long serialVersionUID = 1L;
+
 	/**
 	 * the users id
 	 */
@@ -34,8 +39,9 @@ public class User implements Serializable {
 	 */
 	char Type;
 	/**
-	 * the course[10] will go below
+	 * the courses which the user has
 	 */
+	Course [] courses;
 	
 	public User()
 	{
@@ -51,6 +57,7 @@ public class User implements Serializable {
 		this.firstName = firstname;
 		this.lastName = lastName;
 		this.Type = Type;
+		courses = new Course [10];
 	}
 	
 	/**
