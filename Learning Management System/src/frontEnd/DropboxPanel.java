@@ -1,5 +1,6 @@
 package frontEnd;
 
-public class DropboxPanel {
+public class DropboxPanel 
+{
 
 }
