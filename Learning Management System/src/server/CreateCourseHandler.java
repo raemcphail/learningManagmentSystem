@@ -7,10 +7,11 @@ import dbManagers.CourseManager;
 
 public class CreateCourseHandler {
 ObjectInputStream in = null;
-
-	CreateCourseHandler(ObjectInputStream in)
+ObjectOutputStream out = null;
+	CreateCourseHandler(ObjectInputStream in, ObjectOutputStream out)
 	{
 		this.in = in;
+		this.out = out;
 	}
 	
 	public void runHandler()
@@ -19,23 +20,29 @@ ObjectInputStream in = null;
 			String name = (String)in.readObject();
 			String number = (String)in.readObject();
 			name += number;
-			String Prof_ID = (String)in.readObject();
+			int Prof_ID = (int)in.readObject();
 			String valid = (String)in.readObject();
 			CourseManager courseDB = new CourseManager();
 			if (courseDB.findCourseName(name) == null)	//check if that course has already been added
 			{
 				if (valid.equals("active"))
 				{
-					courseDB.addItem(Prof_ID, name, true);//add the course to db		
+					courseDB.addItem(Prof_ID, name, true);//add the course to db	
+					Course course = new Course(name, true, Prof_ID);
+					out.writeObject(course);
 				}
 				else
 				{
-					courseDB.addItem(Prof_ID, name, false);							
+					courseDB.addItem(Prof_ID, name, false);				
+					Course course = new Course(name, true, Prof_ID);
+					out.writeObject(course);
 				}
 				System.out.println("Course added");
+				
 			}
 			else
 			{
+				out.writeObject(new Course("duplicate", false, -1));
 				System.out.println("Duplicate course");
 			}
 			

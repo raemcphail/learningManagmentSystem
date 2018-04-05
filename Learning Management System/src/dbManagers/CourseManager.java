@@ -14,10 +14,10 @@ public class CourseManager  extends Manager
 		super();
 	}
 	
-	public void addItem (String prof, String name, boolean active)
+	public void addItem (int prof, String name, boolean active)
 	{
 		String sql = "INSERT IGNORE INTO " + tableName + "(prof_id, name, active)" +
-				 " VALUES ('" + Integer.parseInt(prof) + "', '" + 
+				 " VALUES ('" + prof + "', '" + 
 			 		name + "', '" + 
 			 		active + "');";
 	try{

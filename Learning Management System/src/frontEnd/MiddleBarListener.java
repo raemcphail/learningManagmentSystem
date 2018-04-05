@@ -10,6 +10,9 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Iterator;
+
+import javax.swing.JButton;
 
 import server.Course;
 
@@ -41,7 +44,17 @@ public class MiddleBarListener implements ActionListener {
 				theFrame.cardLayout.show(theFrame.content, "courses");
 				out.writeObject("checkCourses");	//signal to MyCourseHandler
 				ArrayList<Course> courses = (ArrayList<Course>)in.readObject();
-				System.out.println(courses.get(1).name);
+				Iterator it = courses.iterator();
+				int i = 0;
+				while (it.hasNext())
+				{
+					String name = it.next().toString();
+					/*if (name)
+					courseButtons[i] = new JButton(it.next().toString());
+					add(courseButtons[i]);	//add to panel*/
+					i++;
+				}
+				courses.get(courses.size() - 1);
 			} catch (ClassNotFoundException | IOException e1) {
 				e1.printStackTrace();
 				System.err.println("error catching course in MiddleBarListener");

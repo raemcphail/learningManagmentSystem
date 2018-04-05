@@ -35,4 +35,10 @@ public class Course implements Serializable
 		this.prof_ID = prof_id;
 		assignments = new <Assignments> ArrayList();
 	}
+	
+	@Override
+	public String toString()
+	{
+		return this.name;
+	}
 }

@@ -43,7 +43,7 @@ public class DashboardFrame extends JFrame {
 	/**
 	 * content Panel to be set visible by default
 	 */
-	protected MyCoursesPanel myCourses;
+	public MyCoursesPanel myCourses;
 	/**
 	 * content Panel to be set visible if user presses the createCourse button
 	 */
@@ -90,7 +90,7 @@ public class DashboardFrame extends JFrame {
 		middleBar = new CoursePanel();
 		content.setLayout(cardLayout);
 		
-		myCourses = new MyCoursesPanel();
+		myCourses = new MyCoursesPanel(out, in);
 		createCourses = new CreateCoursePanel();
 		content.add(myCourses, "courses");
 		content.add(createCourses, "createCourses");

@@ -57,8 +57,9 @@ public class Server implements Runnable{
 				loginhandler = new LoginHandler(out, in);
 				User user = new User();
 				user = loginhandler.runHandler(user);	//run to start
-				createHandler = new CreateCourseHandler(in);
+				createHandler = new CreateCourseHandler(in, out);
 				getCourseHandler = new MyCourseHandler(out, in, user);
+				getCourseHandler.runHandler();	//once the user logs in, update mycourses with courses
 
 				while (true)
 				{

@@ -8,6 +8,8 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import javax.swing.JButton;
+
 import server.CreateCourseHandler;
 import server.Server;
 import server.Course;
@@ -57,7 +59,17 @@ public class CreateCourseListener implements ActionListener {
 			{
 				out.writeObject("inactive");
 			}
-		} catch (IOException e1) {
+			Course newCourse = (Course)in.readObject();
+			if (newCourse.toString().equals("duplicate"))
+			{
+				//do nothing
+				return;
+			}
+			else	//if there is a course to add
+			{
+				theFrame.myCourses.add(new JButton(newCourse.toString()));
+			}
+		} catch (ClassNotFoundException | IOException e1) {
 			e1.printStackTrace();
 		}
 		}
