@@ -14,7 +14,7 @@ PrintWriter out;
 	{
 		this.aSocket = aSocket;
 		in = new BufferedReader(new InputStreamReader(this.aSocket.getInputStream()));
-		out = new PrintWriter(this.aSocket.getOutputStream(),true);
+		//out = new PrintWriter(this.aSocket.getOutputStream(),true);	TO BE DELETED
 	}
 	
 	public void runHandler()

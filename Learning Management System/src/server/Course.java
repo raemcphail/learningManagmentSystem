@@ -18,7 +18,7 @@ public class Course implements Serializable
 	/**
 	 * The course name and number together
 	 */
-	String name;
+	public String name;
 	/**
 	 * The course is active
 	 */

@@ -47,6 +47,7 @@ public class CreateCourseListener implements ActionListener {
 		else	//there is information to be added!
 		{
 			//createHandler.runHandler();
+			socketOut.println("create");
 			String name = theFrame.createCourses.getName();
 			socketOut.println(name);
 			String number = theFrame.createCourses.getNumber();

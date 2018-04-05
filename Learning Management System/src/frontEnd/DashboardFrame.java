@@ -118,7 +118,7 @@ public class DashboardFrame extends JFrame {
 	
 	public void addListeners()
 	{
-		MiddleBarListener listenerI = new MiddleBarListener(this);
+		MiddleBarListener listenerI = new MiddleBarListener(this, aSocket, in);
 		middleBar.btnMyCourses.addActionListener(listenerI);
 		middleBar.btnNewButton.addActionListener(listenerI);
 		CreateCourseListener listenerII = new CreateCourseListener(this, user, aSocket);

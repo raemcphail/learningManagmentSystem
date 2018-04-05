@@ -22,7 +22,8 @@ public class Server implements Runnable{
 	PrintWriter out;
 	LoginHandler loginhandler;
 	public CreateCourseHandler createHandler;
-	
+	public MyCourseHandler getCourseHandler;
+	public BufferedReader socketIn;
 	
 	public Server (int portnumber)
 	{
@@ -51,16 +52,27 @@ public class Server implements Runnable{
 	
 	@Override
 	public void run(){
-		// TODO Auto-generated method stub
 		try {
 			
 				loginhandler = new LoginHandler(aSocket);
 				User user = new User();
-				loginhandler.runHandler(user);
+				user = loginhandler.runHandler(user);	//run to start
+				socketIn = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
+				createHandler = new CreateCourseHandler(aSocket);
+				getCourseHandler = new MyCourseHandler(aSocket, user);
+
 				while (true)
 				{
-					createHandler = new CreateCourseHandler(aSocket);
-					createHandler.runHandler();
+					String opCode = socketIn.readLine();
+					if (opCode.equals("create"))
+					{
+						createHandler.runHandler();
+					}
+					else if (opCode.equals("checkCourses"))
+					{
+						getCourseHandler.runHandler();
+					}
+					//more to come
 				}
 				
 				

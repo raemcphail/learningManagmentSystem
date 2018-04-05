@@ -2,6 +2,9 @@ package dbManagers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import server.Course;
 
 public class CourseManager  extends Manager
 {
@@ -97,5 +100,34 @@ public class CourseManager  extends Manager
 		} catch (SQLException e) { e.printStackTrace(); }
 		return s;
 	}
+	
+	/**
+	 * gets the Courses in the database with the User_ID
+	 * @param User_ID
+	 * @return - returns a course that is related to that course ID
+	 */
+	public ArrayList<Course> getUserCourses(int User_ID)
+	{
+		String sql = "SELECT * FROM " + tableName + " WHERE prof_id=" + "'" + User_ID + "'";
+		ResultSet course;
+		ArrayList<Course> courses = new ArrayList<Course>();
+		try {
+			statement = connection.prepareStatement(sql);
+			course = statement.executeQuery();
+			while(course.next())
+			{
+				courses.add(new Course(	//String name, boolean active, int prof_id
+						course.getString("name"), 
+						course.getBoolean("active"), 
+						course.getInt("prof_id")));
+			}
+		} catch (SQLException e) {  }
+		catch (NullPointerException e)
+		{
+			return null;
+		}
+		return courses;
+	}
+	
 }
  

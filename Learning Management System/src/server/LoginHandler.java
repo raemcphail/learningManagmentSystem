@@ -27,10 +27,10 @@ public class LoginHandler {
 		}
 	}
 	
-	public void runHandler(User user) 
+	public User runHandler(User user) 
 	{
 		this.user = user;
-		System.out.println("Handler is running");
+		System.out.println("Login Handler is running");
 		try
 		{
 			while(true)
@@ -40,11 +40,8 @@ public class LoginHandler {
 			
 			int userN = Integer.parseInt(username);
 
-			System.out.println(username);
-			System.out.println(password);
 			dbManagers.UserManager u = new UserManager();
 			String actualPassword = u.findClientPassword(userN);
-			System.out.println("Actual password is:" + actualPassword);
 			boolean match = checkPassword(password, actualPassword);
 			
 			if (match)
@@ -79,20 +76,20 @@ public class LoginHandler {
 				outObj.writeObject(user);
 				outObj.flush();
 				//outObj.close();
-				break;
+				return user;
 			}
 			else
 			{
 				out.println("failure");
 			}
 			
-			}
-			System.out.println("broke from loop");
+		}	//end while
 		}catch(IOException e)
 		{
 			e.printStackTrace();
 			System.out.println("runHandler error");
 		}
+		return null;
 		
 	}
 	
