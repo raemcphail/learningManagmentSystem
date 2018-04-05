@@ -39,7 +39,7 @@ public class Client
 		login.setVisible(true);
 		LoginListener listener = new LoginListener(login, aSocket, socketIn, socketOut, in);
 		login.getbtnLogin().addActionListener(listener);
-		while (true)	//wait until a user has been sucessfully added
+		while (true)	//wait until a user has been successfully added
 		{
 			if (listener.getUser() != null)
 			{

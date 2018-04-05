@@ -61,7 +61,6 @@ public class LoginListener implements ActionListener
 				e1.printStackTrace();
 			}
 			System.out.println("Password is correct");
-			socketOut.println("QUIT");
 			login.dispose();
 		}
 		else

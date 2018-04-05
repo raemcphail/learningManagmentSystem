@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 import server.CreateCourseHandler;
@@ -16,7 +17,7 @@ public class CreateCourseListener implements ActionListener {
 	DashboardFrame theFrame;
 	User user;
 	Socket aSocket;
-	ObjectOutputStream outObj = null;
+	PrintWriter socketOut;
 
 	CreateCourseListener(DashboardFrame theFrame, User user, Socket aSocket)
 	{
@@ -24,7 +25,8 @@ public class CreateCourseListener implements ActionListener {
 		this.user = user;
 		this.aSocket = aSocket;
 		try {
-			outObj = new ObjectOutputStream(aSocket.getOutputStream());
+			socketOut = new PrintWriter(aSocket.getOutputStream(),true);
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -46,19 +48,20 @@ public class CreateCourseListener implements ActionListener {
 		{
 			//createHandler.runHandler();
 			String name = theFrame.createCourses.getName();
+			socketOut.println(name);
 			String number = theFrame.createCourses.getNumber();
-			boolean hit = false;
+			socketOut.println(number);
+			int prof_ID = theFrame.user.getID();
+			socketOut.println(prof_ID);
 			if (theFrame.createCourses.rdbtnYes.isSelected())	//course is set to be active
 			{
-				hit = true;
+				socketOut.println("active");
 			}
-			Course course = new Course(name + number, hit, user.getID());
-			try {
-				outObj.writeObject(course);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			else
+			{
+				socketOut.println("inactive");
 			}
+			
 		}
 		
 	}

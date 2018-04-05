@@ -11,10 +11,10 @@ public class CourseManager  extends Manager
 		super();
 	}
 	
-	public void addItem (int prof, String name, boolean active)
+	public void addItem (String prof, String name, boolean active)
 	{
 		String sql = "INSERT IGNORE INTO " + tableName + "(prof_id, name, active)" +
-				 " VALUES ('" + prof + "', '" + 
+				 " VALUES ('" + Integer.parseInt(prof) + "', '" + 
 			 		name + "', '" + 
 			 		active + "');";
 	try{
@@ -60,9 +60,9 @@ public class CourseManager  extends Manager
 		} catch (SQLException e) { e.printStackTrace(); }
 		return s;
 	}
-	public String findCourseName(String name)
+	public String findCourseName(String Possiblename)
 	{
-		String sql = "SELECT name FROM " + tableName + " WHERE name=" + name;
+		String sql = "SELECT * FROM " + tableName + " WHERE name like" + "'" + Possiblename + "%'";
 		ResultSet course;
 		String s = null;
 		try
@@ -74,6 +74,10 @@ public class CourseManager  extends Manager
 				s = course.getString("name");
 			}
 		} catch (SQLException e) { e.printStackTrace(); }
+		catch (NullPointerException e)
+		{
+			return null;
+		}
 		return s;
 	}
 	
