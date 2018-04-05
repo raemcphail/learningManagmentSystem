@@ -7,6 +7,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import server.CreateCourseHandler;
+import server.Server;
 import server.Course;
 import server.User;
 
@@ -42,6 +44,7 @@ public class CreateCourseListener implements ActionListener {
 		}
 		else	//there is information to be added!
 		{
+			//createHandler.runHandler();
 			String name = theFrame.createCourses.getName();
 			String number = theFrame.createCourses.getNumber();
 			boolean hit = false;

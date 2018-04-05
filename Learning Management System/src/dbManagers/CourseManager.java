@@ -60,6 +60,22 @@ public class CourseManager  extends Manager
 		} catch (SQLException e) { e.printStackTrace(); }
 		return s;
 	}
+	public String findCourseName(String name)
+	{
+		String sql = "SELECT name FROM " + tableName + " WHERE name=" + name;
+		ResultSet course;
+		String s = null;
+		try
+		{
+			statement = connection.prepareStatement(sql);
+			course = statement.executeQuery();
+			if(course.next())
+			{
+				s = course.getString("name");
+			}
+		} catch (SQLException e) { e.printStackTrace(); }
+		return s;
+	}
 	
 	public boolean findCourseActive(int id)
 	{

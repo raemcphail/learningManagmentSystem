@@ -21,6 +21,7 @@ public class Server implements Runnable{
 	BufferedReader in;
 	PrintWriter out;
 	LoginHandler loginhandler;
+	public CreateCourseHandler createHandler;
 	
 	
 	public Server (int portnumber)
@@ -42,27 +43,27 @@ public class Server implements Runnable{
 		
 			while(true)
 			{				
-				loginhandler = new LoginHandler(serverSocket.accept()); 
-				
+				aSocket = serverSocket.accept();	//once a client connects
 				pool.execute(this);
 				
-//				while(true)
-//				{
-//					System.out.println(line);
-//					line = in.readLine();
-//					System.out.println(line);
-//					out.println("Server says " + line);
-//				}
-		
 			}
 	}
 	
 	@Override
-	public void run() {
+	public void run(){
 		// TODO Auto-generated method stub
-		User user = new User();
-		loginhandler.runHandler(user);
-		
+		try {
+				loginhandler = new LoginHandler(aSocket);
+				User user = new User();
+				loginhandler.runHandler(user);
+				
+				createHandler = new CreateCourseHandler(aSocket);
+				createHandler.runHandler();
+			}
+			catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}	
 	public static void main(String[] args) throws IOException
 	{
