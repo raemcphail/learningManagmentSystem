@@ -21,4 +21,5 @@ public class ContentPanel extends JPanel {
 		createCourses.setVisible(false);
 		myCourses.setVisible(true);*/
 	}
+
 }
