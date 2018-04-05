@@ -1,3 +1,4 @@
+package frontEnd; 
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -19,18 +20,16 @@ public class AssignmentPanel extends JPanel
 {
 	JList results;
 	JScrollPane scrollpane;
+	JButton btnAdd;
 	
 	public AssignmentPanel() 
 	{
-		JPanel upper = new JPanel();
-		upper.add(searchBar);
-		upper.add(btnSearch);
 		
 		results = new JList(new DefaultListModel());
 		scrollpane = new JScrollPane(results);
-		//this.add(scrollpane);
+		btnAdd = new JButton("Add");
 		
-		JSplitPane middle = new JSplitPane(JSplitPane.VERTICAL_SPLIT, upper, scrollpane);
+		JSplitPane middle = new JSplitPane(JSplitPane.VERTICAL_SPLIT, scrollpane, btnAdd);
 		this.add(middle);
 		
 	}
