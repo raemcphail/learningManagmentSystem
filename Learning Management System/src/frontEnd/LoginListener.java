@@ -54,7 +54,7 @@ public class LoginListener implements ActionListener
 			//read user object
 			try {
 				user = (User)in.readObject();
-				in.close();
+				//in.close();
 				System.out.println(user.getEmail());
 			} catch (ClassNotFoundException e1) {
 				// TODO Auto-generated catch block

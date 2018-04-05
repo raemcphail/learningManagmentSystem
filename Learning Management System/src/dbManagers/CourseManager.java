@@ -11,7 +11,7 @@ public class CourseManager  extends Manager
 		super();
 	}
 	
-	public void addItem (String prof, String name, String active)
+	public void addItem (int prof, String name, boolean active)
 	{
 		String sql = "INSERT IGNORE INTO " + tableName + "(prof_id, name, active)" +
 				 " VALUES ('" + prof + "', '" + 
@@ -27,18 +27,18 @@ public class CourseManager  extends Manager
 	}
  }
 	
-	public String findCourseProf(int id)
+	public int findCourseProf(int id)
 	{
 		String sql = "SELECT prof_id FROM " + tableName + " WHERE ID=" + id;
 		ResultSet course;
-		String s = null;
+		int s = -1;
 		try
 		{
 			statement = connection.prepareStatement(sql);
 			course = statement.executeQuery();
 			if(course.next())
 			{
-				s = course.getString("prof_id");
+				s = course.getInt("prof_id");
 			}
 		} catch (SQLException e) { e.printStackTrace(); }
 		return s;
@@ -60,12 +60,28 @@ public class CourseManager  extends Manager
 		} catch (SQLException e) { e.printStackTrace(); }
 		return s;
 	}
+	public String findCourseName(String name)
+	{
+		String sql = "SELECT name FROM " + tableName + " WHERE name=" + name;
+		ResultSet course;
+		String s = null;
+		try
+		{
+			statement = connection.prepareStatement(sql);
+			course = statement.executeQuery();
+			if(course.next())
+			{
+				s = course.getString("name");
+			}
+		} catch (SQLException e) { e.printStackTrace(); }
+		return s;
+	}
 	
 	public boolean findCourseActive(int id)
 	{
 		String sql = "SELECT active FROM " + tableName + " WHERE ID=" + id;
 		ResultSet course;
-		boolean s;
+		boolean s = false;
 		try
 		{
 			statement = connection.prepareStatement(sql);
