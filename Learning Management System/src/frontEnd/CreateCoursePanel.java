@@ -9,6 +9,9 @@ public class CreateCoursePanel extends JPanel {
 	private JTextField ICourseName;
 	private JLabel CourseNumber;
 	private JTextField ICourseNumber;
+	protected JRadioButton rdbtnYes;
+	protected JRadioButton rdbtnNo;
+	protected JButton btnCreate;
 
 	CreateCoursePanel()
 	{
@@ -34,9 +37,10 @@ public class CreateCoursePanel extends JPanel {
 		add(lblActive);
 		
 		ButtonGroup group = new ButtonGroup();
-		JRadioButton rdbtnYes = new JRadioButton("yes");
+		rdbtnYes = new JRadioButton("yes");
+		rdbtnYes.setSelected(true);
 		group.add(rdbtnYes);
-		JRadioButton rdbtnNo = new JRadioButton("no");
+		rdbtnNo = new JRadioButton("no");
 		group.add(rdbtnNo);
 		
 		add(rdbtnYes);
@@ -44,13 +48,21 @@ public class CreateCoursePanel extends JPanel {
 		add(rdbtnNo);
 
 		
-		JButton btnCreate = new JButton("Create");
+		btnCreate = new JButton("Create");
 		add(btnCreate);
 	}
 	
 	
 	protected void setVisible() {
 		this.setVisible(true);
+	}
+	public String getName()
+	{
+		return ICourseName.getText();
+	}
+	public String getNumber()
+	{
+		return ICourseNumber.getText();
 	}
 
 }

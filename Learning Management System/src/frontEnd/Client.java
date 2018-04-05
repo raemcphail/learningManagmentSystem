@@ -48,7 +48,7 @@ public class Client
 			}
 		}
 		System.out.println("Client sees: " + user.getFirstname());
-		DashboardFrame Dashboard = new DashboardFrame(user);
+		DashboardFrame Dashboard = new DashboardFrame(user, aSocket, in);
 		Dashboard.setVisible(true);
 		}
 	

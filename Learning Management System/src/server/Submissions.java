@@ -1,10 +1,12 @@
 package server;
 
+import java.io.Serializable;
+
 /**
  * This class represents all the data for a submission, each submission can be graded by
  * the professor and the grade can be viewed by the student.
  */
-public class Submissions 
+public class Submissions implements Serializable
 {
 	/**
 	 * The field to keep track of the grade as a percentage that the submission recieved or
