@@ -43,7 +43,7 @@ public class CreateCourseListener implements ActionListener {
 		{
 			//createHandler.runHandler();
 		try {
-			out.writeObject("create");
+			out.writeObject("create");	//send the opcode
 		
 			String name = theFrame.createCourses.getName();
 			out.writeObject(name);
@@ -68,6 +68,7 @@ public class CreateCourseListener implements ActionListener {
 			else	//if there is a course to add
 			{
 				theFrame.myCourses.add(new JButton(newCourse.toString()));
+				//potentially add actionlistener here
 			}
 		} catch (ClassNotFoundException | IOException e1) {
 			e1.printStackTrace();

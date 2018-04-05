@@ -27,9 +27,9 @@ public class MyCoursesPanel extends JPanel {
 		courses = new ArrayList<Course>();
 		showCourses();
 		
-		
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void showCourses()
 	{
 		try
@@ -43,6 +43,7 @@ public class MyCoursesPanel extends JPanel {
 				while (it.hasNext())
 				{
 					courseButtons[i] = new JButton(it.next().toString());
+					//add action listners here
 					add(courseButtons[i]);	//add to panel
 					i++;
 				}
