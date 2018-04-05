@@ -3,6 +3,7 @@ package server;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -17,9 +18,6 @@ import dbManagers.CourseManager;
  *
  */
 public class MyCourseHandler {
-	Socket aSocket;
-	BufferedReader in;
-	PrintWriter out;
 	/**
 	 * User to access courses with their id
 	 */
@@ -27,15 +25,14 @@ public class MyCourseHandler {
 	/**
 	 * object I/O to send courses to the GUI
 	 */
-	ObjectOutputStream outObj = null;
-
-		public MyCourseHandler(Socket aSocket, User user) throws IOException
+	ObjectOutputStream out = null;
+	ObjectInputStream in = null;
+	
+		public MyCourseHandler(ObjectOutputStream out, ObjectInputStream in, User user) throws IOException
 		{
-			this.aSocket = aSocket;
-			in = new BufferedReader(new InputStreamReader(this.aSocket.getInputStream()));
-			out = new PrintWriter(this.aSocket.getOutputStream(),true);
+			this.out = out;
+			this.in = in;
 			this.user = user;
-			outObj = new ObjectOutputStream(aSocket.getOutputStream());
 		}
 		
 		public void runHandler()
@@ -45,9 +42,7 @@ public class MyCourseHandler {
 				CourseManager courseDB = new CourseManager();
 				ArrayList<Course> courses = courseDB.getUserCourses(user.getID());
 				System.out.println(courses.get(2).name);
-				outObj.flush();
-				outObj.writeObject(courses); //send the courses
-				outObj.flush();
+				out.writeObject(courses); //send the courses
 			
 			} catch (Exception e)
 			{

@@ -18,12 +18,11 @@ public class Server implements Runnable{
 	private ServerSocket serverSocket;
 	private Socket aSocket;
 	ExecutorService pool;
-	BufferedReader in;
-	PrintWriter out;
+	ObjectInputStream in = null;
+	ObjectOutputStream out = null;
 	LoginHandler loginhandler;
 	public CreateCourseHandler createHandler;
 	public MyCourseHandler getCourseHandler;
-	public BufferedReader socketIn;
 	
 	public Server (int portnumber)
 	{
@@ -53,17 +52,17 @@ public class Server implements Runnable{
 	@Override
 	public void run(){
 		try {
-			
-				loginhandler = new LoginHandler(aSocket);
+				out = new ObjectOutputStream(aSocket.getOutputStream());
+				in = new ObjectInputStream(aSocket.getInputStream()); 
+				loginhandler = new LoginHandler(out, in);
 				User user = new User();
 				user = loginhandler.runHandler(user);	//run to start
-				socketIn = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
-				createHandler = new CreateCourseHandler(aSocket);
-				getCourseHandler = new MyCourseHandler(aSocket, user);
+				createHandler = new CreateCourseHandler(in);
+				getCourseHandler = new MyCourseHandler(out, in, user);
 
 				while (true)
 				{
-					String opCode = socketIn.readLine();
+					String opCode = (String)in.readObject();
 					if (opCode.equals("create"))
 					{
 						createHandler.runHandler();
@@ -77,7 +76,7 @@ public class Server implements Runnable{
 				
 				
 			}
-			catch (IOException e) {
+			catch (ClassNotFoundException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

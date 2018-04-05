@@ -9,22 +9,14 @@ import java.io.*;
 
 
 public class LoginHandler {
-	private Socket aSocket;
-	BufferedReader in;
-	PrintWriter out;
 	User user;
-	ObjectOutputStream outObj = null;
+	ObjectOutputStream out = null;
+	ObjectInputStream in = null;
 	
-	LoginHandler(Socket s)
+	LoginHandler(ObjectOutputStream out, ObjectInputStream in)
 	{
-		aSocket = s;
-		try {
-			in = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
-			out = new PrintWriter(aSocket.getOutputStream(),true);
-			outObj = new ObjectOutputStream(aSocket.getOutputStream());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.out = out;
+		this.in = in;
 	}
 	
 	public User runHandler(User user) 
@@ -35,8 +27,8 @@ public class LoginHandler {
 		{
 			while(true)
 			{
-			String username = in.readLine();
-			char [] password = in.readLine().toCharArray();
+			String username = (String)in.readObject();
+			char [] password = (char [])in.readObject();
 			
 			int userN = Integer.parseInt(username);
 
@@ -71,20 +63,20 @@ public class LoginHandler {
 				user.setPassword(actualPassword);
 				
 				user.setType(type[0]);
-				out.println("success");
+				out.writeObject("success");
 
-				outObj.writeObject(user);
-				outObj.flush();
+				out.writeObject(user);
+				//outObj.flush();
 				//outObj.close();
 				return user;
 			}
 			else
 			{
-				out.println("failure");
+				out.writeObject("failure");
 			}
 			
 		}	//end while
-		}catch(IOException e)
+		}catch(ClassNotFoundException | IOException e)
 		{
 			e.printStackTrace();
 			System.out.println("runHandler error");
