@@ -14,18 +14,16 @@ import java.util.*;
 public class LoginListener implements ActionListener
 {
 	private Socket aSocket;
-	private PrintWriter socketOut;
-	private BufferedReader socketIn;
 	private LoginFrame login;
 	ObjectInputStream in = null;
+	ObjectOutputStream out = null;
 	User user;
 
-	public LoginListener (LoginFrame l, Socket s, BufferedReader r, PrintWriter w, ObjectInputStream in)
+	public LoginListener (LoginFrame l, Socket s, ObjectOutputStream out, ObjectInputStream in)
 	{
 		login = l;
 		aSocket = s;
-		socketIn = r;
-		socketOut = w;
+		this.out = out;
 		this.in = in;
 
 	}
@@ -43,11 +41,11 @@ public class LoginListener implements ActionListener
 			login.enableErrorMessage();
 			return;
 		}
-		socketOut.println(username);
+		out.writeObject(username);
 		System.out.println(username);
-		socketOut.println(input);
+		out.writeObject(input);
 
-		String result = socketIn.readLine();	//find out if the password's matched or not
+		String result = (String)in.readObject();	//find out if the password's matched or not
 		System.out.println(result);
 		if(result.equals("success"))
 		{
@@ -69,7 +67,7 @@ public class LoginListener implements ActionListener
 			System.out.println("The password is wrong");
 		}
 		
-		}catch(IOException i)
+		}catch(ClassNotFoundException | IOException i)
 		{
 			i.printStackTrace();
 		}

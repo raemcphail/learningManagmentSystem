@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -20,22 +21,15 @@ import server.Course;
  */
 public class MiddleBarListener implements ActionListener {
 	DashboardFrame theFrame;
-	Socket aSocket;
+	ObjectOutputStream out = null;
 	ObjectInputStream in = null;
-	BufferedReader socketIn;
-	PrintWriter socketOut;
-	MiddleBarListener(DashboardFrame theFrame, Socket aSocket, ObjectInputStream in)
+	
+	MiddleBarListener(DashboardFrame theFrame, ObjectOutputStream out, ObjectInputStream in)
 	{
 		this.theFrame = theFrame;
-		this.aSocket = aSocket;
 		this.in = in;
-		try {
-			in = new ObjectInputStream(aSocket.getInputStream());
-			socketIn = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
-			socketOut = new PrintWriter(aSocket.getOutputStream(),true);
-		}	catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.out = out;
+
 	}
 	@SuppressWarnings("unchecked")
 	@Override
@@ -45,9 +39,9 @@ public class MiddleBarListener implements ActionListener {
 		{
 			try {
 				theFrame.cardLayout.show(theFrame.content, "courses");
-				socketOut.println("checkCourses");	//signal to MyCourseHandler
+				out.writeObject("checkCourses");	//signal to MyCourseHandler
 				ArrayList<Course> courses = (ArrayList<Course>)in.readObject();
-				System.out.println(courses.get(2).name);
+				System.out.println(courses.get(1).name);
 			} catch (ClassNotFoundException | IOException e1) {
 				e1.printStackTrace();
 				System.err.println("error catching course in MiddleBarListener");

@@ -12,6 +12,7 @@ public class Client
 	private BufferedReader stdin, socketIn;
 	private LoginFrame login;
 	ObjectInputStream in = null;
+	ObjectOutputStream out = null;
 	User user;
 	
 	
@@ -21,9 +22,8 @@ public class Client
 		{
 			aSocket = new Socket(servername, portnumber);
 			stdin = new BufferedReader(new InputStreamReader(System.in));
-			socketIn = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
-			socketOut = new PrintWriter(aSocket.getOutputStream(),true);
 			login = new LoginFrame();
+			out = new ObjectOutputStream(aSocket.getOutputStream());
 			in = new ObjectInputStream(aSocket.getInputStream());
 			
 		}catch(IOException e) {
@@ -37,7 +37,7 @@ public class Client
 		//String line = "";
 		//String response = "";
 		login.setVisible(true);
-		LoginListener listener = new LoginListener(login, aSocket, socketIn, socketOut, in);
+		LoginListener listener = new LoginListener(login, aSocket, out, in);
 		login.getbtnLogin().addActionListener(listener);
 		while (true)	//wait until a user has been successfully added
 		{
@@ -48,7 +48,7 @@ public class Client
 			}
 		}
 		System.out.println("Client sees: " + user.getFirstname());
-		DashboardFrame Dashboard = new DashboardFrame(user, aSocket, in);
+		DashboardFrame Dashboard = new DashboardFrame(user, out, in);
 		Dashboard.setVisible(true);
 		}
 	
