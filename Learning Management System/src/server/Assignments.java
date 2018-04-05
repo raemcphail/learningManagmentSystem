@@ -1,12 +1,14 @@
 package server;
 
+import java.io.Serializable;
+
 /**
  * This is a class to represent all the data for a assignment that the professor  creates 
  * or the student can view
  * @author raemc
  *
  */
-public class Assignments 
+public class Assignments implements Serializable
 {
 	/**
 	 * This represents a table in the database

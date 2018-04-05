@@ -5,6 +5,8 @@ import javax.swing.*;
 import server.User;
 
 import java.awt.GridLayout;
+import java.io.ObjectInputStream;
+import java.net.Socket;
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
 public class DashboardFrame extends JFrame {
@@ -54,13 +56,23 @@ public class DashboardFrame extends JFrame {
 	 */
 	protected CardLayout cardLayout;
 	/**
-	 * the panel that displays everything
-	 * @param user
+	 * the panel that displays everything below the middle
 	 */
 	ContentPanel content;
 	
-	public DashboardFrame(User user) {
+	/**
+	 * socket from the client, to communicate
+	 */
+	Socket aSocket;
+	/**
+	 * objectinputstream to receive objects
+	 */
+	ObjectInputStream in = null;
+	
+	public DashboardFrame(User user, Socket aSocket, ObjectInputStream in) {
 		this.user = user;
+		this.aSocket = aSocket;
+		this.in = in;
 		setSize(450,276);
 		mainPanel = new JPanel();
 		this.setContentPane(mainPanel);
@@ -109,6 +121,8 @@ public class DashboardFrame extends JFrame {
 		MiddleBarListener listenerI = new MiddleBarListener(this);
 		middleBar.btnMyCourses.addActionListener(listenerI);
 		middleBar.btnNewButton.addActionListener(listenerI);
+		CreateCourseListener listenerII = new CreateCourseListener(this, user, aSocket);
+		createCourses.btnCreate.addActionListener(listenerII);
 	}
 	
 }

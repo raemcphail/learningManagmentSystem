@@ -106,5 +106,9 @@ public class User implements Serializable {
 	{
 		return lastName;
 	}
+	public int getID()
+	{
+		return ID;
+	}
 	
 }
