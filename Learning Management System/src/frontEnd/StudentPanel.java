@@ -4,7 +4,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+
 import java.awt.Component;
+import java.awt.Font;
+
 import javax.swing.Box;
 import javax.swing.DefaultListModel;
 
@@ -22,11 +26,13 @@ public class StudentPanel extends JPanel
 	JList results;
 	JScrollPane scrollpane;
 	JButton btnSearch;
+	JLabel title;
 	
 
 	public StudentPanel() 
 	{
-		
+		title = new JLabel ("Students");
+		title.setFont(new Font("Tahoma", Font.BOLD, 19));
 		searchBar = new JTextField();
 		//add(searchBar);
 		searchBar.setColumns(10);
@@ -43,7 +49,8 @@ public class StudentPanel extends JPanel
 		//this.add(scrollpane);
 		
 		JSplitPane middle = new JSplitPane(JSplitPane.VERTICAL_SPLIT, upper, scrollpane);
-		this.add(middle);
+		JSplitPane top = new JSplitPane(JSplitPane.VERTICAL_SPLIT, title, middle);
+		this.add(top);
 		
 	}
 }
