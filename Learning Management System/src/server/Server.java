@@ -53,12 +53,17 @@ public class Server implements Runnable{
 	public void run(){
 		// TODO Auto-generated method stub
 		try {
+			
 				loginhandler = new LoginHandler(aSocket);
 				User user = new User();
 				loginhandler.runHandler(user);
+				while (true)
+				{
+					createHandler = new CreateCourseHandler(aSocket);
+					createHandler.runHandler();
+				}
 				
-				createHandler = new CreateCourseHandler(aSocket);
-				createHandler.runHandler();
+				
 			}
 			catch (IOException e) {
 				// TODO Auto-generated catch block
