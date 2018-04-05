@@ -5,6 +5,7 @@ import javax.swing.*;
 import server.User;
 
 import java.awt.GridLayout;
+import java.awt.CardLayout;
 import java.awt.FlowLayout;
 public class DashboardFrame extends JFrame {
 	/**
@@ -39,15 +40,24 @@ public class DashboardFrame extends JFrame {
 	/**
 	 * content Panel to be set visible by default
 	 */
-	protected ContentPanel myCourses;
+	protected MyCoursesPanel myCourses;
 	/**
 	 * content Panel to be set visible if user presses the createCourse button
 	 */
-	protected ContentPanel createCourses;
+	protected CreateCoursePanel createCourses;
 	/**
 	 * 
 	 */
 	protected User user;
+	/**
+	 * 
+	 */
+	protected CardLayout cardLayout;
+	/**
+	 * the panel that displays everything
+	 * @param user
+	 */
+	ContentPanel content;
 	
 	public DashboardFrame(User user) {
 		this.user = user;
@@ -55,23 +65,32 @@ public class DashboardFrame extends JFrame {
 		mainPanel = new JPanel();
 		this.setContentPane(mainPanel);
 		
+		cardLayout = new CardLayout();
+		
 		upperPanel = new JPanel();
 		lowerPanel = new JPanel();
 		lowerPanel.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		title = new TitlePanel(user.getFirstname(), user.getLastname());
 		
+		content = new ContentPanel();
 		middleBar = new CoursePanel();
+		content.setLayout(cardLayout);
 		
 		myCourses = new MyCoursesPanel();
-		
 		createCourses = new CreateCoursePanel();
-		
-		//lowerPanel.add(myCourses);
-		myCourses.setEnabled(false);
-		lowerPanel.add(createCourses);
+		content.add(myCourses, "courses");
+		content.add(createCourses, "createCourses");
+		cardLayout.show(content, "courses");
+
+		lowerPanel.add(content);
+		//lowerPanel.add(createCourses);
+
+		createCourses.setVisible(false);
+		createCourses.setEnabled(false);
 		createCourses.setLayout(new BoxLayout(createCourses, BoxLayout.Y_AXIS));
 		addDividers();
+		addListeners();
 		pack();
 	}
 	
@@ -84,4 +103,12 @@ public class DashboardFrame extends JFrame {
 		mainPanel.add(middle);
 
 	}
+	
+	public void addListeners()
+	{
+		MiddleBarListener listenerI = new MiddleBarListener(this);
+		middleBar.btnMyCourses.addActionListener(listenerI);
+		middleBar.btnNewButton.addActionListener(listenerI);
+	}
+	
 }

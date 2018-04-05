@@ -1,8 +1,9 @@
 package frontEnd;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class MyCoursesPanel extends ContentPanel {
+public class MyCoursesPanel extends JPanel {
 
 	JLabel emptyCourseMessage;
 	
@@ -15,7 +16,7 @@ public class MyCoursesPanel extends ContentPanel {
 		
 	}
 	
-	@Override
+	
 	protected void setVisible() {
 		this.setVisible(true);
 	}

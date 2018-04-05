@@ -8,7 +8,17 @@ import javax.swing.*;
  * @author louis
  *
  */
-public abstract class ContentPanel extends JPanel {
-	abstract protected void setVisible();
-	
+public class ContentPanel extends JPanel {
+
+	public ContentPanel()
+	{
+		/*
+		MyCoursesPanel myCourses = new MyCoursesPanel();
+		add(myCourses);		
+		CreateCoursePanel createCourses = new CreateCoursePanel();
+		add(createCourses);
+		//createCourses.setEnabled(false);
+		createCourses.setVisible(false);
+		myCourses.setVisible(true);*/
+	}
 }

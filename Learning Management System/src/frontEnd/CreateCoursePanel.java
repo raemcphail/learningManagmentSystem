@@ -4,7 +4,7 @@ import java.awt.Dimension;
 
 import javax.swing.*;
 
-public class CreateCoursePanel extends ContentPanel {
+public class CreateCoursePanel extends JPanel {
 	private JLabel lblCourseName;
 	private JTextField ICourseName;
 	private JLabel CourseNumber;
@@ -48,7 +48,7 @@ public class CreateCoursePanel extends ContentPanel {
 		add(btnCreate);
 	}
 	
-	@Override
+	
 	protected void setVisible() {
 		this.setVisible(true);
 	}

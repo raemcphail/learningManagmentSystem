@@ -1,17 +1,21 @@
 package frontEnd;
 
 import javax.swing.JPanel;
+
+import java.awt.CardLayout;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 
 public class CoursePanel extends JPanel {
+	protected JButton btnMyCourses;
+	protected JButton btnNewButton;
+	
 	public CoursePanel() {
-		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnMyCourses = new JButton("My Courses");
+		btnMyCourses = new JButton("My Courses");
 		add(btnMyCourses);
 		
-		JButton btnNewButton = new JButton("Create Course");
+		btnNewButton = new JButton("Create Course");
 		add(btnNewButton);
 	}
 	
