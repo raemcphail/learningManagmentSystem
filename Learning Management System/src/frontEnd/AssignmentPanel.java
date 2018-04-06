@@ -31,12 +31,15 @@ public class AssignmentPanel extends JPanel
 	JScrollPane scrollpane;
 	JButton btnAdd;
 	JLabel title;
+	DefaultListModel list;
 	ObjectOutputStream out = null;
 	ObjectInputStream in = null;
+	CourseViewPanel courseView;
 	Course course;
 	
-	public AssignmentPanel(ObjectInputStream i, ObjectOutputStream o, Course c) 
+	public AssignmentPanel(CourseViewPanel courseView, ObjectInputStream i, ObjectOutputStream o, Course c) 
 	{
+		this.courseView = courseView;
 		in = i;
 		out = o;
 		course = c;
@@ -44,10 +47,11 @@ public class AssignmentPanel extends JPanel
 		title = new JLabel ("Assignments");
 		title.setFont(new Font("Tahoma", Font.BOLD, 19));
 		add(title);
-		results = new JList(new DefaultListModel());
+		list = new DefaultListModel();
+		results = new JList(list);
 		scrollpane = new JScrollPane(results);
 		btnAdd = new JButton("Add");
-		btnAdd.addActionListener(new AssignmentListener(this, out, in, course));
+		btnAdd.addActionListener(new AssignmentListener(courseView, out, in, course));
 		
 		
 		JSplitPane split2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, scrollpane, btnAdd);

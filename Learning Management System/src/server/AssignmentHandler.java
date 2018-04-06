@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 import dbManagers.AssignmentManager;
 import dbManagers.CourseManager;
@@ -49,6 +50,37 @@ public class AssignmentHandler
 		
 	}
 	
+	public void updateList()
+	{
+		try {
+			System.out.println("in updatelist");
+			String courseName = (String)in.readObject();
+			CourseManager courseDB = new CourseManager();
+			int CourseID = courseDB.findCourseID(courseName);
+			AssignmentManager assignDB = new AssignmentManager();
+			ArrayList<Assignments> assignments = assignDB.getAssignments(CourseID);
+			//send the arraylist
+			out.writeObject(assignments);
+			
+			
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateActive()
+	{
+		try {
+			String assignID = (String)in.readObject();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public String recieveFile (String name, String ex)
 	{
 		String STORAGEPATH = "C:\\" + File.separator + "Users\\" + File.separator + "raemc\\" + File.separator + "Desktop\\" + File.separator + "lmsServer\\" + File.separator;

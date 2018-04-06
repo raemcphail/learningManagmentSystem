@@ -5,6 +5,8 @@ import server.Course;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
 import java.awt.Component;
 import java.awt.Color;
@@ -24,9 +26,16 @@ public class SideViewPanel extends JPanel
 	JButton btnAssignments;
 	JButton btnBack;
 	Course course;
-	public SideViewPanel (Course course)
+	CourseViewPanel panel;
+	ObjectOutputStream out = null;
+	ObjectInputStream in = null;
+	
+	public SideViewPanel (CourseViewPanel p, ObjectOutputStream out, ObjectInputStream in, Course course)
 	{
+		panel = p;
 		this.course = course;
+		this.out = out;
+		this.in = in;
 		setBackground(new Color(0, 153, 153));
 		setForeground(Color.CYAN);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -46,7 +55,9 @@ public class SideViewPanel extends JPanel
 		verticalStrut_1.setBackground(new Color(51, 153, 153));
 		add(verticalStrut_1);
 		
-		btnAssignments = new JButton("assignments");
+		btnAssignments = new JButton("assignments");//	AssignmentListener(CourseViewPanel p, ObjectOutputStream out, ObjectInputStream in, Course c)
+
+		btnAssignments.addActionListener(new AssignmentListener(panel, out, in, course));
 		add(btnAssignments);
 		
 		Component verticalStrut_2 = Box.createVerticalStrut(20);

@@ -87,10 +87,14 @@ public class Server implements Runnable{
 					{
 						enrollHandler.runHandler();
 					}
-						else if(opCode.equals("assignment"))
+					else if(opCode.equals("assignment"))
 					{
 						System.out.println("assignment opcode");
 						assignmentHandler.addHandler();
+					}
+					else if (opCode.equals("getAssignment"))
+					{
+						assignmentHandler.updateList();
 					}
 					//more to come
 				}

@@ -29,7 +29,7 @@ public class StudentEnrollmentHandler {
 					 String courseName = (String)in.readObject();
 					 CourseManager courseDB = new CourseManager();
 					 EnrollmentManager enrollDB = new EnrollmentManager();
-					 int courseID =  courseDB.getCourseID(courseName);
+					 int courseID =  courseDB.findCourseID(courseName);
 					 System.out.println("handler sees: " + userID + " and " + courseID);
 					 boolean enrolled = enrollDB.checkEnrollment(userID, courseID);
 					 if (enrolled)

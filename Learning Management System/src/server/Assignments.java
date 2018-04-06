@@ -29,4 +29,10 @@ public class Assignments implements Serializable
 		dropbox = d;
 		path = p;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return path;
+	}
 }

@@ -32,12 +32,12 @@ public class CourseViewPanel extends JPanel
 		this.out = out;
 		this.course = course;
 		setLayout(new BorderLayout(0, 0));
-		svpanel = new SideViewPanel(course);
+		svpanel = new SideViewPanel(this, out, in, course);
 		add("West", svpanel);
 		
 
 		studentpanel = new StudentPanel(course, in, out);
-		assignmentpanel = new AssignmentPanel(in, out, course);
+		assignmentpanel = new AssignmentPanel(this, in, out, course);
 		
 		c = new CardLayout();
 		selection.setLayout(c);
