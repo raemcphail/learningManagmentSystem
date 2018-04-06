@@ -37,7 +37,7 @@ public class Client
 		//String line = "";
 		//String response = "";
 		login.setVisible(true);
-		LoginListener listener = new LoginListener(login, aSocket, out, in);
+		LoginListener listener = new LoginListener(login, out, in);
 		login.getbtnLogin().addActionListener(listener);
 		while (true)	//wait until a user has been successfully added
 		{
@@ -47,7 +47,6 @@ public class Client
 				break;
 			}
 		}
-		System.out.println("Client sees: " + user.getFirstname());
 		DashboardFrame Dashboard = new DashboardFrame(user, out, in);
 		Dashboard.setVisible(true);
 		}

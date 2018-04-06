@@ -19,7 +19,6 @@ public class SideViewListener implements ActionListener
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("help?");
 
 		if (e.getSource() == sideView.btnAssignments)
 		{

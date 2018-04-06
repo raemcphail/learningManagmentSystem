@@ -8,6 +8,8 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 /**
  * CourseView Panel displays the information for when you select one of your courses
@@ -22,8 +24,12 @@ public class CourseViewPanel extends JPanel
 	CardLayout c;
 	JPanel selection = new JPanel();
 	Course course;
-	public CourseViewPanel(Course course) 
+	ObjectInputStream in = null;
+	ObjectOutputStream out = null;
+	public CourseViewPanel(Course course, ObjectInputStream in, ObjectOutputStream out) 
 	{
+		this.in = in;
+		this.out = out;
 		this.course = course;
 		setLayout(new BorderLayout(0, 0));
 		svpanel = new SideViewPanel(course);
@@ -31,7 +37,7 @@ public class CourseViewPanel extends JPanel
 		
 		
 		assignmentpanel = new AssignmentPanel();
-		studentpanel = new StudentPanel();
+		studentpanel = new StudentPanel(in, out);
 		
 		c = new CardLayout();
 		selection.setLayout(c);

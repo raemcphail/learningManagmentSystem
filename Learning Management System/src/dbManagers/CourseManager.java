@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import server.Course;
 
-public class CourseManager  extends Manager
+public class CourseManager extends Manager
 {
 	private final String tableName = "coursetable";
 	public CourseManager()

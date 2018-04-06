@@ -2,6 +2,11 @@ package dbManagers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import server.Course;
+import server.Student;
+import server.User;
 
 public class UserManager extends Manager {
 	private final String tableName = "usertable";
@@ -33,6 +38,66 @@ public class UserManager extends Manager {
 		} catch (SQLException e) { e.printStackTrace(); }
 		return s;
 	}
+	public ArrayList<Student> getStudents(int User_ID)
+	{
+		String sql = "SELECT * FROM " + tableName + " WHERE id=" + User_ID;
+		ResultSet users;
+		ArrayList<Student> students = new ArrayList<Student>();
+		try {
+			statement = connection.prepareStatement(sql);
+			users = statement.executeQuery();
+			while(users.next())
+			{
+				if (users.getString("type").charAt(0) == 'P')	//if the User is a professor, abort
+				{
+					continue;
+				}	//int id, String password, String email,String first, String last, char type)
+				students.add(new Student(
+						User_ID, 
+						users.getString("password"), 
+						users.getString("email"),
+						users.getString("firstname"),
+						users.getString("lastname"),
+						users.getString("type").charAt(0)));
+			}
+		} catch (SQLException e) {  }
+		catch (NullPointerException e)
+		{
+			return null;
+		}
+		return students;
+	}
+	
+	public ArrayList<Student> getStudents(String last)
+	{
+		String sql = "SELECT * FROM " + tableName + " WHERE lastname like" + "'" + last + "%'";
+		ResultSet users;
+		ArrayList<Student> students = new ArrayList<Student>();
+		try {
+			statement = connection.prepareStatement(sql);
+			users = statement.executeQuery();
+			while(users.next())
+			{
+				if (users.getString("type").charAt(0) == 'P')	//ignore the professors
+				{
+					continue;
+				}	//int id, String password, String email,String first, String last, char type)
+				students.add(new Student(
+						users.getInt("id"), 
+						users.getString("password"), 
+						users.getString("email"),
+						users.getString("firstname"),
+						users.getString("lastname"),
+						users.getString("type").charAt(0)));
+			}
+		} catch (SQLException e) {  }
+		catch (NullPointerException e)
+		{
+			return null;
+		}
+		return students;
+	}
+	
 	public String findClientEmail(int UserID)
 	{
 		String sql = "SELECT email FROM " + tableName + " WHERE ID=" + UserID;

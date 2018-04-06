@@ -13,16 +13,14 @@ import java.util.*;
 
 public class LoginListener implements ActionListener
 {
-	private Socket aSocket;
 	private LoginFrame login;
 	ObjectInputStream in = null;
 	ObjectOutputStream out = null;
 	User user;
 
-	public LoginListener (LoginFrame l, Socket s, ObjectOutputStream out, ObjectInputStream in)
+	public LoginListener (LoginFrame l, ObjectOutputStream out, ObjectInputStream in)
 	{
 		login = l;
-		aSocket = s;
 		this.out = out;
 		this.in = in;
 

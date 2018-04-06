@@ -23,6 +23,7 @@ public class Server implements Runnable{
 	LoginHandler loginhandler;
 	public CreateCourseHandler createHandler;
 	public MyCourseHandler getCourseHandler;
+	public StudentHandler studentHandler;
 	
 	public Server (int portnumber)
 	{
@@ -60,6 +61,8 @@ public class Server implements Runnable{
 				createHandler = new CreateCourseHandler(in, out);
 				getCourseHandler = new MyCourseHandler(out, in, user);
 				getCourseHandler.runHandler();	//once the user logs in, update mycourses with courses
+				
+				studentHandler = new StudentHandler(out, in);
 
 				while (true)
 				{
@@ -71,6 +74,10 @@ public class Server implements Runnable{
 					else if (opCode.equals("checkCourses"))
 					{
 						getCourseHandler.runHandler();
+					}
+					else if (opCode.equals("student"))
+					{
+						studentHandler.runHandler();
 					}
 					//more to come
 				}
