@@ -3,6 +3,9 @@ package frontEnd;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+
+import server.Course;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
@@ -30,11 +33,13 @@ public class AssignmentPanel extends JPanel
 	JLabel title;
 	ObjectOutputStream out = null;
 	ObjectInputStream in = null;
+	Course course;
 	
-	public AssignmentPanel(ObjectInputStream i, ObjectOutputStream o) 
+	public AssignmentPanel(ObjectInputStream i, ObjectOutputStream o, Course c) 
 	{
 		in = i;
 		out = o;
+		course = c;
 		//setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		title = new JLabel ("Assignments");
 		title.setFont(new Font("Tahoma", Font.BOLD, 19));
@@ -42,7 +47,7 @@ public class AssignmentPanel extends JPanel
 		results = new JList(new DefaultListModel());
 		scrollpane = new JScrollPane(results);
 		btnAdd = new JButton("Add");
-		btnAdd.addActionListener(new AssignmentListener(this, out, in));
+		btnAdd.addActionListener(new AssignmentListener(this, out, in, course));
 		
 		
 		JSplitPane split2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, scrollpane, btnAdd);

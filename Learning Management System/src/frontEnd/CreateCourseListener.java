@@ -72,7 +72,7 @@ public class CreateCourseListener implements ActionListener {
 				aCourse.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						CourseViewPanel courseView = new CourseViewPanel(newCourse);
+						CourseViewPanel courseView = new CourseViewPanel(newCourse,in, out);
 						theFrame.content.add((courseView), "theCourse");
 						theFrame.cardLayout.show(theFrame.content, "theCourse");
 					}
