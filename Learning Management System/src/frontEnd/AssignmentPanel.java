@@ -74,9 +74,9 @@ public class AssignmentPanel extends JPanel
 					return;
 				}
 				try {
-				out.writeObject("updateAssign");	//signal the StudentEnrollmentHandler
-				String Path = (String)(results.getSelectedValue());
-				out.writeObject(Path);	//send the path
+				out.writeObject("updateAssign");	//signal the AssignmentHandler.updateActive
+				String Title = (String)(results.getSelectedValue());
+				out.writeObject(Title);	//send the title
 //				out.writeObject(course.toString());
 					
 					

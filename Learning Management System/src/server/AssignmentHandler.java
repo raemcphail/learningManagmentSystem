@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import dbManagers.AssignmentManager;
 import dbManagers.CourseManager;
 
+
 public class AssignmentHandler 
 {
 	ObjectInputStream in = null;
@@ -73,16 +74,18 @@ public class AssignmentHandler
 	public void updateActive()
 	{
 		try {
-			String path = (String)in.readObject();
+			String title = (String)in.readObject();
 			AssignmentManager assignDB = new AssignmentManager();
-			boolean active = assignDB.isActive(path);
-			System.out.println(active);
+			boolean active = assignDB.isActive(title);
+			int AssignID = assignDB.GETAssignID(title);
+			System.out.println("the assign ID: " + AssignID);
+			System.out.println(title);
 			 if (active)
 			 {
 				int choice = JOptionPane.showConfirmDialog(null, "This assignment is ACTIVE.\n Do you want to deactivate it?", "deactivate", JOptionPane.YES_NO_OPTION);
 				if (choice == JOptionPane.YES_OPTION)
 				{
-					assignDB.changeActive(false, path);
+					assignDB.changeActive(0, AssignID);
 				}
 				else
 				{
@@ -95,7 +98,7 @@ public class AssignmentHandler
 				int choice = JOptionPane.showConfirmDialog(null, "This assignment is NOT ACTIVE.\n Do you want to activate it?", "activate", JOptionPane.YES_NO_OPTION);
 				if (choice == JOptionPane.YES_OPTION)
 				{
-					assignDB.changeActive(true, path);
+					assignDB.changeActive(1, AssignID);
 				}
 				else
 				{

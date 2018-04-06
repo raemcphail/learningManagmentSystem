@@ -32,12 +32,12 @@ public class AssignmentManager extends Manager
 		
 	}
 	
-	public void changeActive(boolean value, String thePath)
+	public void changeActive(int value, int AssignID)
 	{
 		try 
 		{ 		
-			String sql = ("UPDATE " + tableName
-					+ " SET active = '" + value + "' WHERE path = " + thePath + ";"); 		
+			String sql = "UPDATE " + tableName
+					+ " SET ACTIVE = " + value + " WHERE id=" + AssignID; 		
 			statement = connection.prepareStatement(sql);
 			statement.executeUpdate();
 		}
@@ -82,9 +82,9 @@ public class AssignmentManager extends Manager
 			} catch (SQLException e) { e.printStackTrace(); }
 			return enrolled;
 	}
-	public boolean isActive (String ThePath)
+	public boolean isActive (String theTitle)
 	{
-		String sql = "SELECT * FROM " + tableName + " WHERE path=" + ThePath;
+		String sql = "SELECT * FROM " + tableName + " WHERE title like" + "'" + theTitle + "%'";
 		ResultSet enrollment;
 		try
 		{
@@ -96,6 +96,23 @@ public class AssignmentManager extends Manager
 			} 
 		}	catch (SQLException e) { e.printStackTrace(); }
 		return false;
+	}
+	
+	public int GETAssignID (String ThePath)
+	{
+		String sql = "SELECT * FROM " + tableName + " WHERE title like" + "'" + ThePath + "%'";
+		ResultSet enrollment;
+		int s = -1;
+		try
+		{
+			statement = connection.prepareStatement(sql);
+			enrollment = statement.executeQuery();
+			if (enrollment.next())
+			{
+				s = enrollment.getInt("id");
+			} 
+		}	catch (SQLException e) { e.printStackTrace(); }
+		return s;
 	}
 	
 	public int recentID()
@@ -127,7 +144,8 @@ public class AssignmentManager extends Manager
 			{
 				assignments.add(new Assignments(
 						null, 
-						assignmentData.getString("path")));
+						assignmentData.getString("path"),
+						assignmentData.getString("title")));
 			}
 		} catch (SQLException e) {  }
 		catch (NullPointerException e)

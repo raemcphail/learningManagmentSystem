@@ -61,6 +61,7 @@ public class AssignmentListener implements ActionListener
 		else if (e.getSource() == panel.svpanel.btnAssignments)	//if the assignment button is pressed
 		{
 			try {
+				panel.assignmentpanel.list.clear();
 				out.writeObject("getAssignment"); 	//send opcode
 				out.writeObject(course.toString());	//send coursename
 				ArrayList<Assignments> assignments = (ArrayList<Assignments>)in.readObject();
