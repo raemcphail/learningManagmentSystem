@@ -6,7 +6,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 import dbManagers.AssignmentManager;
 import dbManagers.CourseManager;
@@ -70,7 +73,35 @@ public class AssignmentHandler
 	public void updateActive()
 	{
 		try {
-			String assignID = (String)in.readObject();
+			String path = (String)in.readObject();
+			AssignmentManager assignDB = new AssignmentManager();
+			boolean active = assignDB.isActive(path);
+			System.out.println(active);
+			 if (active)
+			 {
+				int choice = JOptionPane.showConfirmDialog(null, "This assignment is ACTIVE.\n Do you want to deactivate it?", "deactivate", JOptionPane.YES_NO_OPTION);
+				if (choice == JOptionPane.YES_OPTION)
+				{
+					assignDB.changeActive(false, path);
+				}
+				else
+				{
+					return;
+				}
+				
+			 }
+			 else	//student is NOT enrolled
+			 {
+				int choice = JOptionPane.showConfirmDialog(null, "This assignment is NOT ACTIVE.\n Do you want to activate it?", "activate", JOptionPane.YES_NO_OPTION);
+				if (choice == JOptionPane.YES_OPTION)
+				{
+					assignDB.changeActive(true, path);
+				}
+				else
+				{
+					return;
+				}
+			 }
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

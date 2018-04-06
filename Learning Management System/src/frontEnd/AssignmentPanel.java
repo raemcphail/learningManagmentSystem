@@ -16,6 +16,9 @@ import javax.swing.DefaultListModel;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
@@ -49,6 +52,7 @@ public class AssignmentPanel extends JPanel
 		add(title);
 		list = new DefaultListModel();
 		results = new JList(list);
+		results.addMouseListener(new MouseClicked());
 		scrollpane = new JScrollPane(results);
 		btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new AssignmentListener(courseView, out, in, course));
@@ -58,6 +62,55 @@ public class AssignmentPanel extends JPanel
 		JSplitPane split1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, title, split2);
 		this.add(split1);
 		
-		
 	}
+		class MouseClicked implements MouseListener
+		{
+			/**
+			* required method to handle action, 
+			* @Override
+			*/
+			public void mouseClicked(MouseEvent e) {
+				if (results.isSelectionEmpty()) {
+					return;
+				}
+				try {
+				out.writeObject("updateAssign");	//signal the StudentEnrollmentHandler
+				String Path = (String)(results.getSelectedValue());
+				out.writeObject(Path);	//send the path
+//				out.writeObject(course.toString());
+					
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		}
+		
+		
+	
 }

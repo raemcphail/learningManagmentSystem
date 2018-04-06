@@ -32,6 +32,22 @@ public class AssignmentManager extends Manager
 		
 	}
 	
+	public void changeActive(boolean value, String thePath)
+	{
+		try 
+		{ 		
+			String sql = ("UPDATE " + tableName
+					+ " SET active = '" + value + "' WHERE path = " + thePath + ";"); 		
+			statement = connection.prepareStatement(sql);
+			statement.executeUpdate();
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public void addItem (int course, String title, boolean active)
 	{
 		String sql = "INSERT IGNORE INTO " + tableName + "(course_id, title, active)" +
@@ -48,6 +64,39 @@ public class AssignmentManager extends Manager
 	}
 	
  }
+	public boolean checkEnrollment (int student, int course)
+	{
+			String sql = "SELECT * FROM " + tableName + " WHERE student_id=" + student;
+			ResultSet enrollment;
+			boolean enrolled = false;
+			try
+			{
+				statement = connection.prepareStatement(sql);
+				enrollment = statement.executeQuery();
+				while(enrollment.next())
+				{
+					enrolled = enrollment.getInt("course_id") == course;	//check if that student exists and the course matches
+					if (enrolled)
+						return enrolled;
+				}
+			} catch (SQLException e) { e.printStackTrace(); }
+			return enrolled;
+	}
+	public boolean isActive (String ThePath)
+	{
+		String sql = "SELECT * FROM " + tableName + " WHERE path=" + ThePath;
+		ResultSet enrollment;
+		try
+		{
+			statement = connection.prepareStatement(sql);
+			enrollment = statement.executeQuery();
+			if (enrollment.next())
+			{
+				return enrollment.getBoolean("active");
+			} 
+		}	catch (SQLException e) { e.printStackTrace(); }
+		return false;
+	}
 	
 	public int recentID()
 	{
