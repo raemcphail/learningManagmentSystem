@@ -25,6 +25,7 @@ public class Server implements Runnable{
 	public MyCourseHandler getCourseHandler;
 	public StudentHandler studentHandler;
 	public StudentEnrollmentHandler enrollHandler;
+	public AssignmentHandler assignmentHandler;
 	
 	public Server (int portnumber)
 	{
@@ -65,6 +66,7 @@ public class Server implements Runnable{
 				
 				studentHandler = new StudentHandler(out, in);
 				enrollHandler = new StudentEnrollmentHandler(out, in);
+				assignmentHandler = new AssignmentHandler(in, out);
 
 				while (true)
 				{
@@ -84,6 +86,11 @@ public class Server implements Runnable{
 					else if (opCode.equals("selected"))
 					{
 						enrollHandler.runHandler();
+					}
+						else if(opCode.equals("assignment"))
+					{
+						System.out.println("assignment opcode");
+						assignmentHandler.addHandler();
 					}
 					//more to come
 				}
@@ -105,8 +112,4 @@ public class Server implements Runnable{
 		server.out.close();
 		
 	}
-
-
-	
-	
 }

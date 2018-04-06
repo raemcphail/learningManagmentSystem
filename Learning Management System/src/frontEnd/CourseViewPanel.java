@@ -35,9 +35,9 @@ public class CourseViewPanel extends JPanel
 		svpanel = new SideViewPanel(course);
 		add("West", svpanel);
 		
-		
-		assignmentpanel = new AssignmentPanel();
+
 		studentpanel = new StudentPanel(course, in, out);
+		assignmentpanel = new AssignmentPanel(in, out, course);
 		
 		c = new CardLayout();
 		selection.setLayout(c);
@@ -51,6 +51,5 @@ public class CourseViewPanel extends JPanel
 		
 		add("Center", selection);
 	}
-	
 
 }

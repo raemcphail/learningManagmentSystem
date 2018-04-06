@@ -69,6 +69,23 @@ public class CourseManager extends Manager
 		return s;
 	}
 	
+	public int findCourseID(String n)
+	{
+		String sql = "SELECT * FROM " + tableName + " WHERE name like" + "'" + n + "%'";
+		ResultSet course;
+		int s = -1;
+		try
+		{
+			statement = connection.prepareStatement(sql);
+			course = statement.executeQuery();
+			if(course.next())
+			{
+				s = course.getInt("id");
+			}
+		} catch (SQLException e) { e.printStackTrace(); }
+		return s;
+	}
+	
 	public String findCourseName(int id)
 	{
 		String sql = "SELECT name FROM " + tableName + " WHERE ID=" + id;
@@ -85,6 +102,7 @@ public class CourseManager extends Manager
 		} catch (SQLException e) { e.printStackTrace(); }
 		return s;
 	}
+	
 	public String findCourseName(String Possiblename)
 	{
 		String sql = "SELECT * FROM " + tableName + " WHERE name like" + "'" + Possiblename + "%'";
