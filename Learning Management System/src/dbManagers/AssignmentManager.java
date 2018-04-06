@@ -31,7 +31,7 @@ public class AssignmentManager extends Manager
 		}
 		
 	}
-	
+
 	public void changeActive(int value, int AssignID)
 	{
 		try 
@@ -45,7 +45,7 @@ public class AssignmentManager extends Manager
 		{
 			e.printStackTrace();
 		}
-		
+	
 	}
 	
 	public void addItem (int course, String title, boolean active)
@@ -82,25 +82,26 @@ public class AssignmentManager extends Manager
 			} catch (SQLException e) { e.printStackTrace(); }
 			return enrolled;
 	}
-	public boolean isActive (String theTitle)
+	public boolean isActive (int i)
 	{
-		String sql = "SELECT * FROM " + tableName + " WHERE title like" + "'" + theTitle + "%'";
-		ResultSet enrollment;
+		String sql = "SELECT * FROM " + tableName + " WHERE id like" + "'" + i + "%'";
+		ResultSet assignment;
 		try
 		{
 			statement = connection.prepareStatement(sql);
-			enrollment = statement.executeQuery();
-			if (enrollment.next())
+			assignment = statement.executeQuery();
+			if (assignment.next())
 			{
-				return enrollment.getBoolean("active");
+				return assignment.getBoolean("active");
 			} 
 		}	catch (SQLException e) { e.printStackTrace(); }
 		return false;
 	}
 	
-	public int GETAssignID (String ThePath)
+	public int GETAssignID (String title, int courseID)
 	{
-		String sql = "SELECT * FROM " + tableName + " WHERE title like" + "'" + ThePath + "%'";
+		String sql = "SELECT * FROM " + tableName + " WHERE title like" + "'" + title + "%' AND course_id like " + 
+					 "'" + courseID + "%'";
 		ResultSet enrollment;
 		int s = -1;
 		try
@@ -112,6 +113,7 @@ public class AssignmentManager extends Manager
 				s = enrollment.getInt("id");
 			} 
 		}	catch (SQLException e) { e.printStackTrace(); }
+		System.out.println(s);
 		return s;
 	}
 	

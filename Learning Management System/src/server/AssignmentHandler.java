@@ -80,9 +80,13 @@ public class AssignmentHandler
 	{
 		try {
 			String title = (String)in.readObject();
+			Course course = (Course)in.readObject();
 			AssignmentManager assignDB = new AssignmentManager();
-			boolean active = assignDB.isActive(title);
-			int AssignID = assignDB.GETAssignID(title);
+			CourseManager cm = new CourseManager();
+			int courseID = cm.findCourseID(course.name);
+			
+			int AssignID = assignDB.GETAssignID(title, courseID);
+			boolean active = assignDB.isActive(AssignID);
 			System.out.println("the assign ID: " + AssignID);
 			System.out.println(title);
 			 if (active)
@@ -120,7 +124,7 @@ public class AssignmentHandler
 	}
 	public String recieveFile (String name, String ex)
 	{
-		String STORAGEPATH = "C:\\" + File.separator + "Users\\" + File.separator + "louis\\" + File.separator + "Desktop\\" + File.separator + "serverComputer\\" + File.separator;
+		String STORAGEPATH = "C:\\" + File.separator + "Users\\" + File.separator + "raemc\\" + File.separator + "Desktop\\" + File.separator + "lmsServer\\" + File.separator;
 		String NAME = name;
 		String EXTENSION = ex;
 		String path = STORAGEPATH + NAME + EXTENSION;
@@ -135,6 +139,7 @@ public class AssignmentHandler
 			{
 				newFile.createNewFile();
 			}
+			path.replace("r", "R");
 			FileOutputStream writer = new FileOutputStream (newFile);
 			BufferedOutputStream bos = new BufferedOutputStream(writer);
 			bos.write(content);
