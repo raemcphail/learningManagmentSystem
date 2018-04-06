@@ -10,19 +10,21 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JFileChooser;
 
+import server.Assignments;
 import server.Course;
 
 public class AssignmentListener implements ActionListener
 {
 	ObjectOutputStream out = null;
 	ObjectInputStream in = null;
-	AssignmentPanel panel;
+	CourseViewPanel panel;
 	Course course;
 	
-	AssignmentListener(AssignmentPanel p, ObjectOutputStream out, ObjectInputStream in, Course c)
+	AssignmentListener(CourseViewPanel p, ObjectOutputStream out, ObjectInputStream in, Course c)
 	{
 		panel = p;
 		this.in = in;
@@ -33,7 +35,7 @@ public class AssignmentListener implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{
 
-		if (e.getSource() == panel.btnAdd)
+		if (e.getSource() == panel.assignmentpanel.btnAdd)
 		{
 			System.out.println("add button pushed");
 			try
@@ -54,6 +56,26 @@ public class AssignmentListener implements ActionListener
 			 catch ( IOException e1) {
 				e1.printStackTrace();
 				System.err.println("error catching course in MiddleBarListener");
+			}
+		}
+		else if (e.getSource() == panel.svpanel.btnAssignments)	//if the assignment button is pressed
+		{
+			try {
+				out.writeObject("getAssignment"); 	//send opcode
+				out.writeObject(course.toString());	//send coursename
+				ArrayList<Assignments> assignments = (ArrayList<Assignments>)in.readObject();
+				if (assignments.size() != 0)
+				{
+					Iterator it = assignments.iterator();
+					while (it.hasNext())
+					{
+						panel.assignmentpanel.list.addElement(it.next().toString());
+					}	
+				}
+				
+			} catch (ClassNotFoundException | IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		}
 	}

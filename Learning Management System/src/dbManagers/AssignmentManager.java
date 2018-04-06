@@ -2,6 +2,10 @@ package dbManagers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import server.Assignments;
+import server.Student;
 
 public class AssignmentManager extends Manager
 {
@@ -61,8 +65,27 @@ public class AssignmentManager extends Manager
 				}
 			} catch (SQLException e) { e.printStackTrace(); }
 			return s;
-		}
-		
-		
 	}
+	public ArrayList<Assignments> getAssignments(int Course_ID)
+	{
+		String sql = "SELECT * FROM " + tableName + " WHERE course_id like" + "'" + Course_ID + "%'";
+		ResultSet assignmentData;
+		ArrayList<Assignments> assignments = new ArrayList<Assignments>();
+		try {
+			statement = connection.prepareStatement(sql);
+			assignmentData = statement.executeQuery();
+			while(assignmentData.next())
+			{
+				assignments.add(new Assignments(
+						null, 
+						assignmentData.getString("path")));
+			}
+		} catch (SQLException e) {  }
+		catch (NullPointerException e)
+		{
+			return null;
+		}
+		return assignments;
+	}
+}
 
