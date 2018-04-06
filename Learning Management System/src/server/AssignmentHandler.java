@@ -35,6 +35,8 @@ public class AssignmentHandler
 		int assignmentid = a.recentID();
 		String path = recieveFile(Integer.toString(assignmentid), ex);
 		a.addPath(assignmentid, path);
+		String p = a.findPath(assignmentid);
+		System.out.println("FROM database " + p);
 		}
 		catch(IOException e)
 		{

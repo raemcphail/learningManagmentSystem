@@ -27,6 +27,23 @@ public class AssignmentManager extends Manager
 		
 	}
 	
+	public String findPath(int id)
+	{
+		String sql = "SELECT path FROM " + tableName + " WHERE ID=" + id;
+		ResultSet assign;
+		String s = null;
+		try
+		{
+			statement = connection.prepareStatement(sql);
+			assign = statement.executeQuery();
+			if(assign.next())
+			{
+				s = assign.getString("path");
+			}
+		} catch (SQLException e) { e.printStackTrace(); }
+		return s;
+	}
+	
 	public void addItem (int course, String title, boolean active)
 	{
 		String sql = "INSERT IGNORE INTO " + tableName + "(course_id, title, active)" +
