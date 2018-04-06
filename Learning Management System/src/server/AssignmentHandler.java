@@ -49,13 +49,9 @@ public class AssignmentHandler
 		
 	}
 	
-	public void updateDatabase()
-	{
-		
-	}
 	public String recieveFile (String name, String ex)
 	{
-		String STORAGEPATH = "C:" + File.separator + "Users" + File.separator + "raemc" + File.separator + "Desktop" + File.separator + "lmsServer" + File.separator;
+		String STORAGEPATH = "C:\\" + File.separator + "Users\\" + File.separator + "raemc\\" + File.separator + "Desktop\\" + File.separator + "lmsServer\\" + File.separator;
 		String NAME = name;
 		String EXTENSION = ex;
 		String path = STORAGEPATH + NAME + EXTENSION;
@@ -70,6 +66,7 @@ public class AssignmentHandler
 			{
 				newFile.createNewFile();
 			}
+			path.replace("r", "R");
 			FileOutputStream writer = new FileOutputStream (newFile);
 			BufferedOutputStream bos = new BufferedOutputStream(writer);
 			bos.write(content);
