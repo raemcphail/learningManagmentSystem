@@ -75,9 +75,13 @@ public class AssignmentHandler
 	{
 		try {
 			String title = (String)in.readObject();
+			Course course = (Course)in.readObject();
 			AssignmentManager assignDB = new AssignmentManager();
-			boolean active = assignDB.isActive(title);
-			int AssignID = assignDB.GETAssignID(title);
+			CourseManager cm = new CourseManager();
+			int courseID = cm.findCourseID(course.name);
+			
+			int AssignID = assignDB.GETAssignID(title, courseID);
+			boolean active = assignDB.isActive(AssignID);
 			System.out.println("the assign ID: " + AssignID);
 			System.out.println(title);
 			 if (active)

@@ -77,6 +77,7 @@ public class AssignmentPanel extends JPanel
 				out.writeObject("updateAssign");	//signal the AssignmentHandler.updateActive
 				String Title = (String)(results.getSelectedValue());
 				out.writeObject(Title);	//send the title
+				out.writeObject(course);//send the course
 //				out.writeObject(course.toString());
 					
 					
