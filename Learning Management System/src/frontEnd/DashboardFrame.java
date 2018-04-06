@@ -78,6 +78,8 @@ public class DashboardFrame extends JFrame {
 		mainPanel = new JPanel();
 		this.setContentPane(mainPanel);
 		
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
 		cardLayout = new CardLayout();
 		
 		upperPanel = new JPanel();
@@ -90,7 +92,7 @@ public class DashboardFrame extends JFrame {
 		middleBar = new CoursePanel();
 		content.setLayout(cardLayout);
 		
-		myCourses = new MyCoursesPanel(out, in);
+		myCourses = new MyCoursesPanel(this, out, in);
 		createCourses = new CreateCoursePanel();
 		content.add(myCourses, "courses");
 		content.add(createCourses, "createCourses");
@@ -104,7 +106,7 @@ public class DashboardFrame extends JFrame {
 		createCourses.setLayout(new BoxLayout(createCourses, BoxLayout.Y_AXIS));
 		addDividers();
 		addListeners();
-		pack();
+		//pack();
 	}
 	
 	public void addDividers()

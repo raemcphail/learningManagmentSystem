@@ -1,12 +1,19 @@
 package frontEnd;
 
 import javax.swing.*;
+
+import server.Course;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+/**
+ * CourseView Panel displays the information for when you select one of your courses
+ * @author raemc
+ *
+ */
 public class CourseViewPanel extends JPanel
 {
 	AssignmentPanel assignmentpanel;
@@ -14,10 +21,12 @@ public class CourseViewPanel extends JPanel
 	SideViewPanel svpanel;
 	CardLayout c;
 	JPanel selection = new JPanel();
-	public CourseViewPanel() 
+	Course course;
+	public CourseViewPanel(Course course) 
 	{
+		this.course = course;
 		setLayout(new BorderLayout(0, 0));
-		svpanel = new SideViewPanel();
+		svpanel = new SideViewPanel(course);
 		add("West", svpanel);
 		
 		
@@ -37,14 +46,5 @@ public class CourseViewPanel extends JPanel
 		add("Center", selection);
 	}
 	
-	//TESTING
-	public static void main(String[] args)
-	{
-		JFrame frame = new JFrame();
-		frame.setSize(500,500);
-		frame.setContentPane(new CourseViewPanel());
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	}
 
 }

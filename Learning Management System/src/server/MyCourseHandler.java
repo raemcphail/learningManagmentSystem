@@ -41,7 +41,6 @@ public class MyCourseHandler {
 				System.out.println("myCoursesHandler running");
 				CourseManager courseDB = new CourseManager();
 				ArrayList<Course> courses = courseDB.getUserCourses(user.getID());
-				System.out.println(courses.get(2).name);
 				out.writeObject(courses); //send the courses
 			
 			} catch (Exception e)

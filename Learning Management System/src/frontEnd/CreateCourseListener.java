@@ -67,8 +67,16 @@ public class CreateCourseListener implements ActionListener {
 			}
 			else	//if there is a course to add
 			{
-				theFrame.myCourses.add(new JButton(newCourse.toString()));
-				//potentially add actionlistener here
+				JButton aCourse = new JButton(newCourse.toString());
+				theFrame.myCourses.add(aCourse);
+				aCourse.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						CourseViewPanel courseView = new CourseViewPanel(newCourse);
+						theFrame.content.add((courseView), "theCourse");
+						theFrame.cardLayout.show(theFrame.content, "theCourse");
+					}
+				});
 			}
 		} catch (ClassNotFoundException | IOException e1) {
 			e1.printStackTrace();

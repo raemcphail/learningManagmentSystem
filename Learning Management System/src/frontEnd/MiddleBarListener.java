@@ -40,21 +40,25 @@ public class MiddleBarListener implements ActionListener {
 
 		if (e.getSource() == theFrame.middleBar.btnMyCourses)
 		{
-			try {
+			try
+			{
 				theFrame.cardLayout.show(theFrame.content, "courses");
 				out.writeObject("checkCourses");	//signal to MyCourseHandler
 				ArrayList<Course> courses = (ArrayList<Course>)in.readObject();
-				Iterator it = courses.iterator();
-				int i = 0;
-				while (it.hasNext())
+				if (courses.size() != 0)
 				{
-					String name = it.next().toString();
-					/*if (name)
-					courseButtons[i] = new JButton(it.next().toString());
-					add(courseButtons[i]);	//add to panel*/
-					i++;
+					theFrame.myCourses.remove(theFrame.myCourses.emptyCourseMessage);
 				}
-				courses.get(courses.size() - 1);
+//				//Iterator it = courses.iterator();
+//				//int i = 0;
+//				//while (it.hasNext())
+//				//{
+//				//	String name = it.next().toString();
+//					/*if (name)
+//					courseButtons[i] = new JButton(it.next().toString());
+//					add(courseButtons[i]);	//add to panel*/
+//					//i++;
+//				//}	
 			} catch (ClassNotFoundException | IOException e1) {
 				e1.printStackTrace();
 				System.err.println("error catching course in MiddleBarListener");
