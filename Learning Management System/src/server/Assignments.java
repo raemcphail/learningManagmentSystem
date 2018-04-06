@@ -23,9 +23,12 @@ public class Assignments implements Serializable
 	 * student requests to view that assignment the server can send that file to the student.
 	 */
 	String path;
+	String title;
+	int ID;
 	
-	public Assignments(DropBox d, String p)
+	public Assignments(DropBox d, String p, String title)
 	{
+		this.title = title;
 		dropbox = d;
 		path = p;
 	}
@@ -33,6 +36,6 @@ public class Assignments implements Serializable
 	@Override
 	public String toString()
 	{
-		return path;
+		return title;
 	}
 }

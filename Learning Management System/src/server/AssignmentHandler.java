@@ -6,10 +6,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 import dbManagers.AssignmentManager;
 import dbManagers.CourseManager;
+
 
 public class AssignmentHandler 
 {
@@ -36,8 +40,6 @@ public class AssignmentHandler
 		int assignmentid = a.recentID();
 		String path = recieveFile(Integer.toString(assignmentid), ex);
 		a.addPath(assignmentid, path);
-		String p = a.findPath(assignmentid);
-		System.out.println("FROM database " + p);
 		}
 		catch(IOException e)
 		{
@@ -72,7 +74,37 @@ public class AssignmentHandler
 	public void updateActive()
 	{
 		try {
-			String assignID = (String)in.readObject();
+			String title = (String)in.readObject();
+			AssignmentManager assignDB = new AssignmentManager();
+			boolean active = assignDB.isActive(title);
+			int AssignID = assignDB.GETAssignID(title);
+			System.out.println("the assign ID: " + AssignID);
+			System.out.println(title);
+			 if (active)
+			 {
+				int choice = JOptionPane.showConfirmDialog(null, "This assignment is ACTIVE.\n Do you want to deactivate it?", "deactivate", JOptionPane.YES_NO_OPTION);
+				if (choice == JOptionPane.YES_OPTION)
+				{
+					assignDB.changeActive(0, AssignID);
+				}
+				else
+				{
+					return;
+				}
+				
+			 }
+			 else	//student is NOT enrolled
+			 {
+				int choice = JOptionPane.showConfirmDialog(null, "This assignment is NOT ACTIVE.\n Do you want to activate it?", "activate", JOptionPane.YES_NO_OPTION);
+				if (choice == JOptionPane.YES_OPTION)
+				{
+					assignDB.changeActive(1, AssignID);
+				}
+				else
+				{
+					return;
+				}
+			 }
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

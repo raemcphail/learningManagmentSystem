@@ -31,22 +31,21 @@ public class AssignmentManager extends Manager
 		}
 		
 	}
-	
-	public String findPath(int id)
+
+	public void changeActive(int value, int AssignID)
 	{
-		String sql = "SELECT path FROM " + tableName + " WHERE ID=" + id;
-		ResultSet assign;
-		String s = null;
-		try
-		{
+		try 
+		{ 		
+			String sql = "UPDATE " + tableName
+					+ " SET ACTIVE = " + value + " WHERE id=" + AssignID; 		
 			statement = connection.prepareStatement(sql);
-			assign = statement.executeQuery();
-			if(assign.next())
-			{
-				s = assign.getString("path");
-			}
-		} catch (SQLException e) { e.printStackTrace(); }
-		return s;
+			statement.executeUpdate();
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	
 	}
 	
 	public void addItem (int course, String title, boolean active)
@@ -65,6 +64,56 @@ public class AssignmentManager extends Manager
 	}
 	
  }
+	public boolean checkEnrollment (int student, int course)
+	{
+			String sql = "SELECT * FROM " + tableName + " WHERE student_id=" + student;
+			ResultSet enrollment;
+			boolean enrolled = false;
+			try
+			{
+				statement = connection.prepareStatement(sql);
+				enrollment = statement.executeQuery();
+				while(enrollment.next())
+				{
+					enrolled = enrollment.getInt("course_id") == course;	//check if that student exists and the course matches
+					if (enrolled)
+						return enrolled;
+				}
+			} catch (SQLException e) { e.printStackTrace(); }
+			return enrolled;
+	}
+	public boolean isActive (String theTitle)
+	{
+		String sql = "SELECT * FROM " + tableName + " WHERE title like" + "'" + theTitle + "%'";
+		ResultSet enrollment;
+		try
+		{
+			statement = connection.prepareStatement(sql);
+			enrollment = statement.executeQuery();
+			if (enrollment.next())
+			{
+				return enrollment.getBoolean("active");
+			} 
+		}	catch (SQLException e) { e.printStackTrace(); }
+		return false;
+	}
+	
+	public int GETAssignID (String ThePath)
+	{
+		String sql = "SELECT * FROM " + tableName + " WHERE title like" + "'" + ThePath + "%'";
+		ResultSet enrollment;
+		int s = -1;
+		try
+		{
+			statement = connection.prepareStatement(sql);
+			enrollment = statement.executeQuery();
+			if (enrollment.next())
+			{
+				s = enrollment.getInt("id");
+			} 
+		}	catch (SQLException e) { e.printStackTrace(); }
+		return s;
+	}
 	
 	public int recentID()
 	{
@@ -95,7 +144,8 @@ public class AssignmentManager extends Manager
 			{
 				assignments.add(new Assignments(
 						null, 
-						assignmentData.getString("path")));
+						assignmentData.getString("path"),
+						assignmentData.getString("title")));
 			}
 		} catch (SQLException e) {  }
 		catch (NullPointerException e)
