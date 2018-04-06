@@ -13,6 +13,8 @@ import javax.swing.DefaultListModel;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 import javax.swing.JSplitPane;
@@ -26,9 +28,13 @@ public class AssignmentPanel extends JPanel
 	JScrollPane scrollpane;
 	JButton btnAdd;
 	JLabel title;
+	ObjectOutputStream out = null;
+	ObjectInputStream in = null;
 	
-	public AssignmentPanel() 
+	public AssignmentPanel(ObjectInputStream i, ObjectOutputStream o) 
 	{
+		in = i;
+		out = o;
 		//setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		title = new JLabel ("Assignments");
 		title.setFont(new Font("Tahoma", Font.BOLD, 19));
@@ -36,6 +42,7 @@ public class AssignmentPanel extends JPanel
 		results = new JList(new DefaultListModel());
 		scrollpane = new JScrollPane(results);
 		btnAdd = new JButton("Add");
+		btnAdd.addActionListener(new AssignmentListener(this, out, in));
 		
 		
 		JSplitPane split2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, scrollpane, btnAdd);

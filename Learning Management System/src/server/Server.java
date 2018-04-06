@@ -72,6 +72,10 @@ public class Server implements Runnable{
 					{
 						getCourseHandler.runHandler();
 					}
+					else if(opCode.equals("assignment"))
+					{
+						System.out.println("assignment opcode");////
+					}
 					//more to come
 				}
 				
