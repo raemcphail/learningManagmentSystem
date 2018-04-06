@@ -40,7 +40,7 @@ public class AssignmentListener implements ActionListener
 			{	
 				out.writeObject(new String("assignment"));
 				sendFile();
-				out.writeObject(course);
+				
 				
 			}
 				//out.writeObject("checkCourses");	//signal to MyCourseHandler
@@ -78,6 +78,7 @@ public class AssignmentListener implements ActionListener
 				{
 				out.writeObject(ex);
 				out.writeObject(name);
+				out.writeObject(course);
 				}
 				catch(IOException e)
 				{

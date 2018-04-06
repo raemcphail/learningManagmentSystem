@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import dbManagers.AssignmentManager;
+import dbManagers.CourseManager;
+
 public class AssignmentHandler 
 {
 	ObjectInputStream in = null;
@@ -23,12 +26,15 @@ public class AssignmentHandler
 		{
 		//String name = (String)in.readObject();
 		String ex = (String)in.readObject();
-		String name = (String)in.readObject();
-		String path = recieveFile(ex);
+		String title = (String)in.readObject();
 		Course course = (Course)in.readObject();
-		//need to get the id for the course
-		
-		updateDatabase();
+		CourseManager c = new CourseManager();
+		AssignmentManager a = new AssignmentManager();
+		int id = c.findCourseID(course.name);
+		a.addItem(id, title, false);
+		int name = a.recentID();
+		System.out.println(name);
+		String path = recieveFile(Integer.toString(name), ex);
 		}
 		catch(IOException e)
 		{
@@ -45,10 +51,10 @@ public class AssignmentHandler
 	{
 		
 	}
-	public String recieveFile (String ex)
+	public String recieveFile (String name, String ex)
 	{
 		String STORAGEPATH = "C:\\Users\\raemc\\Desktop\\lmsServer\\";
-		String NAME = "test";
+		String NAME = name;
 		String EXTENSION = ex;
 		String path = STORAGEPATH + NAME + EXTENSION;
 		System.out.println("Server is recieving file");
