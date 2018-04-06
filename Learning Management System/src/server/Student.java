@@ -21,6 +21,6 @@ public class Student extends User
 	@Override
 	public String toString()
 	{
-		return firstName + " " + lastName + " " + Email;
+		return firstName + " " + lastName + " " + Email + " " + ID;
 	}
 }

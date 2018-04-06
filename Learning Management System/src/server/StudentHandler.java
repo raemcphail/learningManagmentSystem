@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import dbManagers.CourseManager;
+import dbManagers.EnrollmentManager;
 import dbManagers.UserManager;
 
 public class StudentHandler {
@@ -28,27 +30,60 @@ public class StudentHandler {
 				UserManager userDB = new UserManager();
 				 if (userDB.getStudents(query).size() != 0)		//check if the query is a matching lastname
 				{
-					 System.out.println("2");
 					ArrayList<Student> students = userDB.getStudents(query);
 					out.writeObject(students);
 				}
 				else if (userDB.getStudents(Integer.parseInt(query)).size() != 0)	//check if the query is a matching id
 				{
-					System.out.println("1");
 					ArrayList<Student> theStudent = userDB.getStudents(Integer.parseInt(query));
 					out.writeObject(theStudent);
 				} else
 				{
-					System.out.println("3");
 					ArrayList<Student> empty = new ArrayList<Student>();
 					out.writeObject(empty); //if the query is not found
 					JOptionPane.showMessageDialog(null, "search not found", "Not Found", JOptionPane.INFORMATION_MESSAGE);
 				}
+				 
+				 if (in.readObject().equals("selected"))	//if the user selected a label
+				 {
+					 System.out.println("still in student handler!");
+					 int userID = (int)in.readObject();
+					 String courseName = (String)in.readObject();
+					 CourseManager courseDB = new CourseManager();
+					 EnrollmentManager enrollDB = new EnrollmentManager();
+					 int courseID =  courseDB.getCourseID(courseName);
+					 boolean enrolled = enrollDB.checkEnrollment(userID, courseID);
+					 if (enrolled)
+					 {
+						int choice = JOptionPane.showConfirmDialog(null, "This student is ENROLLED.\n Do you want to unenroll them?", courseName, JOptionPane.YES_NO_OPTION);
+						if (choice == JOptionPane.YES_OPTION)
+						{
+							System.out.println("WOW");
+						}
+						else
+						{
+							
+						}
+						
+					 }
+					 else	//student is NOT enrolled
+					 {
+						int choice = JOptionPane.showConfirmDialog(null, "This student is NOT ENROLLED.\n Do you want to enroll them?", courseName, JOptionPane.YES_NO_OPTION);
+						if (choice == JOptionPane.YES_OPTION)
+						{
+							enrollDB.addItem(userID, courseID);
+						}
+						else
+						{
+							
+						}
+					 }
+				 }
+				 
 			} catch (ClassNotFoundException | IOException e) {
 				e.printStackTrace();
 			} catch (NumberFormatException e)
 			{
-				System.out.println("3");
 				ArrayList<Student> empty = new ArrayList<Student>();
 				try {
 					out.writeObject(empty); //if the query is not found

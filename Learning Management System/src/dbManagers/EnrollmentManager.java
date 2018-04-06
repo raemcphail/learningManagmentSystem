@@ -1,5 +1,6 @@
 package dbManagers;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class EnrollmentManager extends Manager {
@@ -23,4 +24,22 @@ public class EnrollmentManager extends Manager {
 		e.printStackTrace();
 	}
  }
+	
+	public boolean checkEnrollment (int student, int course)
+	{
+			String sql = "SELECT * FROM " + tableName + " WHERE student_id=" + student;
+			ResultSet enrollment;
+			boolean enrolled = false;
+			try
+			{
+				statement = connection.prepareStatement(sql);
+				enrollment = statement.executeQuery();
+				if(enrollment.next())
+				{
+					enrolled = enrollment.getInt("course_id") == course;	//check if that student exists and the course matches
+				}
+			} catch (SQLException e) { e.printStackTrace(); }
+			return enrolled;
+	}
+	
 }

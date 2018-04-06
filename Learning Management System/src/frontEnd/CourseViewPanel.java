@@ -37,7 +37,7 @@ public class CourseViewPanel extends JPanel
 		
 		
 		assignmentpanel = new AssignmentPanel();
-		studentpanel = new StudentPanel(in, out);
+		studentpanel = new StudentPanel(course, in, out);
 		
 		c = new CardLayout();
 		selection.setLayout(c);
