@@ -15,6 +15,7 @@ public class AssignmentManager extends Manager
 	{
 		try 
 		{ 		
+			System.out.println(line);
 			String sql = ("UPDATE " + tableName
 					+ " SET path = '" + line + "' WHERE ID = " + assignID + ";"); 		
 			statement = connection.prepareStatement(sql);
