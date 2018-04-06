@@ -14,7 +14,12 @@ import javax.swing.JOptionPane;
 import dbManagers.AssignmentManager;
 import dbManagers.CourseManager;
 
-
+/**
+ * handler responsible for assignment/database related actions, including:
+ * adding an assignment to database,
+ * @author louis
+ *
+ */
 public class AssignmentHandler 
 {
 	ObjectInputStream in = null;
