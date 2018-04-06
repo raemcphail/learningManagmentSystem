@@ -37,14 +37,6 @@ public class CourseViewPanel extends JPanel
 		add("Center", selection);
 	}
 	
-	//TESTING
-	public static void main(String[] args)
-	{
-		JFrame frame = new JFrame();
-		frame.setSize(500,500);
-		frame.setContentPane(new CourseViewPanel());
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	}
+	
 
 }
