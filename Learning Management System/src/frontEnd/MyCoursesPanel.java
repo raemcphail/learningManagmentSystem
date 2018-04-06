@@ -54,7 +54,7 @@ public class MyCoursesPanel extends JPanel {
 					courseButtons[i].addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
-							CourseViewPanel courseView = new CourseViewPanel(temp, in, out);
+							CourseViewPanel courseView = new CourseViewPanel(theFrame, temp, in, out);
 							theFrame.content.add((courseView), "theCourse");
 							theFrame.cardLayout.show(theFrame.content, "theCourse");
 						}

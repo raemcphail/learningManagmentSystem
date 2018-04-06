@@ -23,9 +23,11 @@ public class AssignmentListener implements ActionListener
 	ObjectInputStream in = null;
 	CourseViewPanel panel;
 	Course course;
+	DashboardFrame theFrame;
 	
-	AssignmentListener(CourseViewPanel p, ObjectOutputStream out, ObjectInputStream in, Course c)
+	AssignmentListener(CourseViewPanel p, ObjectOutputStream out, ObjectInputStream in, Course c, DashboardFrame theFrame)
 	{
+		this.theFrame = theFrame;
 		panel = p;
 		this.in = in;
 		this.out = out;
@@ -34,6 +36,11 @@ public class AssignmentListener implements ActionListener
 	
 	public void actionPerformed(ActionEvent e) 
 	{
+		
+		if (e.getSource() == panel.svpanel.btnBack)
+		{
+			theFrame.cardLayout.show(theFrame.content, "courses");//check
+		}
 
 		if (e.getSource() == panel.assignmentpanel.btnAdd)
 		{

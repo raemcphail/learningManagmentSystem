@@ -29,9 +29,11 @@ public class SideViewPanel extends JPanel
 	CourseViewPanel panel;
 	ObjectOutputStream out = null;
 	ObjectInputStream in = null;
+	DashboardFrame theFrame;
 	
-	public SideViewPanel (CourseViewPanel p, ObjectOutputStream out, ObjectInputStream in, Course course)
+	public SideViewPanel (CourseViewPanel p, ObjectOutputStream out, ObjectInputStream in, Course course, DashboardFrame theFrame)
 	{
+		this.theFrame = theFrame;
 		panel = p;
 		this.course = course;
 		this.out = out;
@@ -57,7 +59,7 @@ public class SideViewPanel extends JPanel
 		
 		btnAssignments = new JButton("assignments");//	AssignmentListener(CourseViewPanel p, ObjectOutputStream out, ObjectInputStream in, Course c)
 
-		btnAssignments.addActionListener(new AssignmentListener(panel, out, in, course));
+		btnAssignments.addActionListener(new AssignmentListener(panel, out, in, course, theFrame));
 		add(btnAssignments);
 		
 		Component verticalStrut_2 = Box.createVerticalStrut(20);

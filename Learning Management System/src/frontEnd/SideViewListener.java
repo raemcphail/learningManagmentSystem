@@ -7,30 +7,29 @@ import javax.swing.JPanel;
 
 public class SideViewListener implements ActionListener 
 {
-	SideViewPanel sideView;
+	CourseViewPanel coursePanel;
 	CardLayout clayout;
 	JPanel selection;
 	
-	SideViewListener (SideViewPanel p, CardLayout l, JPanel s)
+	SideViewListener (CourseViewPanel p, CardLayout l, JPanel s)
 	{
-		sideView = p;
+		coursePanel = p;
 		clayout = l;
 		selection = s;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 
-		if (e.getSource() == sideView.btnAssignments)
+		if (e.getSource() == coursePanel.svpanel.btnAssignments)
 		{
 			System.out.println("Assignment");
 			clayout.show(selection, "assignment");
 		}
-		if (e.getSource() == sideView.btnStudent)
+		if (e.getSource() == coursePanel.svpanel.btnStudent)
 		{
 			System.out.println("Student");
 			clayout.show(selection, "student");
 		}
-	
 		
 	}
 	

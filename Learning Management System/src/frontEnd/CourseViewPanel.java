@@ -26,18 +26,20 @@ public class CourseViewPanel extends JPanel
 	Course course;
 	ObjectInputStream in = null;
 	ObjectOutputStream out = null;
-	public CourseViewPanel(Course course, ObjectInputStream in, ObjectOutputStream out) 
+	DashboardFrame theFrame;
+	public CourseViewPanel(DashboardFrame theFrame, Course course, ObjectInputStream in, ObjectOutputStream out) 
 	{
+		this.theFrame = theFrame;
 		this.in = in;
 		this.out = out;
 		this.course = course;
 		setLayout(new BorderLayout(0, 0));
-		svpanel = new SideViewPanel(this, out, in, course);
+		svpanel = new SideViewPanel(this, out, in, course, theFrame);
 		add("West", svpanel);
 		
 
 		studentpanel = new StudentPanel(course, in, out);
-		assignmentpanel = new AssignmentPanel(this, in, out, course);
+		assignmentpanel = new AssignmentPanel(this, in, out, course, theFrame);
 		
 		c = new CardLayout();
 		selection.setLayout(c);
@@ -46,8 +48,10 @@ public class CourseViewPanel extends JPanel
 		
 		c.show(selection, "student");
 		
-		svpanel.btnStudent.addActionListener(new SideViewListener(svpanel, c, selection));
-		svpanel.btnAssignments.addActionListener(new SideViewListener(svpanel, c, selection));
+		svpanel.btnStudent.addActionListener(new SideViewListener(this, c, selection));
+		svpanel.btnAssignments.addActionListener(new SideViewListener(this, c, selection));
+
+		svpanel.btnBack.addActionListener(new AssignmentListener(this, out, in, course, theFrame));
 		
 		add("Center", selection);
 	}

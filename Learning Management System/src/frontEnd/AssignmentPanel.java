@@ -39,9 +39,11 @@ public class AssignmentPanel extends JPanel
 	ObjectInputStream in = null;
 	CourseViewPanel courseView;
 	Course course;
+	DashboardFrame theFrame;
 	
-	public AssignmentPanel(CourseViewPanel courseView, ObjectInputStream i, ObjectOutputStream o, Course c) 
+	public AssignmentPanel(CourseViewPanel courseView, ObjectInputStream i, ObjectOutputStream o, Course c, DashboardFrame theFrame) 
 	{
+		this.theFrame = theFrame;
 		this.courseView = courseView;
 		in = i;
 		out = o;
@@ -55,7 +57,7 @@ public class AssignmentPanel extends JPanel
 		results.addMouseListener(new MouseClicked());
 		scrollpane = new JScrollPane(results);
 		btnAdd = new JButton("Add");
-		btnAdd.addActionListener(new AssignmentListener(courseView, out, in, course));
+		btnAdd.addActionListener(new AssignmentListener(courseView, out, in, course, theFrame));
 		
 		
 		JSplitPane split2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, scrollpane, btnAdd);
