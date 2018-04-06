@@ -30,11 +30,11 @@ public class AssignmentHandler
 		Course course = (Course)in.readObject();
 		CourseManager c = new CourseManager();
 		AssignmentManager a = new AssignmentManager();
-		int id = c.findCourseID(course.name);
-		a.addItem(id, title, false);
-		int name = a.recentID();
-		System.out.println(name);
-		String path = recieveFile(Integer.toString(name), ex);
+		int courseid = c.findCourseID(course.name);
+		a.addItem(courseid, title, false);
+		int assignmentid = a.recentID();
+		String path = recieveFile(Integer.toString(assignmentid), ex);
+		a.addPath(assignmentid, path);
 		}
 		catch(IOException e)
 		{
@@ -53,16 +53,17 @@ public class AssignmentHandler
 	}
 	public String recieveFile (String name, String ex)
 	{
-		String STORAGEPATH = "C:\\Users\\raemc\\Desktop\\lmsServer\\";
+		String STORAGEPATH = "C:" + File.separator + "Users" + File.separator + "raemc" + File.separator + "Desktop" + File.separator + "lmsServer" + File.separator;
 		String NAME = name;
 		String EXTENSION = ex;
 		String path = STORAGEPATH + NAME + EXTENSION;
+		System.out.println(path);
 		System.out.println("Server is recieving file");
 		try
 		{
 			System.out.println("recieving file");
 			byte[] content = (byte[]) in.readObject();
-			File newFile = new File(STORAGEPATH + NAME + EXTENSION );
+			File newFile = new File(path);
 			if(! newFile.exists())
 			{
 				newFile.createNewFile();

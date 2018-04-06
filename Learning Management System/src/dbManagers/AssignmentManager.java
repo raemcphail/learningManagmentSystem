@@ -10,7 +10,23 @@ public class AssignmentManager extends Manager
 	{
 		super();
 	}
-
+	
+	public void addPath(int assignID, String line)
+	{
+		try 
+		{ 		
+			String sql = ("UPDATE " + tableName
+					+ " SET path = '" + line + "' WHERE ID = " + assignID + ";"); 		
+			statement = connection.prepareStatement(sql);
+			statement.executeUpdate();
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public void addItem (int course, String title, boolean active)
 	{
 		String sql = "INSERT IGNORE INTO " + tableName + "(course_id, title, active)" +
