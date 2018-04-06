@@ -17,4 +17,10 @@ public class Student extends User
 		super(id, password, email, first, last, type);
 		//aSocket = socket;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return firstName + " " + lastName + " " + Email + " " + ID;
+	}
 }

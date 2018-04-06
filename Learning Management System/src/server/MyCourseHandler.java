@@ -28,7 +28,7 @@ public class MyCourseHandler {
 	ObjectOutputStream out = null;
 	ObjectInputStream in = null;
 	
-		public MyCourseHandler(ObjectOutputStream out, ObjectInputStream in, User user) throws IOException
+		public MyCourseHandler(ObjectOutputStream out, ObjectInputStream in, User user)
 		{
 			this.out = out;
 			this.in = in;

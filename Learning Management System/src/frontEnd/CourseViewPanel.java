@@ -24,21 +24,20 @@ public class CourseViewPanel extends JPanel
 	CardLayout c;
 	JPanel selection = new JPanel();
 	Course course;
-	ObjectOutputStream out = null;
 	ObjectInputStream in = null;
-	
-	public CourseViewPanel(Course course, ObjectInputStream i, ObjectOutputStream o) 
+	ObjectOutputStream out = null;
+	public CourseViewPanel(Course course, ObjectInputStream in, ObjectOutputStream out) 
 	{
-		out = o;
-		in = i;
-		
+		this.in = in;
+		this.out = out;
 		this.course = course;
 		setLayout(new BorderLayout(0, 0));
 		svpanel = new SideViewPanel(course);
 		add("West", svpanel);
 		
+
+		studentpanel = new StudentPanel(course, in, out);
 		assignmentpanel = new AssignmentPanel(in, out, course);
-		studentpanel = new StudentPanel();
 		
 		c = new CardLayout();
 		selection.setLayout(c);
