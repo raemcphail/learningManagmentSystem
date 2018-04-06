@@ -1,5 +1,8 @@
 package frontEnd;
 import javax.swing.*;
+
+import server.Course;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -7,7 +10,12 @@ import java.awt.Component;
 import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.Font;
-
+/**
+ * Panel which is on the CourseView Panel and displays options for the user,
+ * such as assignments, dropbox, and Student.
+ * @author raemc
+ *
+ */
 public class SideViewPanel extends JPanel
 {
 	JButton btnStudent;
@@ -15,8 +23,10 @@ public class SideViewPanel extends JPanel
 	JButton btnDropbox;
 	JButton btnAssignments;
 	JButton btnBack;
-	public SideViewPanel ()
+	Course course;
+	public SideViewPanel (Course course)
 	{
+		this.course = course;
 		setBackground(new Color(0, 153, 153));
 		setForeground(Color.CYAN);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -27,7 +37,7 @@ public class SideViewPanel extends JPanel
 		Component verticalStrut = Box.createVerticalStrut(15);
 		add(verticalStrut);
 		
-		JLabel courseName = new JLabel("<course name>");
+		JLabel courseName = new JLabel(course.name);
 		courseName.setFont(new Font("Arial Black", Font.BOLD, 20));
 		courseName.setForeground(new Color(255, 255, 255));
 		add(courseName);
