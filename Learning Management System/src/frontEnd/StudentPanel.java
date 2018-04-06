@@ -88,13 +88,11 @@ public class StudentPanel extends JPanel
 				return;
 			}
 			try {
-				System.out.println("pressed a valid spot");
-			out.writeObject("selected");	//signal the StudentHandler to keep doing work
+			out.writeObject("selected");	//signal the StudentEnrollmentHandler
 			String User = (String)(results.getSelectedValue());
 			String UserID = User.substring(User.length() - 8, User.length());
-			
-				out.writeObject(Integer.parseInt(UserID));	//send the user and coursename
-				out.writeObject(course.toString());
+			out.writeObject(Integer.parseInt(UserID));	//send the user and coursename
+			out.writeObject(course.toString());
 				
 				
 			} catch (IOException e1) {

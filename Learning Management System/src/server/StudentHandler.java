@@ -44,42 +44,6 @@ public class StudentHandler {
 					JOptionPane.showMessageDialog(null, "search not found", "Not Found", JOptionPane.INFORMATION_MESSAGE);
 				}
 				 
-				 if (in.readObject().equals("selected"))	//if the user selected a label
-				 {
-					 System.out.println("still in student handler!");
-					 int userID = (int)in.readObject();
-					 String courseName = (String)in.readObject();
-					 CourseManager courseDB = new CourseManager();
-					 EnrollmentManager enrollDB = new EnrollmentManager();
-					 int courseID =  courseDB.getCourseID(courseName);
-					 boolean enrolled = enrollDB.checkEnrollment(userID, courseID);
-					 if (enrolled)
-					 {
-						int choice = JOptionPane.showConfirmDialog(null, "This student is ENROLLED.\n Do you want to unenroll them?", courseName, JOptionPane.YES_NO_OPTION);
-						if (choice == JOptionPane.YES_OPTION)
-						{
-							System.out.println("WOW");
-						}
-						else
-						{
-							
-						}
-						
-					 }
-					 else	//student is NOT enrolled
-					 {
-						int choice = JOptionPane.showConfirmDialog(null, "This student is NOT ENROLLED.\n Do you want to enroll them?", courseName, JOptionPane.YES_NO_OPTION);
-						if (choice == JOptionPane.YES_OPTION)
-						{
-							enrollDB.addItem(userID, courseID);
-						}
-						else
-						{
-							
-						}
-					 }
-				 }
-				 
 			} catch (ClassNotFoundException | IOException e) {
 				e.printStackTrace();
 			} catch (NumberFormatException e)
