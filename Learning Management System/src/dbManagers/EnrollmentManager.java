@@ -2,6 +2,9 @@ package dbManagers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import server.Course;
 
 public class EnrollmentManager extends Manager {
 	private final String tableName = "studentenrollmenttable";
@@ -43,6 +46,7 @@ public class EnrollmentManager extends Manager {
 			} catch (SQLException e) { e.printStackTrace(); }
 			return enrolled;
 	}
+	
 	public void removeItem(int ID)
 	{
 		try
@@ -57,6 +61,33 @@ public class EnrollmentManager extends Manager {
 		}
 	}
 	
+	public ArrayList<Integer> getCourseID(int User_ID)
+	{
+		String sql = "SELECT * FROM " + tableName + " WHERE student_id=" + "'" + User_ID + "'";
+		ResultSet enrollment;
+		ArrayList<Integer> courseID = new ArrayList<Integer>();
+		try {
+			statement = connection.prepareStatement(sql);
+			enrollment = statement.executeQuery();
+			while(enrollment.next())
+			{
+				courseID.add(enrollment.getInt("course_id"));
+			}
+		} catch (SQLException e) {  }
+		catch (NullPointerException e)
+		{
+			return null;
+		}
+		
+		return courseID;
+	}
+	
+	/**
+	 * 
+	 * @param User_ID
+	 * @param course_ID
+	 * @return the enrollment id
+	 */
 	public int getEnrollID(int User_ID, int course_ID)
 	{
 		String sql = "SELECT * FROM " + tableName + " WHERE student_id like" + "'" + User_ID + "%'";
