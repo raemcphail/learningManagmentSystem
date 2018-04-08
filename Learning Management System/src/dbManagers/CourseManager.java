@@ -184,11 +184,13 @@ public class CourseManager extends Manager
 			try {
 				statement = connection.prepareStatement(sql);
 				course = statement.executeQuery();
+				if (course.next())
+				{	
 					courses.add(new Course(	//String name, boolean active, int prof_id
-							course.getString("name"), 
-							course.getBoolean("active"), 
-							course.getInt("prof_id")));
-				
+					course.getString("name"), 
+					course.getBoolean("active"), 
+					course.getInt("prof_id")));
+				}
 			} catch (SQLException e) { 
 				System.err.println("courseID may not be in courseTable");
 			}
