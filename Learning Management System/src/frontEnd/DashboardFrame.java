@@ -89,7 +89,7 @@ public class DashboardFrame extends JFrame {
 		title = new TitlePanel(user.getFirstname(), user.getLastname());
 		
 		content = new ContentPanel();
-		middleBar = new CoursePanel();
+		middleBar = new CoursePanel(user.getType());
 		content.setLayout(cardLayout);
 		
 		myCourses = new MyCoursesPanel(this, out, in);
@@ -97,6 +97,14 @@ public class DashboardFrame extends JFrame {
 		{
 			createCourses = new CreateCoursePanel();
 			content.add(createCourses, "createCourses");
+			createCourses.setVisible(false);
+			createCourses.setEnabled(false);
+			createCourses.setLayout(new BoxLayout(createCourses, BoxLayout.Y_AXIS));
+			addListenersProf();
+		}
+		else
+		{
+			addListenersStudent();
 		}
 		content.add(myCourses, "courses");
 		cardLayout.show(content, "courses");
@@ -104,12 +112,10 @@ public class DashboardFrame extends JFrame {
 		lowerPanel.add(content);
 		//lowerPanel.add(createCourses);
 
-		createCourses.setVisible(false);
-		createCourses.setEnabled(false);
-		createCourses.setLayout(new BoxLayout(createCourses, BoxLayout.Y_AXIS));
+		
 		addDividers();
-		addListeners();
-		//pack();
+		//addListeners();
+		pack();
 	}
 	
 	public void addDividers()
@@ -122,13 +128,19 @@ public class DashboardFrame extends JFrame {
 
 	}
 	
-	public void addListeners()
+	public void addListenersProf()
 	{
 		MiddleBarListener listenerI = new MiddleBarListener(this, out, in);
 		middleBar.btnMyCourses.addActionListener(listenerI);
 		middleBar.btnNewButton.addActionListener(listenerI);
 		CreateCourseListener listenerII = new CreateCourseListener(this, user, out, in);
 		createCourses.btnCreate.addActionListener(listenerII);
+	}
+	
+	public void addListenersStudent()
+	{
+		MiddleBarListener listenerI = new MiddleBarListener(this, out, in);
+		middleBar.btnMyCourses.addActionListener(listenerI);
 	}
 	
 }
