@@ -10,6 +10,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import dbManagers.CourseManager;
+import dbManagers.EnrollmentManager;
 
 /**
  * handler continuously checks for new courses and fetches them from database to display on GUI,
@@ -40,7 +41,20 @@ public class MyCourseHandler {
 			try {
 				System.out.println("myCoursesHandler running");
 				CourseManager courseDB = new CourseManager();
-				ArrayList<Course> courses = courseDB.getUserCourses(user.getID());
+				ArrayList<Course> courses;
+				//gets the courses for mycourses
+				//prof has all the courses they created
+				//student has all course they are enrolled in
+				if(user.getType() == 'P')
+				{	
+					courses = courseDB.getUserCourses(user.getID());
+				}
+				else
+				{
+					EnrollmentManager enrollmentDB = new EnrollmentManager();
+					ArrayList<Integer> courseid = enrollmentDB.getCourseID(user.getID());
+					
+				}
 				out.writeObject(courses); //send the courses
 			
 			} catch (Exception e)

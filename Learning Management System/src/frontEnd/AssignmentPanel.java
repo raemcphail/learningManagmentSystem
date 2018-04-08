@@ -40,11 +40,14 @@ public class AssignmentPanel extends JPanel
 	CourseViewPanel courseView;
 	Course course;
 	DashboardFrame theFrame;
+	char type;
 	
 	public AssignmentPanel(CourseViewPanel courseView, ObjectInputStream i, ObjectOutputStream o, Course c, DashboardFrame theFrame) 
 	{
 		this.theFrame = theFrame;
 		this.courseView = courseView;
+		type = theFrame.user.getType();
+		System.out.println(type);
 		in = i;
 		out = o;
 		course = c;
