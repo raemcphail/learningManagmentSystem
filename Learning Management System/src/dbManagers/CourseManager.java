@@ -3,6 +3,7 @@ package dbManagers;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import server.Course;
 
@@ -162,6 +163,42 @@ public class CourseManager extends Manager
 		}
 		return courses;
 	}
-	
+	/**
+	 * returns courses with the coresponding list of course_IDs
+	 * @param Course_ID
+	 * @return
+	 */
+	public ArrayList<Course> getUserCourses(ArrayList<Integer> Course_ID)
+	{
+		ArrayList<Course> courses = new ArrayList<Course>();
+		Iterator it = Course_ID.iterator();
+		if (Course_ID.size() == 0)
+		{
+			return courses;
+		}
+		while (it.hasNext())
+		{
+			String sql = "SELECT * FROM " + tableName + " WHERE id=" + "'" + it.next() + "'";
+			ResultSet course;
+
+			try {
+				statement = connection.prepareStatement(sql);
+				course = statement.executeQuery();
+					courses.add(new Course(	//String name, boolean active, int prof_id
+							course.getString("name"), 
+							course.getBoolean("active"), 
+							course.getInt("prof_id")));
+				
+			} catch (SQLException e) { 
+				System.err.println("courseID may not be in courseTable");
+			}
+			catch (NullPointerException e)
+			{
+				return null;
+			}
+		}
+		
+		return courses;
+	}	
 }
  

@@ -106,7 +106,7 @@ public class DashboardFrame extends JFrame {
 		createCourses.setLayout(new BoxLayout(createCourses, BoxLayout.Y_AXIS));
 		addDividers();
 		addListeners();
-		//pack();
+		pack();
 	}
 	
 	public void addDividers()
