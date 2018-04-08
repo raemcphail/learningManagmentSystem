@@ -79,6 +79,10 @@ public class Server implements Runnable{
 					{
 						getCourseHandler.runHandler();
 					}
+					else if (opCode.equals("updateCourse"))
+					{
+						getCourseHandler.toggleActive();
+					}
 					else if (opCode.equals("student"))
 					{
 						studentHandler.runHandler();
