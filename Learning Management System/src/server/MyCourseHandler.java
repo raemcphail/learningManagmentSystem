@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import dbManagers.CourseManager;
 import dbManagers.EnrollmentManager;
@@ -53,7 +54,7 @@ public class MyCourseHandler {
 				{
 					EnrollmentManager enrollmentDB = new EnrollmentManager();
 					ArrayList<Integer> courseid = enrollmentDB.getCourseID(user.getID());
-					
+					courses = courseDB.getUserCourses(courseid);
 				}
 				out.writeObject(courses); //send the courses
 			

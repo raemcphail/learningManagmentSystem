@@ -31,7 +31,7 @@ public class MyCoursesPanel extends JPanel {
 		courses = new ArrayList<Course>();
 		emptyCourseMessage = new JLabel("You have no courses at the moment!");
 		emptyCourseMessage.setHorizontalAlignment(SwingConstants.CENTER);
-		showCourses();
+		showCourses();//do the if/else for student vs. prof
 		
 	}
 	
