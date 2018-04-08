@@ -53,7 +53,7 @@ public class MyCourseHandler {
 				{
 					EnrollmentManager enrollmentDB = new EnrollmentManager();
 					ArrayList<Integer> courseid = enrollmentDB.getCourseID(user.getID());
-					
+					courses = courseDB.getUserCourses(courseid);
 				}
 				out.writeObject(courses); //send the courses
 			
