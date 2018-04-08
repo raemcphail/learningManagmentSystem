@@ -49,5 +49,24 @@ public class MyCourseHandler {
 				System.err.println("error in MyCoursesrunHandler");
 			}
 		}
+		/**
+		 * modifies the by changing the course to be active or not
+		 * @throws IOException 
+		 * @throws ClassNotFoundException 
+		 */
+		public void toggleActive() throws ClassNotFoundException, IOException
+		{
+			Course course = (Course)in.readObject();
+			CourseManager courseDB = new CourseManager();
+			int courseID = courseDB.findCourseID(course.name);
+			if (course.getActive())	//if the course is not active
+			{
+				courseDB.changeActive(1, courseID);
+			}
+			else
+			{
+				courseDB.changeActive(0, courseID);
+			}
+		}
 	
 }

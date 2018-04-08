@@ -30,6 +30,22 @@ public class CourseManager extends Manager
 	}
  }
 	
+	public void changeActive(int value, int CourseID)
+	{
+		try 
+		{ 		
+			String sql = "UPDATE " + tableName
+					+ " SET ACTIVE = " + value + " WHERE id=" + CourseID; 		
+			statement = connection.prepareStatement(sql);
+			statement.executeUpdate();
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	
+	}
+	
 	public int findCourseProf(int id)
 	{
 		String sql = "SELECT prof_id FROM " + tableName + " WHERE ID=" + id;

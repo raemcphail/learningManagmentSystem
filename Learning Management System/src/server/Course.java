@@ -41,4 +41,19 @@ public class Course implements Serializable
 	{
 		return this.name;
 	}
+	public void toggleActive()
+	{
+		if (active)
+		{
+			active = false;
+		}
+		else
+		{
+			active = true;
+		}
+	}
+	public boolean getActive()
+	{
+		return active;
+	}
 }

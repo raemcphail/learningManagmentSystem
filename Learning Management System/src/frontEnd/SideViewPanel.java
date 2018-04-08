@@ -5,6 +5,7 @@ import server.Course;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
@@ -20,6 +21,7 @@ import java.awt.Font;
  */
 public class SideViewPanel extends JPanel
 {
+	JButton activation;
 	JButton btnStudent;
 	JButton btnGrades;
 	JButton btnDropbox;
@@ -52,6 +54,37 @@ public class SideViewPanel extends JPanel
 		courseName.setFont(new Font("Arial Black", Font.BOLD, 20));
 		courseName.setForeground(new Color(255, 255, 255));
 		add(courseName);
+		
+		if (course.getActive())	//if the course is active
+		{
+			activation = new JButton("Deactivate");
+		}
+		else
+		{
+			activation = new JButton("Activate");			
+		}
+		add(activation);
+		activation.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							course.toggleActive();   //flip bit to true or to false;
+							if (activation.getText().equals("Deactivate"))
+							{
+								activation.setText("Activate");
+							}
+							else
+							{
+								activation.setText("Deactivate");
+							}
+							try {
+								out.writeObject("updateCourse");
+								out.writeObject(course);
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+					});
 		
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
 		verticalStrut_1.setBackground(new Color(51, 153, 153));

@@ -29,12 +29,14 @@ ObjectOutputStream out = null;
 				{
 					courseDB.addItem(Prof_ID, name, true);//add the course to db	
 					Course course = new Course(name, true, Prof_ID);
+					System.out.println("active: " + course.getActive());
 					out.writeObject(course);
 				}
 				else
 				{
 					courseDB.addItem(Prof_ID, name, false);				
-					Course course = new Course(name, true, Prof_ID);
+					Course course = new Course(name, false, Prof_ID);
+					System.out.println("active: " + course.getActive());
 					out.writeObject(course);
 				}
 				System.out.println("Course added");
