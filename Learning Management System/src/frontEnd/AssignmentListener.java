@@ -102,7 +102,8 @@ public class AssignmentListener implements ActionListener
 				System.out.println(name);
 				if(!ex.equals(".txt") && !ex.equals(".pdf"))
 				{
-					//DO something
+					System.out.println("Unacceptable file");
+					return;
 				}
 				try 
 				{

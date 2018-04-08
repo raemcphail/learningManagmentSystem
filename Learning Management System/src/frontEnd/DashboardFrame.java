@@ -93,9 +93,12 @@ public class DashboardFrame extends JFrame {
 		content.setLayout(cardLayout);
 		
 		myCourses = new MyCoursesPanel(this, out, in);
-		createCourses = new CreateCoursePanel();
+		if(user.getType() == 'P')
+		{
+			createCourses = new CreateCoursePanel();
+			content.add(createCourses, "createCourses");
+		}
 		content.add(myCourses, "courses");
-		content.add(createCourses, "createCourses");
 		cardLayout.show(content, "courses");
 
 		lowerPanel.add(content);
