@@ -1,7 +1,10 @@
 package server;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -76,6 +79,35 @@ public class AssignmentHandler
 		}
 	}
 	
+	public void downloadAssign()
+	{
+		//need to course name and assignment title to find assignment id
+		//when assignment id is found the path to the file can be found
+		//then that file can be sent over the socket
+		try
+		{
+			String title = (String)in.readObject();
+			Course course = (Course)in.readObject();
+			AssignmentManager assignDB = new AssignmentManager();
+			CourseManager cm = new CourseManager();
+			int courseID = cm.findCourseID(course.name);
+			int AssignID = assignDB.GETAssignID(title, courseID);
+			String path = new String();
+			System.out.println(AssignID);
+			path = assignDB.getPath(AssignID);
+			
+			//send the file
+			sendFile(path);
+		
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void updateActiveList()
 	{
 		try {
@@ -141,6 +173,28 @@ public class AssignmentHandler
 			e.printStackTrace();
 		}
 	}
+	
+	public void sendFile(String path)
+	{
+		File selectedFile = new File(path);
+		long length = selectedFile.length();
+		byte[] content = new byte[(int) length];
+		try
+		{
+			FileInputStream fis = new FileInputStream(selectedFile);
+			BufferedInputStream bos = new BufferedInputStream(fis);
+			bos.read(content, 0, (int)length);
+			out.writeObject(content);
+			out.flush();
+		}catch(FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	public String recieveFile (String name, String ex)
 	{
 		String STORAGEPATH = "C:\\" + File.separator + "Users\\" + File.separator + "raemc\\" + File.separator + "Desktop\\" + File.separator + "lmsServer\\" + File.separator;

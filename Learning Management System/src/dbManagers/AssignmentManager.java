@@ -31,6 +31,23 @@ public class AssignmentManager extends Manager
 		}
 		
 	}
+	
+	public String getPath(int id)
+	{
+		String sql = "SELECT path FROM " + tableName + " WHERE ID=" + id;
+		ResultSet assignments;
+		String s = new String();
+		try
+		{
+			statement = connection.prepareStatement(sql);
+			assignments = statement.executeQuery();
+			if(assignments.next())
+			{
+				s = assignments.getString("path");
+			}
+		} catch (SQLException e) { e.printStackTrace(); }
+		return s;
+	}
 
 	public void changeActive(int value, int AssignID)
 	{

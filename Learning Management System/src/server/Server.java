@@ -93,7 +93,6 @@ public class Server implements Runnable{
 					}
 					else if(opCode.equals("assignment"))
 					{
-						System.out.println("assignment opcode");
 						assignmentHandler.addHandler();
 					}
 					else if (opCode.equals("getAssignment"))
@@ -107,6 +106,10 @@ public class Server implements Runnable{
 					else if (opCode.equals("updateAssign"))
 					{
 						assignmentHandler.updateActive();
+					}
+					else if (opCode.equals("downloadAssign"))
+					{
+						assignmentHandler.downloadAssign();
 					}
 					//more to come
 				}

@@ -18,6 +18,9 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -79,11 +82,24 @@ public class AssignmentPanel extends JPanel
 					return;
 				}
 				try {
-				out.writeObject("updateAssign");	//signal the AssignmentHandler.updateActive
-				String Title = (String)(results.getSelectedValue());
-				out.writeObject(Title);	//send the title
-				out.writeObject(course);//send the course
-//				out.writeObject(course.toString());
+					if(theFrame.user.getType() == 'P')
+					{	
+						out.writeObject("updateAssign");	//signal the AssignmentHandler.updateActive
+						String Title = (String)(results.getSelectedValue());
+						out.writeObject(Title);	//send the title
+						out.writeObject(course);//send the course
+//						out.writeObject(course.toString());
+					}
+					else
+					{
+						out.writeObject("downloadAssign");
+						String Title = (String)(results.getSelectedValue());
+						out.writeObject(Title);
+						out.writeObject(course);
+						recieveFile();
+						
+					
+					}
 					
 					
 				} catch (IOException e1) {
@@ -92,6 +108,28 @@ public class AssignmentPanel extends JPanel
 				}
 			}
 
+			public void recieveFile()
+			{
+				try
+				{
+					byte[] content = (byte[]) in.readObject();
+					File newFile = new File("C:\\Users\\raemc\\Desktop\\Student\\assignment.txt");
+					if(! newFile.exists())
+					{
+						newFile.createNewFile();
+					}
+					FileOutputStream writer = new FileOutputStream(newFile);
+					BufferedOutputStream bos = new BufferedOutputStream(writer);
+					bos.write(content);
+					bos.close();
+				}catch(IOException e)
+				{
+					e.printStackTrace();
+				}catch(ClassNotFoundException e)
+				{
+					e.printStackTrace();
+				}
+			}
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				// TODO Auto-generated method stub
