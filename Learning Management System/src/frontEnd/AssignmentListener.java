@@ -69,7 +69,14 @@ public class AssignmentListener implements ActionListener
 		{
 			try {
 				panel.assignmentpanel.list.clear();
-				out.writeObject("getAssignment"); 	//send opcode
+				if(theFrame.user.getType() == 'P')
+				{	
+					out.writeObject("getAssignment"); 	//send opcode for prof visable assignments
+				}
+				else 
+				{
+					out.writeObject("getActiveAssignment"); 	//send opcode for student visable assignments
+				}
 				out.writeObject(course.toString());	//send coursename
 				ArrayList<Assignments> assignments = (ArrayList<Assignments>)in.readObject();
 				if (assignments.size() != 0)

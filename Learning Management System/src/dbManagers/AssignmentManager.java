@@ -156,5 +156,31 @@ public class AssignmentManager extends Manager
 		}
 		return assignments;
 	}
+	
+	public ArrayList<Assignments> getActiveAssignments(int Course_ID)
+	{
+		String sql = "SELECT * FROM " + tableName + " WHERE course_id like" + "'" + Course_ID + "%'";
+		ResultSet assignmentData;
+		ArrayList<Assignments> assignments = new ArrayList<Assignments>();
+		try {
+			statement = connection.prepareStatement(sql);
+			assignmentData = statement.executeQuery();
+			while(assignmentData.next())
+			{
+				if(assignmentData.getBoolean("active"))
+				{	
+				assignments.add(new Assignments(
+						null, 
+						assignmentData.getString("path"),
+						assignmentData.getString("title")));
+				}
+			}
+		} catch (SQLException e) {  }
+		catch (NullPointerException e)
+		{
+			return null;
+		}
+		return assignments;
+	}
 }
 

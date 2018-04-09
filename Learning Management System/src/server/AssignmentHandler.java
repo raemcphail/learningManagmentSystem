@@ -76,6 +76,25 @@ public class AssignmentHandler
 		}
 	}
 	
+	public void updateActiveList()
+	{
+		try {
+			System.out.println("in updateActiveList");
+			String courseName = (String)in.readObject();
+			CourseManager courseDB = new CourseManager();
+			int CourseID = courseDB.findCourseID(courseName);
+			AssignmentManager assignDB = new AssignmentManager();
+			ArrayList<Assignments> assignments = assignDB.getActiveAssignments(CourseID);
+			//send the arraylist
+			out.writeObject(assignments);
+			
+			
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void updateActive()
 	{
 		try {

@@ -100,6 +100,10 @@ public class Server implements Runnable{
 					{
 						assignmentHandler.updateList();
 					}
+					else if (opCode.equals("getActiveAssignment"))
+					{
+						assignmentHandler.updateActiveList();
+					}
 					else if (opCode.equals("updateAssign"))
 					{
 						assignmentHandler.updateActive();
