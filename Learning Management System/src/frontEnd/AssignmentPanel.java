@@ -7,6 +7,7 @@ import javax.swing.JTextField;
 import server.Course;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 
 import java.awt.Component;
@@ -21,6 +22,7 @@ import java.awt.event.MouseListener;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -113,15 +115,28 @@ public class AssignmentPanel extends JPanel
 				try
 				{
 					byte[] content = (byte[]) in.readObject();
-					File newFile = new File("C:\\Users\\raemc\\Desktop\\Student\\assignment.txt");
-					if(! newFile.exists())
+
+					JFileChooser fileBrowser = new JFileChooser();
+					fileBrowser.setCurrentDirectory(new File("C:\\"));
+					int retrival = fileBrowser.showSaveDialog(null);
+					if(retrival == JFileChooser.APPROVE_OPTION)
 					{
-						newFile.createNewFile();
+						try
+						{
+							FileOutputStream writer = new FileOutputStream(fileBrowser.getSelectedFile());
+							BufferedOutputStream bos = new BufferedOutputStream(writer);
+							bos.write(content);
+							bos.close();
+						}catch(IOException e)
+						{
+							e.printStackTrace();
+						}
 					}
-					FileOutputStream writer = new FileOutputStream(newFile);
-					BufferedOutputStream bos = new BufferedOutputStream(writer);
-					bos.write(content);
-					bos.close();
+					
+//					FileOutputStream writer = new FileOutputStream(newFile);
+//					BufferedOutputStream bos = new BufferedOutputStream(writer);
+//					bos.write(content);
+//					bos.close();
 				}catch(IOException e)
 				{
 					e.printStackTrace();

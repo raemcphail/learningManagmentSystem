@@ -93,7 +93,6 @@ public class AssignmentHandler
 			int courseID = cm.findCourseID(course.name);
 			int AssignID = assignDB.GETAssignID(title, courseID);
 			String path = new String();
-			System.out.println(AssignID);
 			path = assignDB.getPath(AssignID);
 			
 			//send the file
