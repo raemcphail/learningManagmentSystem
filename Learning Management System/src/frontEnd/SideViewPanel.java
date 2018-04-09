@@ -63,7 +63,10 @@ public class SideViewPanel extends JPanel
 		{
 			activation = new JButton("Activate");			
 		}
-		add(activation);
+		if (theFrame.user.getType() == 'P')
+		{
+			add(activation);
+		}
 		activation.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {

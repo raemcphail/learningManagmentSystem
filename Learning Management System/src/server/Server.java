@@ -47,6 +47,8 @@ public class Server implements Runnable{
 			while(true)
 			{				
 				aSocket = serverSocket.accept();	//once a client connects
+				out = new ObjectOutputStream(aSocket.getOutputStream());
+				in = new ObjectInputStream(aSocket.getInputStream()); 
 				pool.execute(this);
 				
 			}
@@ -55,8 +57,6 @@ public class Server implements Runnable{
 	@Override
 	public void run(){
 		try {
-				out = new ObjectOutputStream(aSocket.getOutputStream());
-				in = new ObjectInputStream(aSocket.getInputStream()); 
 				loginhandler = new LoginHandler(out, in);
 				User user = new User();
 				user = loginhandler.runHandler(user);	//run to start
