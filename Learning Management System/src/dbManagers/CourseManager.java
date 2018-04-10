@@ -24,12 +24,12 @@ public class CourseManager extends Manager
 	try{
 		statement = connection.prepareStatement(sql);
 		statement.executeUpdate();
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
-	catch(SQLException e)
-	{
-		e.printStackTrace();
-	}
- }
 	
 	public void changeActive(int value, int CourseID)
 	{
