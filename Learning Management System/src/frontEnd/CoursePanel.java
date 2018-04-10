@@ -26,7 +26,7 @@ public class CoursePanel extends JPanel {
 	ObjectInputStream in;
 	ObjectOutputStream out;
 	
-	public CoursePanel(User u, ObjectInputStream in, ObjectOutputStream out) {
+	public CoursePanel(User u, ObjectInputStream in, ObjectOutputStream out, DashboardFrame Frame) {
 		user = u;
 		this.in = in;
 		this.out = out;
@@ -49,11 +49,21 @@ public class CoursePanel extends JPanel {
 		
 		emailButton = new JButton(mail);
 		add(emailButton);
+		emailButton.setActionCommand("default");
 		emailButton.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
-					EmailFrame emailFrame = new EmailFrame(user, in, out);
+					if (e.getActionCommand().equals("default"))
+					{
+						EmailFrame emailFrame = new EmailFrame(user, in, out, Frame);
+						emailFrame.receiver.setText("");
+					}
+					else if (e.getActionCommand().equals("courseSelected"))
+					{
+						EmailFrame emailFrame = new EmailFrame(user, in, out, Frame);
+						emailFrame.receiver.setText("moshipotter@gmail.com");
+					}
 				}
 			
 				});

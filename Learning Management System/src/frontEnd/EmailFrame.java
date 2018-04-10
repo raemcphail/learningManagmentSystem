@@ -45,14 +45,15 @@ public class EmailFrame extends JFrame {
 		 */
 		ObjectInputStream in;
 		ObjectOutputStream out;
-
+		DashboardFrame Frame;
 		/**
 		 * Contructor to build up the frame, and adding the Panels with their corresponding components.
 		 * These Components include textFields, Labels, and Buttons.
 		 * @param cli-the frame needs to know which client called it.
 		 */
-		public EmailFrame (User u, ObjectInputStream in, ObjectOutputStream out)
+		public EmailFrame (User u, ObjectInputStream in, ObjectOutputStream out, DashboardFrame Frame)
 		{
+			this.Frame = Frame;
 			user = u;
 			this.in = in;
 			this.out = out;
@@ -75,6 +76,7 @@ public class EmailFrame extends JFrame {
 			sender = new JTextField(35);
 			sender.setText(user.getEmail());
 			receiver = new JTextField(37);
+			
 			
 			data.add(new Label("Sender's Email Address"));
 			data.add(sender);

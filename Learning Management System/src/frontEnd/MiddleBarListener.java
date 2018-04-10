@@ -42,6 +42,7 @@ public class MiddleBarListener implements ActionListener {
 		{
 			try
 			{
+				theFrame.middleBar.emailButton.setActionCommand("default");
 				theFrame.cardLayout.show(theFrame.content, "courses");
 				out.writeObject("checkCourses");	//signal to MyCourseHandler
 				ArrayList<Course> courses = (ArrayList<Course>)in.readObject();

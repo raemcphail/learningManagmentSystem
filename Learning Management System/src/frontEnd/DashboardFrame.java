@@ -89,7 +89,7 @@ public class DashboardFrame extends JFrame {
 		title = new TitlePanel(user.getFirstname(), user.getLastname());
 		
 		content = new ContentPanel();
-		middleBar = new CoursePanel(user, in, out);
+		middleBar = new CoursePanel(user, in, out, this);
 		content.setLayout(cardLayout);
 		
 		myCourses = new MyCoursesPanel(this, out, in);
