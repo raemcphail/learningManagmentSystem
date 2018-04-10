@@ -4,6 +4,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import server.Course;
+import server.Submissions;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -28,6 +29,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 import javax.swing.JSplitPane;
@@ -73,6 +76,33 @@ public class SubmissionPanel extends JPanel
 		JSplitPane split1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, title, split2);
 		this.add(split1);
 		
+		try 
+		{
+			list.clear();
+			out.writeObject("getSubs");	//signal the AssignmentHandler.updateActive
+			//need to find assignmentid
+			out.writeObject(assignName);	//send the name of the assignment
+			out.writeObject(course);//send the course
+			ArrayList<Submissions> submissions = (ArrayList<Submissions>)in.readObject();	
+			if(submissions.size()!=0)
+			{
+				System.out.println("submissions is NOT empty!");
+
+			Iterator it = submissions.iterator();
+			while(it.hasNext())
+			{
+				list.addElement(it.next());
+			}
+			}
+			else
+			{
+				System.out.println("submissions is empty!");
+			}
+		}
+		catch (IOException | ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 		
 		class MouseClicked implements MouseListener
@@ -85,18 +115,33 @@ public class SubmissionPanel extends JPanel
 				if (results.isSelectionEmpty()) {
 					return;
 				}
-				try 
-				{
-					out.writeObject("getSubs");	//signal the AssignmentHandler.updateActive
-					//need to find assignmentid
-					out.writeObject(assignName);	//send the name of the assignment
-					out.writeObject(course);//send the course
-						
-				}
-				catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+//				try 
+//				{
+//					list.clear();
+//					out.writeObject("getSubs");	//signal the AssignmentHandler.updateActive
+//					//need to find assignmentid
+//					out.writeObject(assignName);	//send the name of the assignment
+//					out.writeObject(course);//send the course
+//					ArrayList<Submissions> submissions = (ArrayList<Submissions>)in.readObject();	
+//					if(submissions.size()!=0)
+//					{
+//						System.out.println("submissions is NOT empty!");
+//
+//					Iterator it = submissions.iterator();
+//					while(it.hasNext())
+//					{
+//						list.addElement(it.next());
+//					}
+//					}
+//					else
+//					{
+//						System.out.println("submissions is empty!");
+//					}
+//				}
+//				catch (IOException | ClassNotFoundException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
 			}
 			
 

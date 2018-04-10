@@ -2,6 +2,10 @@ package dbManagers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import server.Assignments;
+import server.Submissions;
 
 public class SubmissionManager  extends Manager
 {
@@ -12,9 +16,28 @@ public class SubmissionManager  extends Manager
 		super();
 	}
 	
-	public void getSubmissions(int assignID)
+	public ArrayList<Submissions> getSubmissions(int assignID)
 	{
-		
+		String sql = "SELECT * FROM " + tableName + " WHERE assign_id like" + "'" + assignID + "%'";
+		ResultSet submissionData;
+		ArrayList<Submissions> submissions = new ArrayList<Submissions>();
+		try
+		{
+			statement = connection.prepareStatement(sql);
+			submissionData = statement.executeQuery();
+			while(submissionData.next())
+			{
+				submissions.add(new Submissions(
+								submissionData.getString("path"),
+								submissionData.getInt("student_id"),
+								submissionData.getString("title")));
+			}
+		} catch (SQLException e) {  }
+		catch (NullPointerException e)
+		{
+			return null;
+		}
+		return submissions;
 	}
 	
 	public void addItem (int assignment, String title, int student)
