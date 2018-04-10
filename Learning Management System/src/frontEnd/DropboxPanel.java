@@ -86,21 +86,25 @@ public class DropboxPanel extends JPanel
 				try {
 					if(theFrame.user.getType() == 'P')
 					{	
-						out.writeObject("getSubs");	//signal the AssignmentHandler.updateActive
-						String Title = (String)(results.getSelectedValue());
-						//comment need to change panel to Jlist with all the submissions
-						out.writeObject(Title);	//send the title
-						out.writeObject(course);//send the course
+						//System.out.println("clicked on a dropbox prof");
+						courseView.c.show(courseView.selection, "submission");
+						
+//						out.writeObject("getSubs");	//signal the AssignmentHandler.updateActive
+//						String Title = (String)(results.getSelectedValue());
+//						//comment need to change panel to Jlist with all the submissions
+//						out.writeObject(Title);	//send the title
+//						out.writeObject(course);//send the course
 						
 					}
 					else
 					{
+						System.out.println("clicked on a dropbox student");
 						out.writeObject("uploadSub");
 						String Title = (String)(results.getSelectedValue());
 						out.writeObject(Title);
 						out.writeObject(course);
 						out.writeObject(theFrame.user.getID());
-						sendFile();
+						//sendFile();
 						
 					
 					}

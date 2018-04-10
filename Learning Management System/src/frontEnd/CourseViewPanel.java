@@ -64,7 +64,6 @@ public class CourseViewPanel extends JPanel
 		}
 		svpanel.btnAssignments.addActionListener(new SideViewListener(this, c, selection));
 		svpanel.btnDropbox.addActionListener(new SideViewListener(this, c, selection));
-
 		svpanel.btnBack.addActionListener(new AssignmentListener(this, out, in, course, theFrame));
 		
 		add("Center", selection);
