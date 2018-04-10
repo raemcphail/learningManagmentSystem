@@ -19,8 +19,11 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -80,7 +83,7 @@ public class DropboxPanel extends JPanel
 				if (results.isSelectionEmpty()) {
 					return;
 				}
-			//	try {
+				try {
 					if(theFrame.user.getType() == 'P')
 					{	
 //						out.writeObject("updateAssign");	//signal the AssignmentHandler.updateActive
@@ -91,22 +94,71 @@ public class DropboxPanel extends JPanel
 					}
 					else
 					{
-//						out.writeObject("downloadAssign");
-//						String Title = (String)(results.getSelectedValue());
-//						out.writeObject(Title);
-//						out.writeObject(course);
-//						recieveFile();
+						out.writeObject("uploadSub");
+						String Title = (String)(results.getSelectedValue());
+						out.writeObject(Title);
+						out.writeObject(course);
+						out.writeObject(theFrame.user.getID());
+						sendFile();
 						
 					
 					}
 					
 					
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 
+			public void sendFile()
+			{
+				System.out.println("Sending file");
+				JFileChooser fileBrowser = new JFileChooser();
+				File selectedFile = null; 
+					if(fileBrowser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+					{
+						selectedFile = fileBrowser.getSelectedFile();
+						String filename = selectedFile.getName();
+						String ex = filename.substring(filename.length() -4, filename.length());//gets the extention from file name
+						String name = filename.substring(0, filename.length()-4);//gets the extention from file name
+						System.out.println(name);
+						if(!ex.equals(".txt") && !ex.equals(".pdf"))
+						{
+							System.out.println("Unacceptable file");
+							return;
+						}
+						try 
+						{
+						out.writeObject(ex);
+						out.writeObject(name);
+						}
+						catch(IOException e)
+						{
+							e.getStackTrace();
+						}
+						long length = selectedFile.length();
+						byte[] content = new byte [(int)length];
+						try 
+						{
+							FileInputStream fis = new FileInputStream (selectedFile);
+							BufferedInputStream bos = new BufferedInputStream (fis);
+							bos.read(content, 0, (int)length);
+							
+							out.writeObject(content);
+							out.flush();
+							System.out.println("File sent");
+						}catch(FileNotFoundException e)
+						{
+							e.printStackTrace();
+						}
+						catch(IOException e)
+						{
+							e.printStackTrace();
+						}
+					}	
+			}
+			
 			public void recieveFile()
 			{
 				try

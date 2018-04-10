@@ -25,15 +25,19 @@ public class SubmissionHandler
 	{
 		try
 		{
-			String ex = (String)in.readObject();
-			String title = (String)in.readObject();
+			String assignName = (String)in.readObject();
+			//System.out.println(title);
 			Course course = (Course)in.readObject();
+			//System.out.println(course.name);
 			int studentID = (Integer)in.readObject();
+			//System.out.println(studentID);
 			AssignmentManager a = new AssignmentManager();
 			CourseManager c = new CourseManager();
 			int courseID = c.findCourseID(course.name);
-			int assignID = a.GETAssignID(title, courseID);
+			int assignID = a.GETAssignID(assignName, courseID);
 			SubmissionManager s = new SubmissionManager();
+			String ex = (String)in.readObject();
+			String title = (String)in.readObject();
 			s.addItem(assignID, title, studentID);
 			int subID = s.recentID();
 			String path = recieveFile(Integer.toString(subID), ex);
@@ -50,7 +54,7 @@ public class SubmissionHandler
 	
 	public String recieveFile (String name, String ex)
 	{
-		String STORAGEPATH = "C:\\" + File.separator + "Users\\" + File.separator + "raemc\\" + File.separator + "Desktop\\" + File.separator + "lmsServer\\" + File.separator;
+		String STORAGEPATH = "C:\\" + File.separator + "Users\\" + File.separator + "raemc\\" + File.separator + "Desktop\\" + File.separator + "lmsSubmissions\\" + File.separator;
 		String NAME = name;
 		String EXTENSION = ex;
 		String path = STORAGEPATH + NAME + EXTENSION;

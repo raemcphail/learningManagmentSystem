@@ -68,6 +68,7 @@ public class Server implements Runnable{
 				studentHandler = new StudentHandler(out, in);
 				enrollHandler = new StudentEnrollmentHandler(out, in);
 				assignmentHandler = new AssignmentHandler(in, out);
+				submissionHandler = new SubmissionHandler(in, out);
 
 				while (true)
 				{
