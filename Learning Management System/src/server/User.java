@@ -1,6 +1,7 @@
 package server;
 
 import java.net.Socket;
+import java.util.ArrayList;
 import java.io.Serializable;
 
 /**
@@ -41,7 +42,7 @@ public class User implements Serializable {
 	/**
 	 * the courses which the user has
 	 */
-	Course [] courses;
+	ArrayList<Course> courses;
 	
 	public User()
 	{
@@ -57,7 +58,7 @@ public class User implements Serializable {
 		this.firstName = firstname;
 		this.lastName = lastName;
 		this.Type = Type;
-		courses = new Course [10];
+		courses = new ArrayList<Course>();
 	}
 	
 	/**
@@ -87,6 +88,10 @@ public class User implements Serializable {
 	{
 		this.Type = Type;
 	}
+	public void setCourses(ArrayList<Course> courses)
+	{
+		this.courses = courses;
+	}
 	/**
 	 * getters
 	 */
@@ -113,6 +118,10 @@ public class User implements Serializable {
 	public String getPassword()
 	{
 		return Password;
+	}
+	public ArrayList<Course> getCourses()
+	{
+		return courses;
 	}
 	
 }

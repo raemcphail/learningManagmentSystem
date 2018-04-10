@@ -3,11 +3,13 @@ package server;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
 import dbManagers.CourseManager;
 import dbManagers.EnrollmentManager;
+import dbManagers.UserManager;
 
 public class StudentEnrollmentHandler {
 	ObjectOutputStream out = null;
@@ -21,7 +23,6 @@ public class StudentEnrollmentHandler {
 		
 		public void runHandler()
 		{
-					 System.out.println("still in student handler!");
 					 int userID;
 			try {
 					userID = (int)in.readObject();
@@ -30,7 +31,6 @@ public class StudentEnrollmentHandler {
 					 CourseManager courseDB = new CourseManager();
 					 EnrollmentManager enrollDB = new EnrollmentManager();
 					 int courseID =  courseDB.findCourseID(courseName);
-					 System.out.println("handler sees: " + userID + " and " + courseID);
 					 boolean enrolled = enrollDB.checkEnrollment(userID, courseID);
 					 if (enrolled)
 					 {
@@ -62,6 +62,36 @@ public class StudentEnrollmentHandler {
 		catch (ClassNotFoundException | IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
+			}
+		}
+		
+		public void getEnrolledStudents()
+		{
+			 try {
+				String courseName = (String)in.readObject();
+				System.out.println(courseName);
+				ArrayList<Student> students = new ArrayList<Student>();
+				CourseManager courseDB = new CourseManager();
+				EnrollmentManager enrollDB = new EnrollmentManager();
+				UserManager userDB = new UserManager();
+				int courseID =  courseDB.findCourseID(courseName);
+				boolean enrolled = enrollDB.checkEnrollment(30000000, courseID);
+				if (enrolled)
+				{
+					students = userDB.getStudents(30000000);
+				}
+				enrolled = enrollDB.checkEnrollment(30000001, courseID);
+				if (enrolled)
+				{
+					ArrayList<Student> student = userDB.getStudents(30000001);
+					students.add(student.get(0));
+				}
+				System.out.println(students.get(0));
+				out.writeObject(students);
+				
+			} catch (ClassNotFoundException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 }
