@@ -3,6 +3,8 @@ package frontEnd;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import javax.security.auth.Subject;
 import javax.swing.*;
@@ -38,7 +40,75 @@ public class EmailFrame extends JFrame {
 		 * User that is sending the email
 		 */
 		User user;
+		/**
+		 * 
+		 */
+		ObjectInputStream in;
+		ObjectOutputStream out;
+		DashboardFrame Frame;
+		/**
+		 * Contructor to build up the frame, and adding the Panels with their corresponding components.
+		 * These Components include textFields, Labels, and Buttons.
+		 * @param cli-the frame needs to know which client called it.
+		 */
+		public EmailFrame (User u, ObjectInputStream in, ObjectOutputStream out, DashboardFrame Frame)
+		{
+			this.Frame = Frame;
+			user = u;
+			this.in = in;
+			this.out = out;
+			Submit = new JButton("Submit");
+			MyActionListener listener = new MyActionListener(user, this);
+			Submit.addActionListener(listener);
+			
+			
+			
+			setTitle("Email");
+			setSize(500, 300);
+			getContentPane().setLayout(new BorderLayout());
+			title = new JPanel();
+			Label label_1 = new Label("Send Email");
+			label_1.setBackground(Color.LIGHT_GRAY);
+			title.add(label_1);
+			
+			data = new JPanel();
+			
+			sender = new JTextField(35);
+			sender.setText(user.getEmail());
+			receiver = new JTextField(37);
+			
+			
+			data.add(new Label("Sender's Email Address"));
+			data.add(sender);
+			data.add(new Label("Receiver's Email Address"));
+			data.add(receiver);
+			data.add(new Label("Subject"));
+			
+			subject = new JTextField();
+			data.add(subject);
+			subject.setColumns(15);
+			
+			textBody = new JTextArea();
+			textBody.setEditable(true);
+			textBody.setRows(5);
+			textBody.setWrapStyleWord(true);
+			textBody.setColumns(50);
+			data.add(textBody);
 
+			button = new JPanel();
+			
+			button.add(Submit);
+			
+			c = getContentPane();
+			c.add("North", title);
+			c.add("Center", data);
+			c.add("South", button);
+			setSize(600,350);
+			setResizable(false);
+			setVisible(true);
+		}
+		
+		
 			/**
 			 * Inner Listener class that will wait for the button Submit to be pressed, then handle that event
 			 * Implements ActionListener.
@@ -86,8 +156,20 @@ public class EmailFrame extends JFrame {
 							JOptionPane.showMessageDialog(null, "The Body is empty", "send error", JOptionPane.ERROR_MESSAGE);
 							return;
 						}
-						else
+						else	//if the checks pass, send information to EmailHandler to send email
 						{
+							try {
+								out.writeObject("sendEmail");	//opcode to server
+								
+								out.writeObject(Sender);
+								out.writeObject(Receiver);
+								out.writeObject(Subject);
+								out.writeObject(Body);
+								
+								
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
 							frame.dispose();
 						}
 					}
@@ -107,61 +189,4 @@ public class EmailFrame extends JFrame {
 					}	
 				}
 
-		/**
-		 * Contructor to build up the frame, and adding the Panels with their corresponding components.
-		 * These Components include textFields, Labels, and Buttons.
-		 * @param cli-the frame needs to know which client called it.
-		 */
-		public EmailFrame (User u)
-		{
-			user = u;
-			
-			Submit = new JButton("Submit");
-			MyActionListener listener = new MyActionListener(user, this);
-			Submit.addActionListener(listener);
-			
-			
-			
-			setTitle("Email");
-			setSize(500, 300);
-			getContentPane().setLayout(new BorderLayout());
-			title = new JPanel();
-			Label label_1 = new Label("Send Email");
-			label_1.setBackground(Color.LIGHT_GRAY);
-			title.add(label_1);
-			
-			data = new JPanel();
-			
-			sender = new JTextField(35);
-			receiver = new JTextField(37);
-			
-			data.add(new Label("Sender's Email Address"));
-			data.add(sender);
-			data.add(new Label("Receiver's Email Address"));
-			data.add(receiver);
-			data.add(new Label("Subject"));
-			
-			subject = new JTextField();
-			data.add(subject);
-			subject.setColumns(15);
-			
-			textBody = new JTextArea();
-			textBody.setEditable(true);
-			textBody.setRows(5);
-			textBody.setWrapStyleWord(true);
-			textBody.setColumns(50);
-			data.add(textBody);
-
-			button = new JPanel();
-			
-			button.add(Submit);
-			
-			c = getContentPane();
-			c.add("North", title);
-			c.add("Center", data);
-			c.add("South", button);
-			setSize(600,350);
-			setResizable(false);
-			setVisible(true);
-		}
 }

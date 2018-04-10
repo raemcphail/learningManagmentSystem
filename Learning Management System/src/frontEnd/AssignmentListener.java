@@ -40,6 +40,7 @@ public class AssignmentListener implements ActionListener
 		if (e.getSource() == panel.svpanel.btnBack)
 		{
 			theFrame.cardLayout.show(theFrame.content, "courses");//check
+			theFrame.middleBar.emailButton.setActionCommand("default");
 		}
 
 		if (e.getSource() == panel.assignmentpanel.btnAdd)

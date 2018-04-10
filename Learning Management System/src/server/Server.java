@@ -26,6 +26,7 @@ public class Server implements Runnable{
 	public StudentHandler studentHandler;
 	public StudentEnrollmentHandler enrollHandler;
 	public AssignmentHandler assignmentHandler;
+	public EmailHandler emailHandler;
 	public SubmissionHandler submissionHandler;
 	
 	public Server (int portnumber)
@@ -68,6 +69,7 @@ public class Server implements Runnable{
 				studentHandler = new StudentHandler(out, in);
 				enrollHandler = new StudentEnrollmentHandler(out, in);
 				assignmentHandler = new AssignmentHandler(in, out);
+				emailHandler = new EmailHandler(user, in, out);
 				submissionHandler = new SubmissionHandler(in, out);
 
 				while (true)
@@ -113,6 +115,10 @@ public class Server implements Runnable{
 					{
 						assignmentHandler.downloadAssign();
 					}
+					else if (opCode.equals("sendEmail"))
+					{
+						emailHandler.runHandler();
+					}
 					else if (opCode.equals("uploadSub"))
 					{
 						submissionHandler.uploadSub();
@@ -121,7 +127,6 @@ public class Server implements Runnable{
 					{
 						submissionHandler.getSubs();
 					}
-					//more to come
 				}
 				
 				

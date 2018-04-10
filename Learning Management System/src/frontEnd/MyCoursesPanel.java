@@ -68,6 +68,7 @@ public class MyCoursesPanel extends JPanel {
 							if (e.getActionCommand().equals("active"))	//if the course is active, or the user is a prof
 							{
 								CourseViewPanel courseView = new CourseViewPanel(theFrame, temp, in, out);
+								theFrame.middleBar.emailButton.setActionCommand("courseSelected");   //set the emailbutton to include the prof
 								theFrame.content.add((courseView), "theCourse");
 								theFrame.cardLayout.show(theFrame.content, "theCourse");
 							}

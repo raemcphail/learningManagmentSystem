@@ -11,6 +11,8 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,9 +23,13 @@ public class CoursePanel extends JPanel {
 	protected JButton emailButton;
 	User user;
 	char type;
+	ObjectInputStream in;
+	ObjectOutputStream out;
 	
-	public CoursePanel(User u) {
+	public CoursePanel(User u, ObjectInputStream in, ObjectOutputStream out, DashboardFrame Frame) {
 		user = u;
+		this.in = in;
+		this.out = out;
 		type = user.getType();
 		
 		btnMyCourses = new JButton("My Courses");
@@ -43,11 +49,21 @@ public class CoursePanel extends JPanel {
 		
 		emailButton = new JButton(mail);
 		add(emailButton);
+		emailButton.setActionCommand("default");
 		emailButton.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
-					EmailFrame emailFrame = new EmailFrame(user);
+					if (e.getActionCommand().equals("default"))
+					{
+						EmailFrame emailFrame = new EmailFrame(user, in, out, Frame);
+						emailFrame.receiver.setText("");
+					}
+					else if (e.getActionCommand().equals("courseSelected"))
+					{
+						EmailFrame emailFrame = new EmailFrame(user, in, out, Frame);
+						emailFrame.receiver.setText("moshipotter@gmail.com");
+					}
 				}
 			
 				});

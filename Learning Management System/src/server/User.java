@@ -110,5 +110,9 @@ public class User implements Serializable {
 	{
 		return ID;
 	}
+	public String getPassword()
+	{
+		return Password;
+	}
 	
 }
