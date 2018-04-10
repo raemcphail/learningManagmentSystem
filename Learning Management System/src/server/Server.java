@@ -26,6 +26,7 @@ public class Server implements Runnable{
 	public StudentHandler studentHandler;
 	public StudentEnrollmentHandler enrollHandler;
 	public AssignmentHandler assignmentHandler;
+	public SubmissionHandler submissionHandler;
 	
 	public Server (int portnumber)
 	{
@@ -110,6 +111,10 @@ public class Server implements Runnable{
 					else if (opCode.equals("downloadAssign"))
 					{
 						assignmentHandler.downloadAssign();
+					}
+					else if (opCode.equals("uploadSub"))
+					{
+						submissionHandler.uploadSub();
 					}
 					//more to come
 				}
