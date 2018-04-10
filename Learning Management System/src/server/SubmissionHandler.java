@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 import dbManagers.AssignmentManager;
 import dbManagers.CourseManager;
@@ -63,7 +64,8 @@ public class SubmissionHandler
 			int courseID = c.findCourseID(course.name);
 			int assignID = a.GETAssignID(assignName, courseID);
 			SubmissionManager s = new SubmissionManager();
-			//s.getSubmissions(assignID);
+			ArrayList <Submissions> submissions = s.getSubmissions(assignID);
+			out.writeObject(submissions);
 		}
 		catch(IOException e)
 		{

@@ -90,15 +90,7 @@ public class DropboxPanel extends JPanel
 						String name = (String)(results.getSelectedValue());
 						SubmissionPanel submissionpanel = new SubmissionPanel(courseView, in, out, course, theFrame, name);
 						courseView.selection.add(submissionpanel, "submission");
-						courseView.c.show(courseView.selection, "submission");
-						
-						
-//						out.writeObject("getSubs");	//signal the AssignmentHandler.updateActive
-//						String Title = (String)(results.getSelectedValue());
-//						//comment need to change panel to Jlist with all the submissions
-//						out.writeObject(Title);	//send the title
-//						out.writeObject(course);//send the course
-						
+						courseView.c.show(courseView.selection, "submission");	
 					}
 					else
 					{
@@ -108,7 +100,7 @@ public class DropboxPanel extends JPanel
 						out.writeObject(Title);
 						out.writeObject(course);
 						out.writeObject(theFrame.user.getID());
-						//sendFile();
+						sendFile();
 						
 					
 					}
