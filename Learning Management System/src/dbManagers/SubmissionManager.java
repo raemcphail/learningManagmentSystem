@@ -12,6 +12,11 @@ public class SubmissionManager  extends Manager
 		super();
 	}
 	
+	public void getSubmissions(int assignID)
+	{
+		
+	}
+	
 	public void addItem (int assignment, String title, int student)
 	{
 		String sql = "INSERT IGNORE INTO " + tableName + "(assign_id, student_id, title)" +

@@ -54,7 +54,25 @@ public class SubmissionHandler
 	
 	public void getSubs()
 	{
-		
+		try
+		{
+			String assignName = (String)in.readObject();
+			Course course = (Course)in.readObject();
+			AssignmentManager a = new AssignmentManager();
+			CourseManager c = new CourseManager();
+			int courseID = c.findCourseID(course.name);
+			int assignID = a.GETAssignID(assignName, courseID);
+			SubmissionManager s = new SubmissionManager();
+			//s.getSubmissions(assignID);
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+		catch(ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public String recieveFile (String name, String ex)

@@ -21,7 +21,6 @@ public class CourseViewPanel extends JPanel
 	AssignmentPanel assignmentpanel;
 	StudentPanel studentpanel;
 	DropboxPanel dropboxpanel;
-	SubmissionPanel submissionpanel;
 	SideViewPanel svpanel;
 	CardLayout c;
 	JPanel selection = new JPanel();
@@ -43,7 +42,7 @@ public class CourseViewPanel extends JPanel
 		studentpanel = new StudentPanel(course, in, out);
 		assignmentpanel = new AssignmentPanel(this, in, out, course, theFrame);
 		dropboxpanel = new DropboxPanel(this, in, out, course, theFrame);
-		submissionpanel = new SubmissionPanel(this, in, out, course, theFrame);
+		
 		
 		
 		c = new CardLayout();
@@ -51,7 +50,7 @@ public class CourseViewPanel extends JPanel
 		selection.add(assignmentpanel,"assignment");
 		selection.add(studentpanel,"student");
 		selection.add(dropboxpanel, "dropbox");
-		selection.add(submissionpanel, "submission");
+		
 		
 		c.show(selection, "student");
 		if (theFrame.user.getType() == 'P')

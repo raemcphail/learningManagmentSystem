@@ -87,7 +87,11 @@ public class DropboxPanel extends JPanel
 					if(theFrame.user.getType() == 'P')
 					{	
 						//System.out.println("clicked on a dropbox prof");
+						String name = (String)(results.getSelectedValue());
+						SubmissionPanel submissionpanel = new SubmissionPanel(courseView, in, out, course, theFrame, name);
+						courseView.selection.add(submissionpanel, "submission");
 						courseView.c.show(courseView.selection, "submission");
+						
 						
 //						out.writeObject("getSubs");	//signal the AssignmentHandler.updateActive
 //						String Title = (String)(results.getSelectedValue());
