@@ -117,6 +117,10 @@ public class Server implements Runnable{
 					{
 						submissionHandler.uploadSub();
 					}
+					else if (opCode.equals("getSubs"))
+					{
+						submissionHandler.getSubs();
+					}
 					//more to come
 				}
 				

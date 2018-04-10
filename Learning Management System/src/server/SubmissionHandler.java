@@ -52,6 +52,11 @@ public class SubmissionHandler
 		}
 	}
 	
+	public void getSubs()
+	{
+		
+	}
+	
 	public String recieveFile (String name, String ex)
 	{
 		String STORAGEPATH = "C:\\" + File.separator + "Users\\" + File.separator + "raemc\\" + File.separator + "Desktop\\" + File.separator + "lmsSubmissions\\" + File.separator;
