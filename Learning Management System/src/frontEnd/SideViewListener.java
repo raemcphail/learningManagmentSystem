@@ -30,6 +30,11 @@ public class SideViewListener implements ActionListener
 			System.out.println("Student");
 			clayout.show(selection, "student");
 		}
+		if (e.getSource() == coursePanel.svpanel.btnDropbox)
+		{
+			System.out.println("Dropbox");
+			clayout.show(selection, "dropbox");
+		}
 		
 	}
 	

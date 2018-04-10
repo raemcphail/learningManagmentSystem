@@ -1,5 +1,4 @@
 package frontEnd;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -36,7 +35,7 @@ import javax.swing.JList;
 import javax.swing.JSeparator;
 import java.awt.Font;
 
-public class DropboxPanel extends JPanel
+public class SubmissionPanel extends JPanel
 {
 	JList results;
 	JScrollPane scrollpane;
@@ -50,8 +49,9 @@ public class DropboxPanel extends JPanel
 	DashboardFrame theFrame;
 	char type;
 	
-	public DropboxPanel(CourseViewPanel courseView, ObjectInputStream i, ObjectOutputStream o, Course c, DashboardFrame theFrame) 
+	public SubmissionPanel(CourseViewPanel courseView, ObjectInputStream i, ObjectOutputStream o, Course c, DashboardFrame theFrame) 
 	{
+		String assignName = new String();
 		this.theFrame = theFrame;
 		this.courseView = courseView;
 		type = theFrame.user.getType();
@@ -60,7 +60,7 @@ public class DropboxPanel extends JPanel
 		out = o;
 		course = c;
 		//setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		title = new JLabel ("Dropbox");
+		title = new JLabel ("Submissions for " + assignName);
 		title.setFont(new Font("Tahoma", Font.BOLD, 19));
 		add(title);
 		list = new DefaultListModel();
@@ -83,33 +83,34 @@ public class DropboxPanel extends JPanel
 				if (results.isSelectionEmpty()) {
 					return;
 				}
-				try {
+				//try {
 					if(theFrame.user.getType() == 'P')
 					{	
-						out.writeObject("getSubs");	//signal the AssignmentHandler.updateActive
-						String Title = (String)(results.getSelectedValue());
-						//comment need to change panel to Jlist with all the submissions
-						out.writeObject(Title);	//send the title
-						out.writeObject(course);//send the course
+//						out.writeObject("getSubs");	//signal the AssignmentHandler.updateActive
+//						String Title = (String)(results.getSelectedValue());
+//						//comment need to change panel to Jlist with all the submissions
+//						out.writeObject(Title);	//send the title
+//						out.writeObject(course);//send the course
 						
 					}
 					else
 					{
-						out.writeObject("uploadSub");
-						String Title = (String)(results.getSelectedValue());
-						out.writeObject(Title);
-						out.writeObject(course);
-						out.writeObject(theFrame.user.getID());
-						sendFile();
+//						out.writeObject("uploadSub");
+//						String Title = (String)(results.getSelectedValue());
+//						out.writeObject(Title);
+//						out.writeObject(course);
+//						out.writeObject(theFrame.user.getID());
+//						sendFile();
 						
 					
 					}
 					
 					
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				//} 
+//				catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
 			}
 
 			public void sendFile()
@@ -223,4 +224,3 @@ public class DropboxPanel extends JPanel
 		
 	
 }
-

@@ -136,7 +136,6 @@ public class AssignmentManager extends Manager
 	
 	public int recentID()
 	{
-		
 		String sql = "SELECT MAX(id) AS largest FROM " + tableName;
 			ResultSet assignment;
 			int s = -1;

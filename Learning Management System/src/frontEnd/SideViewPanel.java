@@ -102,6 +102,7 @@ public class SideViewPanel extends JPanel
 		add(verticalStrut_2);
 		
 		btnDropbox = new JButton("dropbox");
+		btnDropbox.addActionListener(new DropboxListener(panel, out, in, course, theFrame));
 		add(btnDropbox);
 		
 		Component verticalStrut_3 = Box.createVerticalStrut(20);
