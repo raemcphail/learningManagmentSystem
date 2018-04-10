@@ -46,12 +46,12 @@ public class SubmissionPanel extends JPanel
 	ObjectInputStream in = null;
 	CourseViewPanel courseView;
 	Course course;
+	String assignName;
 	DashboardFrame theFrame;
 	char type;
 	
 	public SubmissionPanel(CourseViewPanel courseView, ObjectInputStream i, ObjectOutputStream o, Course c, DashboardFrame theFrame) 
 	{
-		String assignName = new String();
 		this.theFrame = theFrame;
 		this.courseView = courseView;
 		type = theFrame.user.getType();
@@ -72,6 +72,11 @@ public class SubmissionPanel extends JPanel
 		JSplitPane split1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, title, split2);
 		this.add(split1);
 		
+	}
+	
+	public void setAssignName (String name)
+	{
+		assignName = name;
 	}
 		class MouseClicked implements MouseListener
 		{
