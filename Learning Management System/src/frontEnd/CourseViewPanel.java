@@ -54,8 +54,14 @@ public class CourseViewPanel extends JPanel
 		selection.add(submissionpanel, "submission");
 		
 		c.show(selection, "student");
-		
-		svpanel.btnStudent.addActionListener(new SideViewListener(this, c, selection));
+		if (theFrame.user.getType() == 'P')
+		{
+			svpanel.btnStudent.addActionListener(new SideViewListener(this, c, selection));			
+		}
+		else
+		{
+			
+		}
 		svpanel.btnAssignments.addActionListener(new SideViewListener(this, c, selection));
 		svpanel.btnDropbox.addActionListener(new SideViewListener(this, c, selection));
 

@@ -107,15 +107,21 @@ public class SideViewPanel extends JPanel
 		
 		Component verticalStrut_3 = Box.createVerticalStrut(20);
 		add(verticalStrut_3);
+		if (theFrame.user.getType() == 'S')	//if the user is a student, display the grades button
+		{
+			btnGrades = new JButton("grades");
+			add(btnGrades);
+		}
+		else	//the user is a prof
+		{
+			btnStudent = new JButton("student");
+			add(btnStudent);
+		}
 		
-		btnGrades = new JButton("grades");
-		add(btnGrades);
 		
-		Component verticalStrut_4 = Box.createVerticalStrut(20);
-		add(verticalStrut_4);
+		//Component verticalStrut_4 = Box.createVerticalStrut(20);
+		//add(verticalStrut_4);
 		
-		btnStudent = new JButton("student");
-		add(btnStudent);
 		
 	
 	}
