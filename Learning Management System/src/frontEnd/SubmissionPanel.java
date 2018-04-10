@@ -91,7 +91,7 @@ public class SubmissionPanel extends JPanel
 			Iterator it = submissions.iterator();
 			while(it.hasNext())
 			{
-				list.addElement(it.next());
+				list.addElement(it.next().toString());
 			}
 			}
 			else

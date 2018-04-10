@@ -2,6 +2,7 @@ package dbManagers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import server.Assignments;
@@ -30,7 +31,8 @@ public class SubmissionManager  extends Manager
 				submissions.add(new Submissions(
 								submissionData.getString("path"),
 								submissionData.getInt("student_id"),
-								submissionData.getString("title")));
+								submissionData.getString("title"),
+								submissionData.getString("timestamp")));
 			}
 		} catch (SQLException e) {  }
 		catch (NullPointerException e)
@@ -42,10 +44,17 @@ public class SubmissionManager  extends Manager
 	
 	public void addItem (int assignment, String title, int student)
 	{
-		String sql = "INSERT IGNORE INTO " + tableName + "(assign_id, student_id, title)" +
+		LocalDateTime obj = LocalDateTime.now();
+		obj =  LocalDateTime.of(obj.getYear(), obj.getMonth(), obj.getDayOfMonth(), obj.getHour(), obj.getMinute(), obj.getSecond());
+		String s = obj.toString();
+		//s = s.replace("-", "");
+		//s = s.replace(":", "");
+		System.out.println(s);
+		String sql = "INSERT IGNORE INTO " + tableName + "(assign_id, student_id, title, timestamp)" +
 				 " VALUES ('" + assignment + "', '" + 
 			 		student + "', '" +  
-			 		title + "');";
+			 		title + "', '"+
+			 		s + "');";
 	try{
 		statement = connection.prepareStatement(sql);
 		statement.executeUpdate();

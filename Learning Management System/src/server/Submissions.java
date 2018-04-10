@@ -1,6 +1,7 @@
 package server;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * This class represents all the data for a submission, each submission can be graded by
@@ -23,12 +24,14 @@ public class Submissions implements Serializable
 	
 	int student_id;
 	String title;
-	public Submissions (String p, int student, String t)
+	String timestamp;
+	public Submissions (String p, int student, String title, String time)
 	{
 		grade = -1;
 		path = p;
 		student_id = student;
-		title = t;
+		this.title = title;
+		timestamp = time;
 		
 	}
 	
@@ -39,5 +42,12 @@ public class Submissions implements Serializable
 		title = t;
 		grade = g;
 		
+	}
+	
+	@Override
+	public String toString()
+	{
+		String s = Integer.toString(student_id) + " " + timestamp;
+		return s;
 	}
 }
