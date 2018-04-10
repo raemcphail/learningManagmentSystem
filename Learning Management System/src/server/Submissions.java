@@ -21,9 +21,23 @@ public class Submissions implements Serializable
 	 */
 	String path;
 	
-	public Submissions (String p)
+	int student_id;
+	String title;
+	public Submissions (String p, int student, String t)
 	{
 		grade = -1;
 		path = p;
+		student_id = student;
+		title = t;
+		
+	}
+	
+	public Submissions (String p, int student, String t, int g)
+	{
+		path = p;
+		student_id = student;
+		title = t;
+		grade = g;
+		
 	}
 }

@@ -50,7 +50,7 @@ public class SubmissionPanel extends JPanel
 	String assignName;
 	char type;
 	
-	public SubmissionPanel(CourseViewPanel courseView, ObjectInputStream i, ObjectOutputStream o, Course c, DashboardFrame theFrame) 
+	public SubmissionPanel(CourseViewPanel courseView, ObjectInputStream i, ObjectOutputStream o, Course c, DashboardFrame theFrame, String AssignName) 
 	{
 		this.theFrame = theFrame;
 		this.courseView = courseView;
@@ -58,9 +58,10 @@ public class SubmissionPanel extends JPanel
 		System.out.println(type);
 		in = i;
 		out = o;
+		assignName = AssignName;
 		course = c;
 		//setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		title = new JLabel ("Submissions");
+		title = new JLabel ("Submissions for " + AssignName);
 		title.setFont(new Font("Tahoma", Font.BOLD, 19));
 		add(title);
 		list = new DefaultListModel();
@@ -84,32 +85,18 @@ public class SubmissionPanel extends JPanel
 				if (results.isSelectionEmpty()) {
 					return;
 				}
-				//try {
-					if(theFrame.user.getType() == 'P')
-					{	
-//						out.writeObject("getSubs");	//signal the AssignmentHandler.updateActive
-//						String Title = (String)(results.getSelectedValue());
-//						//comment need to change panel to Jlist with all the submissions
-//						out.writeObject(Title);	//send the title
-//						out.writeObject(course);//send the course
+				try 
+				{
+					out.writeObject("getSubs");	//signal the AssignmentHandler.updateActive
+					//need to find assignmentid
+					out.writeObject(assignName);	//send the name of the assignment
+					out.writeObject(course);//send the course
 						
-					}
-					else
-					{
-//						out.writeObject("uploadSub");
-//						String Title = (String)(results.getSelectedValue());
-//						out.writeObject(Title);
-//						out.writeObject(course);
-//						out.writeObject(theFrame.user.getID());
-//						sendFile();
-					}
-					
-					
-				//} 
-//				catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
+				}
+				catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			
 
