@@ -59,7 +59,7 @@ public class CourseViewPanel extends JPanel
 		}
 		else
 		{
-			
+			svpanel.btnGrades.addActionListener(new SideViewListener(this, c, selection));
 		}
 		svpanel.btnAssignments.addActionListener(new SideViewListener(this, c, selection));
 		svpanel.btnDropbox.addActionListener(new SideViewListener(this, c, selection));
