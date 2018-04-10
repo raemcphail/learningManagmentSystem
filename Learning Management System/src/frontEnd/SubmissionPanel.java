@@ -47,11 +47,11 @@ public class SubmissionPanel extends JPanel
 	CourseViewPanel courseView;
 	Course course;
 	DashboardFrame theFrame;
+	String assignName;
 	char type;
 	
 	public SubmissionPanel(CourseViewPanel courseView, ObjectInputStream i, ObjectOutputStream o, Course c, DashboardFrame theFrame) 
 	{
-		String assignName = new String();
 		this.theFrame = theFrame;
 		this.courseView = courseView;
 		type = theFrame.user.getType();
@@ -60,7 +60,7 @@ public class SubmissionPanel extends JPanel
 		out = o;
 		course = c;
 		//setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		title = new JLabel ("Submissions for " + assignName);
+		title = new JLabel ("Submissions");
 		title.setFont(new Font("Tahoma", Font.BOLD, 19));
 		add(title);
 		list = new DefaultListModel();
@@ -73,6 +73,7 @@ public class SubmissionPanel extends JPanel
 		this.add(split1);
 		
 	}
+		
 		class MouseClicked implements MouseListener
 		{
 			/**
@@ -101,8 +102,6 @@ public class SubmissionPanel extends JPanel
 //						out.writeObject(course);
 //						out.writeObject(theFrame.user.getID());
 //						sendFile();
-						
-					
 					}
 					
 					
@@ -111,6 +110,12 @@ public class SubmissionPanel extends JPanel
 //					// TODO Auto-generated catch block
 //					e1.printStackTrace();
 //				}
+			}
+			
+
+			public void setAssignName(String name)
+			{
+				assignName = name;
 			}
 
 			public void sendFile()
