@@ -14,14 +14,14 @@ import javax.swing.DropMode;
  * @author louis
  *
  */
-public class GradesFrame extends JPanel{
+public class StudentGradePanel extends JPanel{
 	Course course;
 	User user;
 	DashboardFrame theFrame;
 	private JLabel firstAssignment;
 	private JLabel secondAssignment;	
 	private JTextField firstGrade;
-	public GradesFrame(Course c, User u, DashboardFrame theFrame)
+	public StudentGradePanel(Course c, User u, DashboardFrame theFrame)
 	{
 		course = c;
 		user = u;
@@ -38,7 +38,6 @@ public class GradesFrame extends JPanel{
 		add(firstAssignment);
 		
 		firstGrade = new JTextField();
-		firstGrade.setDropMode(DropMode.INSERT_COLS);
 		firstGrade.setText("<grade>");
 		add(firstGrade);
 		firstGrade.setColumns(3);

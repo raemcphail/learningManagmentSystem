@@ -21,6 +21,7 @@ public class CourseViewPanel extends JPanel
 	AssignmentPanel assignmentpanel;
 	StudentPanel studentpanel;
 	DropboxPanel dropboxpanel;
+	StudentGradePanel studentGrade;
 	SideViewPanel svpanel;
 	CardLayout c;
 	JPanel selection = new JPanel();
@@ -42,7 +43,7 @@ public class CourseViewPanel extends JPanel
 		studentpanel = new StudentPanel(course, in, out);
 		assignmentpanel = new AssignmentPanel(this, in, out, course, theFrame);
 		dropboxpanel = new DropboxPanel(this, in, out, course, theFrame);
-		
+		studentGrade = new StudentGradePanel(course, theFrame.user, theFrame);
 		
 		
 		c = new CardLayout();
@@ -50,6 +51,7 @@ public class CourseViewPanel extends JPanel
 		selection.add(assignmentpanel,"assignment");
 		selection.add(studentpanel,"student");
 		selection.add(dropboxpanel, "dropbox");
+		selection.add(studentGrade, "studentGrade");
 		
 		
 		c.show(selection, "student");

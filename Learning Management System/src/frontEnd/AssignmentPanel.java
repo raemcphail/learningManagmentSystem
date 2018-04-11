@@ -64,13 +64,17 @@ public class AssignmentPanel extends JPanel
 		results = new JList(list);
 		results.addMouseListener(new MouseClicked());
 		scrollpane = new JScrollPane(results);
+		
 		btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new AssignmentListener(courseView, out, in, course, theFrame));
-		
 		
 		JSplitPane split2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, scrollpane, btnAdd);
 		JSplitPane split1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, title, split2);
 		this.add(split1);
+		if (theFrame.user.getType() == 'S')
+		{
+			btnAdd.setVisible(false);
+		}
 		
 	}
 		class MouseClicked implements MouseListener
