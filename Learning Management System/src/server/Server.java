@@ -131,6 +131,10 @@ public class Server implements Runnable{
 					{
 						enrollHandler.getEnrolledStudents();
 					}
+					else if (opCode.equals("downloadSub"))
+					{
+						submissionHandler.downloadSub();
+					}
 				}
 				
 				

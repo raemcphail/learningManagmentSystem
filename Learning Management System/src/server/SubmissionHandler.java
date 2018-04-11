@@ -1,7 +1,10 @@
 package server;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -48,6 +51,47 @@ public class SubmissionHandler
 			e.printStackTrace();
 		}
 		catch(ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void downloadSub()
+	{
+		try
+		{
+			int studentID = Integer.parseInt((String)in.readObject());
+			String date = (String)in.readObject();
+			SubmissionManager s = new SubmissionManager();
+			String path = s.getPath(studentID, date);
+			sendFile(path);
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+		catch(ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendFile(String path)
+	{
+		File selectedFile = new File(path);
+		long length = selectedFile.length();
+		byte[] content = new byte[(int) length];
+		try
+		{
+			FileInputStream fis = new FileInputStream(selectedFile);
+			BufferedInputStream bos = new BufferedInputStream(fis);
+			bos.read(content, 0, (int)length);
+			out.writeObject(content);
+			out.flush();
+		}catch(FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}catch(IOException e)
 		{
 			e.printStackTrace();
 		}
