@@ -65,6 +65,28 @@ public class SubmissionManager  extends Manager
 	}
 	
 	}//end of addItem
+	/**
+	 * update grade when given the student_ID and timeStamp, with the grade and comment
+	 * @param assignGrade
+	 * @param comment
+	 * @param timeStamp
+	 * @param student_ID
+	 */
+	public void UpdateGrade (int submissionGrade, String comment , String timeStamp, int student_ID)
+	{
+		String sql = ("UPDATE " + tableName
+				+ " SET submission_grade= " + submissionGrade + ", comments= '" + comment
+				+ "' WHERE student_id= " + student_ID + " AND timestamp= " + "'" + timeStamp + "'" + ";");
+	try{
+		statement = connection.prepareStatement(sql);
+		statement.executeUpdate();
+	}
+	catch(SQLException e)
+	{
+		e.printStackTrace();
+	}
+	
+	}//end of addItem
 	
 	public int recentID()
 	{
