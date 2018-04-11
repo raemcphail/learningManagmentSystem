@@ -28,6 +28,7 @@ public class Server implements Runnable{
 	public AssignmentHandler assignmentHandler;
 	public EmailHandler emailHandler;
 	public SubmissionHandler submissionHandler;
+	public GradesHandler gradeHandler;
 	
 	public Server (int portnumber)
 	{
@@ -71,7 +72,7 @@ public class Server implements Runnable{
 				assignmentHandler = new AssignmentHandler(in, out);
 				emailHandler = new EmailHandler(user, in, out);
 				submissionHandler = new SubmissionHandler(in, out);
-
+				gradeHandler = new GradesHandler(in, out);
 				while (true)
 				{
 					String opCode = (String)in.readObject();
@@ -134,6 +135,10 @@ public class Server implements Runnable{
 					else if (opCode.equals("downloadSub"))
 					{
 						submissionHandler.downloadSub();
+					}
+					else if (opCode.equals("updateGrade"))
+					{
+						gradeHandler.updateSubGrade();
 					}
 				}
 				

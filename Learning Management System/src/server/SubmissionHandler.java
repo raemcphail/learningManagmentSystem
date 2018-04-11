@@ -138,7 +138,6 @@ public class SubmissionHandler
 			{
 				newFile.createNewFile();
 			}
-			path.replace("r", "R");
 			FileOutputStream writer = new FileOutputStream (newFile);
 			BufferedOutputStream bos = new BufferedOutputStream(writer);
 			bos.write(content);

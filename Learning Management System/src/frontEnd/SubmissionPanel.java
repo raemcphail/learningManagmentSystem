@@ -5,6 +5,7 @@ import javax.swing.JTextField;
 
 import server.Course;
 import server.Submissions;
+import server.User;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -121,38 +122,24 @@ public class SubmissionPanel extends JPanel
 					String sub = (String)(results.getSelectedValue());//contains studentID followed by space then date
 					String [] subdata = sub.split(" ");
 					
-					int choice = JOptionPane.showConfirmDialog(null, "Would you like to download this submission?", "I have a question", JOptionPane.YES_NO_OPTION);
+					int choice = JOptionPane.showConfirmDialog(null, "Would you like to download this submission?", "Download", JOptionPane.YES_NO_OPTION);
 					if (choice == JOptionPane.YES_OPTION)
 					{
-						out.writeObject("downloadSub");	//signal the 
+						out.writeObject("downloadSub");
 						out.writeObject(subdata[0]);
 						out.writeObject(subdata[1]);
 						recieveFile();
 					}
-					choice = JOptionPane.showConfirmDialog(null, "Would you like to download this submission?", "I have a question", JOptionPane.YES_NO_OPTION);
+					choice = JOptionPane.showConfirmDialog(null, "Would you like to grade this submission?", "Grade", JOptionPane.YES_NO_OPTION);
 					if (choice == JOptionPane.YES_OPTION)
 					{
-						
+						//	public ProfGradeFrame(Course c, User u, DashboardFrame theFrame)
+						ProfGradeFrame grade = new ProfGradeFrame(in, out, course, theFrame.user, theFrame, subdata[0], subdata[1]);
+						grade.setVisible(true);
 					}
 					
-					//end if want to grade
-					ArrayList<Submissions> submissions = (ArrayList<Submissions>)in.readObject();	
-					if(submissions.size()!=0)
-					{
-						System.out.println("submissions is NOT empty!");
-
-					Iterator it = submissions.iterator();
-					while(it.hasNext())
-					{
-						list.addElement(it.next());
-					}
-					}
-					else
-					{
-						System.out.println("submissions is empty!");
-					}
 				}
-				catch (IOException | ClassNotFoundException e1) {
+				catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
