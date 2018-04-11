@@ -54,7 +54,36 @@ public class GradesManager extends Manager {
 		return s;
 	}
 	
-	gradeDB.UpdateGrades(assignID, StudentID, courseID, SubGrade);
+	public void UpdateGrades(int assignID, int StudentID, int courseID, int SubGrade)
+	{
+		String sql = "SELECT * FROM " + tableName + " WHERE student_id= " + StudentID + " AND assign_id= " + assignID;
+		ResultSet grade;
+		try
+		{
+			statement = connection.prepareStatement(sql);
+			grade = statement.executeQuery();
+			if(grade.next())
+			{
+				//update existing entry for that assignment
+				String sqlupdate = ("UPDATE " + tableName
+						+ " SET assignment_grade= " + SubGrade + ";");
+				statement = connection.prepareStatement(sqlupdate);
+				statement.executeUpdate();
+			}
+			else
+			{
+				//create a new entry for that assignment
+				String sqlcreate = "INSERT IGNORE INTO " + tableName + "(assign_id, student_id, course_id, assignment_grade)" +
+						 " VALUES ('" + assignID + "', '" + 
+					 		StudentID + "', '" +  
+					 		courseID + "', '"+
+					 		SubGrade + "');";
+				statement = connection.prepareStatement(sqlcreate);
+				statement.executeUpdate();
+			}
+			
+		} catch (SQLException e) { e.printStackTrace(); }
+	}
 	
 	/**
 	 * with the student id, course_id, and assign_id, return a grade_id associated with those values

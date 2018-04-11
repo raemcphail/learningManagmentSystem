@@ -37,6 +37,7 @@ public class SideViewListener implements ActionListener
 		}
 		if (e.getSource() == coursePanel.svpanel.btnGrades)
 		{
+			out.writeObject("showGrades");
 			clayout.show(selection, "studentGrade");
 		}
 		

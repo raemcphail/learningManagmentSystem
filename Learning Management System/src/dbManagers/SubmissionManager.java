@@ -108,7 +108,7 @@ public class SubmissionManager  extends Manager
 	
 	public int getAssignID(int studentID, String time)
 	{
-		String sql = "SELECT id FROM " + tableName + " WHERE student_id=" + studentID + " AND timestamp= '" + time + "'";
+		String sql = "SELECT assign_id FROM " + tableName + " WHERE student_id=" + studentID + " AND timestamp like '" + time + "';";
 		ResultSet submission;
 		int s = -1;
 		try
@@ -117,7 +117,7 @@ public class SubmissionManager  extends Manager
 			submission = statement.executeQuery();
 			if(submission.next())
 			{
-				s = submission.getInt("id");
+				s = submission.getInt("assign_id");
 				System.out.println(s);
 			}
 		} catch (SQLException e) { e.printStackTrace(); }

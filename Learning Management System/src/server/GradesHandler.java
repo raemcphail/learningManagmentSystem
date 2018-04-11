@@ -39,8 +39,6 @@ public class GradesHandler {
 			CourseManager c = new CourseManager();
 			int courseID = c.findCourseID(course.name);
 			int assignID = subDB.getAssignID(StudentID, timeStamp);
-			
-			
 			gradeDB.UpdateGrades(assignID, StudentID, courseID, SubGrade);
 			
 		} catch (ClassNotFoundException | IOException e) {

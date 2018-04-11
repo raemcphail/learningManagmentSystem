@@ -45,7 +45,6 @@ public class ProfGradeFrame extends JFrame{
 		this.in = in;
 		this.out = out;
 		course = c;
-		user = u;
 		this.theFrame = theFrame;
 		this.studentID = Integer.parseInt(studentID);
 		this.timeStamp = timeStamp;
