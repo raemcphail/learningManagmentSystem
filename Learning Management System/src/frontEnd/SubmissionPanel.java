@@ -123,7 +123,7 @@ public class SubmissionPanel extends JPanel
 					out.writeObject("downloadSub");	//signal the 
 					out.writeObject(subdata[0]);
 					out.writeObject(subdata[1]);
-					
+					recieveFile();
 					//end if want to download
 					//if want to grade
 					
@@ -150,11 +150,7 @@ public class SubmissionPanel extends JPanel
 				}
 			}
 			
-
-			public void setAssignName(String name)
-			{
-				assignName = name;
-			}
+			
 
 			public void sendFile()
 			{

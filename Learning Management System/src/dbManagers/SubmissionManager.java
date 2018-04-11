@@ -83,6 +83,23 @@ public class SubmissionManager  extends Manager
 		return s;
 	}	
 	
+	public String getPath (int studentID, String time)
+	{
+		String sql = "SELECT path FROM " + tableName + " WHERE student_id=" + studentID + " AND timestamp= '" + time + "'";
+		ResultSet submission;
+		String s = new String();
+		try
+		{
+			statement = connection.prepareStatement(sql);
+			submission = statement.executeQuery();
+			if(submission.next())
+			{
+				s = submission.getString("path");
+				System.out.println(s);
+			}
+		} catch (SQLException e) { e.printStackTrace(); }
+		return s;
+	}
 	public void addPath(int subID, String line)
 	{
 		try 
