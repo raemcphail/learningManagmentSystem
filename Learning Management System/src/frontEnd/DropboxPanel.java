@@ -126,7 +126,7 @@ public class DropboxPanel extends JPanel
 						System.out.println(name);
 						if(!ex.equals(".txt") && !ex.equals(".pdf"))
 						{
-							System.out.println("Unacceptable file");
+							System.err.println("Unacceptable file");
 							return;
 						}
 						try 

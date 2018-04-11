@@ -94,8 +94,6 @@ public class AssignmentHandler
 			int AssignID = assignDB.GETAssignID(title, courseID);
 			String path = new String();
 			path = assignDB.getPath(AssignID);
-			
-			//send the file
 			sendFile(path);
 		
 		} catch (ClassNotFoundException e) {
@@ -196,7 +194,7 @@ public class AssignmentHandler
 	
 	public String recieveFile (String name, String ex)
 	{
-		String STORAGEPATH = "C:\\" + File.separator + "Users\\" + File.separator + "louis\\" + File.separator + "Desktop\\" + File.separator + "serverComputer\\" + File.separator;
+		String STORAGEPATH = "C:\\" + File.separator + "Users\\" + File.separator + "raemc\\" + File.separator + "Desktop\\" + File.separator + "lmsServer\\" + File.separator;
 		String NAME = name;
 		String EXTENSION = ex;
 		String path = STORAGEPATH + NAME + EXTENSION;

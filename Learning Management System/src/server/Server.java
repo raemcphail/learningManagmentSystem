@@ -95,19 +95,19 @@ public class Server implements Runnable{
 					{
 						enrollHandler.runHandler();
 					}
-					else if(opCode.equals("assignment"))
+					else if(opCode.equals("assignment"))//adds an assignment
 					{
 						assignmentHandler.addHandler();
 					}
-					else if (opCode.equals("getAssignment"))
+					else if (opCode.equals("getAssignment"))//fills list on assignmnet with all assignments in that course for Prof
 					{
 						assignmentHandler.updateList();
 					}
-					else if (opCode.equals("getActiveAssignment"))
+					else if (opCode.equals("getActiveAssignment"))//fills list on assignment with all active assignments in that course Student
 					{
 						assignmentHandler.updateActiveList();
 					}
-					else if (opCode.equals("updateAssign"))
+					else if (opCode.equals("updateAssign"))//updates if an assignment is active or not
 					{
 						assignmentHandler.updateActive();
 					}
