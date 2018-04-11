@@ -10,7 +10,7 @@ import java.sql.*;
 public class Manager {
 	protected final String username = "root";
 	protected String password = "ensf409";
-	protected Connection connection;
+	public static Connection connection;
 	protected String dbName = "awesomed2lproject";
 	protected PreparedStatement statement;
 	

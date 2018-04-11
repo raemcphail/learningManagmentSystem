@@ -3,8 +3,12 @@ package server;
 
 import java.io.*;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.net.ServerSocket;
 import java.util.concurrent.Executors;
+
+import dbManagers.Manager;
+
 import java.util.concurrent.ExecutorService;
 
 /**
@@ -15,9 +19,9 @@ import java.util.concurrent.ExecutorService;
  *
  */
 public class Server implements Runnable{
-	private ServerSocket serverSocket;
+	
 	private Socket aSocket;
-	ExecutorService pool;
+	
 	ObjectInputStream in = null;
 	ObjectOutputStream out = null;
 	LoginHandler loginhandler;
@@ -30,31 +34,31 @@ public class Server implements Runnable{
 	public SubmissionHandler submissionHandler;
 	public GradesHandler gradeHandler;
 	
-	public Server (int portnumber)
+	public Server ()
 	{
-		try
-		{
-			serverSocket = new ServerSocket(portnumber);
-			pool = Executors.newCachedThreadPool();
-			
-		}catch(IOException e)
-		{
-			System.err.println("Server error");
-		}
+		//many important things
 	}
 	
-	public void runServer() throws IOException
+	public static void runServer() throws IOException
 	{
-		String line = "yo yo";
-		
+		//String line = "yo yo";
+		ServerSocket serverSocket = null;
+		ExecutorService pool = Executors.newCachedThreadPool();
+		try{
+			serverSocket = new ServerSocket(9090);
+
 			while(true)
-			{				
-				aSocket = serverSocket.accept();	//once a client connects
-				out = new ObjectOutputStream(aSocket.getOutputStream());
-				in = new ObjectInputStream(aSocket.getInputStream()); 
-				pool.execute(this);
-				
+			{			
+				Server s = new Server();
+				s.aSocket = serverSocket.accept();	//once a client connects
+				s.out = new ObjectOutputStream(s.aSocket.getOutputStream());
+				s.in = new ObjectInputStream(s.aSocket.getInputStream()); 
+				pool.execute(s);
 			}
+		}catch(IOException e){ 
+			System.err.println("Server error");
+			if (serverSocket != null) serverSocket.close();
+		}
 	}
 	
 	@Override
@@ -73,8 +77,11 @@ public class Server implements Runnable{
 				emailHandler = new EmailHandler(user, in, out);
 				submissionHandler = new SubmissionHandler(in, out);
 				gradeHandler = new GradesHandler(in, out);
+			try
+			{
 				while (true)
 				{
+					Manager.connection.beginRequest();
 					String opCode = (String)in.readObject();
 					if (opCode.equals("create"))
 					{
@@ -148,23 +155,32 @@ public class Server implements Runnable{
 					{
 						gradeHandler.getGrades();
 					}
-				}
-				
+					Manager.connection.endRequest();
+					//Manager.connection.commit();
+					
+				}// end while
+			}
+			catch (SQLException s)
+			{
+				s.printStackTrace();
+			}
 				
 			}
 			catch (ClassNotFoundException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		try {
+			in.close();
+			out.close();
+		} catch (Exception e) { e.printStackTrace(); }
+		
 	}	
 	public static void main(String[] args) throws IOException
 	{
-		Server server = new Server(9090);
-	
+		
 		System.out.println("Server is now running");
-		server.runServer();
-		server.in.close();
-		server.out.close();
+		Server.runServer();
 		
 	}
 }

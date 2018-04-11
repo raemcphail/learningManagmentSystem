@@ -123,7 +123,7 @@ public class SubmissionHandler
 	
 	public String recieveFile (String name, String ex)
 	{
-		String STORAGEPATH = "C:\\" + File.separator + "Users\\" + File.separator + "raemc\\" + File.separator + "Desktop\\" + File.separator + "lmsSubmissions\\" + File.separator;
+		String STORAGEPATH = "C:\\" + File.separator + "Users\\" + File.separator + "louis\\" + File.separator + "Desktop\\" + File.separator + "serverComputer\\" + File.separator;
 		String NAME = name;
 		String EXTENSION = ex;
 		String path = STORAGEPATH + NAME + EXTENSION;
@@ -138,7 +138,6 @@ public class SubmissionHandler
 			{
 				newFile.createNewFile();
 			}
-			path.replace("r", "R");
 			FileOutputStream writer = new FileOutputStream (newFile);
 			BufferedOutputStream bos = new BufferedOutputStream(writer);
 			bos.write(content);
