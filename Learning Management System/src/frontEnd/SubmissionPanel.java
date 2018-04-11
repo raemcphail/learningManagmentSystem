@@ -129,30 +129,13 @@ public class SubmissionPanel extends JPanel
 						out.writeObject(subdata[1]);
 						recieveFile();
 					}
-					choice = JOptionPane.showConfirmDialog(null, "Would you like to download this submission?", "I have a question", JOptionPane.YES_NO_OPTION);
+					choice = JOptionPane.showConfirmDialog(null, "Would you like to grade this submission?", "I have a question", JOptionPane.YES_NO_OPTION);
 					if (choice == JOptionPane.YES_OPTION)
 					{
 						
 					}
-					
-					//end if want to grade
-					ArrayList<Submissions> submissions = (ArrayList<Submissions>)in.readObject();	
-					if(submissions.size()!=0)
-					{
-						System.out.println("submissions is NOT empty!");
-
-					Iterator it = submissions.iterator();
-					while(it.hasNext())
-					{
-						list.addElement(it.next());
-					}
-					}
-					else
-					{
-						System.out.println("submissions is empty!");
-					}
 				}
-				catch (IOException | ClassNotFoundException e1) {
+				catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
