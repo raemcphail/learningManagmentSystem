@@ -115,33 +115,39 @@ public class SubmissionPanel extends JPanel
 				if (results.isSelectionEmpty()) {
 					return;
 				}
-//				try 
-//				{
-//					list.clear();
-//					out.writeObject("getSubs");	//signal the AssignmentHandler.updateActive
-//					//need to find assignmentid
-//					out.writeObject(assignName);	//send the name of the assignment
-//					out.writeObject(course);//send the course
-//					ArrayList<Submissions> submissions = (ArrayList<Submissions>)in.readObject();	
-//					if(submissions.size()!=0)
-//					{
-//						System.out.println("submissions is NOT empty!");
-//
-//					Iterator it = submissions.iterator();
-//					while(it.hasNext())
-//					{
-//						list.addElement(it.next());
-//					}
-//					}
-//					else
-//					{
-//						System.out.println("submissions is empty!");
-//					}
-//				}
-//				catch (IOException | ClassNotFoundException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
+				try 
+				{
+					String sub = (String)(results.getSelectedValue());//contains studentID followed by space then date
+					String [] subdata = sub.split(" ");
+					//if want to download
+					out.writeObject("downloadSub");	//signal the 
+					out.writeObject(subdata[0]);
+					out.writeObject(subdata[1]);
+					
+					//end if want to download
+					//if want to grade
+					
+					//end if want to grade
+					ArrayList<Submissions> submissions = (ArrayList<Submissions>)in.readObject();	
+					if(submissions.size()!=0)
+					{
+						System.out.println("submissions is NOT empty!");
+
+					Iterator it = submissions.iterator();
+					while(it.hasNext())
+					{
+						list.addElement(it.next());
+					}
+					}
+					else
+					{
+						System.out.println("submissions is empty!");
+					}
+				}
+				catch (IOException | ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			
 
