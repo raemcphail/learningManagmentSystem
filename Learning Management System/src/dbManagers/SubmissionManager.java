@@ -17,6 +17,7 @@ public class SubmissionManager  extends Manager
 		super();
 	}
 	
+	
 	public ArrayList<Submissions> getSubmissions(int assignID)
 	{
 		String sql = "SELECT * FROM " + tableName + " WHERE assign_id like" + "'" + assignID + "%'";
@@ -104,6 +105,24 @@ public class SubmissionManager  extends Manager
 		} catch (SQLException e) { e.printStackTrace(); }
 		return s;
 	}	
+	
+	public int getAssignID(int studentID, String time)
+	{
+		String sql = "SELECT id FROM " + tableName + " WHERE student_id=" + studentID + " AND timestamp= '" + time + "'";
+		ResultSet submission;
+		int s = -1;
+		try
+		{
+			statement = connection.prepareStatement(sql);
+			submission = statement.executeQuery();
+			if(submission.next())
+			{
+				s = submission.getInt("id");
+				System.out.println(s);
+			}
+		} catch (SQLException e) { e.printStackTrace(); }
+		return s;
+	}
 	
 	public String getPath (int studentID, String time)
 	{

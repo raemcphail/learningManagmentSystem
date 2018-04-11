@@ -53,6 +53,9 @@ public class GradesManager extends Manager {
 		
 		return s;
 	}
+	
+	gradeDB.UpdateGrades(assignID, StudentID, courseID, SubGrade);
+	
 	/**
 	 * with the student id, course_id, and assign_id, return a grade_id associated with those values
 	 * @return - returns -1 if no matching student id or course number

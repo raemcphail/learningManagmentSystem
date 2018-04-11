@@ -134,7 +134,7 @@ public class SubmissionPanel extends JPanel
 					if (choice == JOptionPane.YES_OPTION)
 					{
 						//	public ProfGradeFrame(Course c, User u, DashboardFrame theFrame)
-						ProfGradeFrame grade = new ProfGradeFrame(in, out, course, theFrame.user, theFrame, subdata[0], subdata[1]);
+						ProfGradeFrame grade = new ProfGradeFrame(in, out, course, theFrame, subdata[0], subdata[1]);
 						grade.setVisible(true);
 					}
 

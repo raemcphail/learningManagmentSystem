@@ -30,7 +30,6 @@ import javax.swing.JButton;
  */
 public class ProfGradeFrame extends JFrame{
 	Course course;
-	User user;
 	DashboardFrame theFrame;
 	private JLabel Comments;
 	private JLabel gradeLabel;	
@@ -41,7 +40,7 @@ public class ProfGradeFrame extends JFrame{
 	private String timeStamp;
 	ObjectInputStream in = null;
 	ObjectOutputStream out = null;
-	public ProfGradeFrame(ObjectInputStream in, ObjectOutputStream out, Course c, User u, DashboardFrame theFrame, String studentID, String timeStamp)
+	public ProfGradeFrame(ObjectInputStream in, ObjectOutputStream out, Course c, DashboardFrame theFrame, String studentID, String timeStamp)
 	{
 		this.in = in;
 		this.out = out;
@@ -101,6 +100,7 @@ public class ProfGradeFrame extends JFrame{
 						out.writeObject(timeStamp);	//sends the timeStamp as a String
 						out.writeObject(Integer.parseInt(gradeField.getText())); //sends the assignment grade as an int
 						out.writeObject(commentArea.getText());	//send the comment
+						out.writeObject(course);
 						disposeFrame();
 					} catch (IOException e1) {
 						e1.printStackTrace();
