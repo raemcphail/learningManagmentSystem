@@ -33,7 +33,7 @@ public class Course implements Serializable
 		this.name = name;
 		this.active = active;
 		this.prof_ID = prof_id;
-		assignments = new <Assignments> ArrayList();
+		assignments = new ArrayList<Assignments>();
 	}
 	
 	@Override
@@ -55,5 +55,9 @@ public class Course implements Serializable
 	public boolean getActive()
 	{
 		return active;
+	}
+	public void setAssignments(ArrayList<Assignments> assignments)
+	{
+		this.assignments = assignments;
 	}
 }

@@ -51,13 +51,18 @@ public class MyCoursesPanel extends JPanel {
 				while (it.hasNext())
 				{
 					Course temp = (Course)it.next();
-
+					theFrame.user.getCourses().add(temp);	//add the course to user
 					courseButtons[i] = new JButton(temp.toString());
 					
-					if (temp.getActive() || theFrame.user.getType() == 'P')	//if the course is active, or the user is a prof
+					if (theFrame.user.getType() == 'P')	//the user is a prof
+					{
+						System.out.println("we a prof!!");
+						courseButtons[i].setActionCommand("prof");
+					}
+					else if (temp.getActive())	//if the course is active
 					{
 						courseButtons[i].setActionCommand("active");
-					}
+					} 
 					else
 					{
 						courseButtons[i].setActionCommand("notActive");
@@ -69,6 +74,13 @@ public class MyCoursesPanel extends JPanel {
 							{
 								CourseViewPanel courseView = new CourseViewPanel(theFrame, temp, in, out);
 								theFrame.middleBar.emailButton.setActionCommand("courseSelected");   //set the emailbutton to include the prof
+								theFrame.content.add((courseView), "theCourse");
+								theFrame.cardLayout.show(theFrame.content, "theCourse");
+							}
+							else if (e.getActionCommand().equals("prof"))
+							{
+								CourseViewPanel courseView = new CourseViewPanel(theFrame, temp, in, out);
+								theFrame.middleBar.emailButton.setActionCommand(temp.name);   //set the emailbutton to include the prof
 								theFrame.content.add((courseView), "theCourse");
 								theFrame.cardLayout.show(theFrame.content, "theCourse");
 							}

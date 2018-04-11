@@ -72,21 +72,31 @@ public class AssignmentListener implements ActionListener
 				panel.assignmentpanel.list.clear();
 				if(theFrame.user.getType() == 'P')
 				{	
-					out.writeObject("getAssignment"); 	//send opcode for prof visable assignments
+					out.writeObject("getAssignment"); 	//send opcode for prof visible assignments
 				}
 				else 
 				{
-					out.writeObject("getActiveAssignment"); 	//send opcode for student visable assignments
+					out.writeObject("getActiveAssignment"); 	//send opcode for student visible assignments
 				}
 				out.writeObject(course.toString());	//send coursename
 				ArrayList<Assignments> assignments = (ArrayList<Assignments>)in.readObject();
 				if (assignments.size() != 0)
 				{
-					Iterator it = assignments.iterator();
+					Iterator<Course> co = theFrame.user.getCourses().iterator();
+					Iterator<Assignments> it = assignments.iterator();
 					while (it.hasNext())
 					{
 						panel.assignmentpanel.list.addElement(it.next().toString());
 					}	
+					while (co.hasNext())	//go through courses and if the course matches, add the assignments to course
+					{
+						Course temp = co.next();
+						if (temp.name.equals(course.name))
+						{
+							temp.setAssignments(assignments);
+						}
+						
+					}
 				}
 				
 			} catch (ClassNotFoundException | IOException e1) {

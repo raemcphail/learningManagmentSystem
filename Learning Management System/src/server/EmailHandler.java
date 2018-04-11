@@ -61,7 +61,16 @@ public class EmailHandler {
 			System.out.println(user.getPassword());
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(senderAddress));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(receiverAddress));
+			if (receiverAddress.contains(";"))
+			{
+				String [] receivers = receiverAddress.split(";");
+				message.addRecipient(Message.RecipientType.TO, new InternetAddress(receivers[0]));
+				message.addRecipient(Message.RecipientType.CC, new InternetAddress(receivers[1]));
+			}
+			else
+			{
+				message.addRecipient(Message.RecipientType.TO, new InternetAddress(receiverAddress));
+			}
 			message.setSubject(subject);
 			message.setText(body);
 			

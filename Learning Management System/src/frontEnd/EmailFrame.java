@@ -108,7 +108,6 @@ public class EmailFrame extends JFrame {
 			setVisible(true);
 		}
 		
-		
 			/**
 			 * Inner Listener class that will wait for the button Submit to be pressed, then handle that event
 			 * Implements ActionListener.
