@@ -144,6 +144,10 @@ public class Server implements Runnable{
 					{
 						gradeHandler.updateSubGrade();
 					}
+					else if (opCode.equals("showGrades"))
+					{
+						gradeHandler.getGrades();
+					}
 				}
 				
 				

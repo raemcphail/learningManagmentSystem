@@ -54,6 +54,41 @@ public class GradesManager extends Manager {
 		return s;
 	}
 	
+	public ArrayList<Integer> getAssignIDs(int studentID)
+	{
+		String sql = "SELECT * FROM " + tableName + " WHERE student_id= " + studentID;
+		ResultSet grade;
+		ArrayList<Integer> ids = new ArrayList <Integer>();
+		try
+		{
+			statement = connection.prepareStatement(sql);
+			grade = statement.executeQuery();
+			while(grade.next())
+			{
+				ids.add(grade.getInt("assign_id"));
+			}
+		} catch (SQLException e) { e.printStackTrace(); }
+		return ids;
+	}
+	
+	public ArrayList<Integer> getGrades(int studentID)
+	{
+		String sql = "SELECT * FROM " + tableName + " WHERE student_id= " + studentID;
+		ResultSet grade;
+		ArrayList<Integer> ids = new ArrayList <Integer>();
+		try
+		{
+			statement = connection.prepareStatement(sql);
+			grade = statement.executeQuery();
+			while(grade.next())
+			{
+				ids.add(grade.getInt("assignment_grade"));
+			}
+		} catch (SQLException e) { e.printStackTrace(); }
+		return ids;
+	}
+	
+	
 	public void UpdateGrades(int assignID, int StudentID, int courseID, int SubGrade)
 	{
 		String sql = "SELECT * FROM " + tableName + " WHERE student_id= " + StudentID + " AND assign_id= " + assignID;

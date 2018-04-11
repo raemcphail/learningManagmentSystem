@@ -3,6 +3,7 @@ package server;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 import dbManagers.AssignmentManager;
 import dbManagers.CourseManager;
@@ -17,6 +18,23 @@ public class GradesHandler {
 	{
 		this.out = out;
 		this.in = in;
+	}
+	
+	public void getGrades()
+	{
+		GradesManager g = new GradesManager();
+		try {
+			int studentID = (int)in.readObject();
+			ArrayList<Integer> assignIDs = g.getAssignIDs(studentID);
+			ArrayList<Integer> grades = g.getGrades(studentID);
+			AssignmentManager a = new AssignmentManager();
+			ArrayList<String> names = a.getNames(assignIDs);
+			out.writeObject(names);
+			out.writeObject(grades);
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void updateSubGrade()

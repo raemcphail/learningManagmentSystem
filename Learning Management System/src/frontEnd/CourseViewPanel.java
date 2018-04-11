@@ -54,7 +54,7 @@ public class CourseViewPanel extends JPanel
 		selection.add(studentGrade, "studentGrade");
 		
 		
-		c.show(selection, "student");
+		c.show(selection, "assignment");
 		if (theFrame.user.getType() == 'P')
 		{
 			svpanel.btnStudent.addActionListener(new SideViewListener(this, c, selection));			

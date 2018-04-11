@@ -3,6 +3,7 @@ package dbManagers;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import server.Assignments;
 import server.Student;
@@ -171,6 +172,27 @@ public class AssignmentManager extends Manager
 			return null;
 		}
 		return assignments;
+	}
+	
+	public ArrayList<String> getNames (ArrayList<Integer> ids)
+	{
+		Iterator it = ids.iterator();
+		ArrayList<String> names = new ArrayList<String>();
+		while(it.hasNext())
+		{
+			String sql = "SELECT * FROM " + tableName + " WHERE id="  + it.next();
+			ResultSet assignmentData;
+			try 
+			{
+				statement = connection.prepareStatement(sql);
+				assignmentData = statement.executeQuery();
+				if(assignmentData.next())
+				{
+					names.add(assignmentData.getString("title"));
+				}
+			}catch (SQLException e) {  }
+		}
+		return names;
 	}
 	
 	public ArrayList<Assignments> getActiveAssignments(int Course_ID)
