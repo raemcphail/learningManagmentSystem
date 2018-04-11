@@ -35,6 +35,7 @@ import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 import javax.swing.JSplitPane;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import java.awt.Font;
 
@@ -119,13 +120,20 @@ public class SubmissionPanel extends JPanel
 				{
 					String sub = (String)(results.getSelectedValue());//contains studentID followed by space then date
 					String [] subdata = sub.split(" ");
-					//if want to download
-					out.writeObject("downloadSub");	//signal the 
-					out.writeObject(subdata[0]);
-					out.writeObject(subdata[1]);
-					recieveFile();
-					//end if want to download
-					//if want to grade
+					
+					int choice = JOptionPane.showConfirmDialog(null, "Would you like to download this submission?", "I have a question", JOptionPane.YES_NO_OPTION);
+					if (choice == JOptionPane.YES_OPTION)
+					{
+						out.writeObject("downloadSub");	//signal the 
+						out.writeObject(subdata[0]);
+						out.writeObject(subdata[1]);
+						recieveFile();
+					}
+					choice = JOptionPane.showConfirmDialog(null, "Would you like to download this submission?", "I have a question", JOptionPane.YES_NO_OPTION);
+					if (choice == JOptionPane.YES_OPTION)
+					{
+						
+					}
 					
 					//end if want to grade
 					ArrayList<Submissions> submissions = (ArrayList<Submissions>)in.readObject();	
