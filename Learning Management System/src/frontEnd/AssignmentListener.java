@@ -55,6 +55,9 @@ public class AssignmentListener implements ActionListener
 		course = c;
 	}
 	
+	/**
+	 * method that responds to any button pressed on the Side View Panel
+	 */
 	public void actionPerformed(ActionEvent e) 
 	{
 		
@@ -117,6 +120,11 @@ public class AssignmentListener implements ActionListener
 		}
 	}
 	
+	/**
+	 * method that prompts user to use file chooser (for profs uploading an assignment) to select a file 
+	 * then sends that file over the socket, it also sends the name, extension and course so that
+	 * database can update, and save file on the server machine properly
+	 */
 	public void sendFile()
 	{
 		System.out.println("Sending file");

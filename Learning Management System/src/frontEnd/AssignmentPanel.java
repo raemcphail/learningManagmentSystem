@@ -155,6 +155,11 @@ public class AssignmentPanel extends JPanel
 				}
 			}
 
+			/**
+			 * method that receives a file to save over the socket,
+			 * it prompts user to use file chooser to choose where to 
+			 * save file. This is for the student to save an assignment they downloaded
+			 */
 			public void recieveFile()
 			{
 				try

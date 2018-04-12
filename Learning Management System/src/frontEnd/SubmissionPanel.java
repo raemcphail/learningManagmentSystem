@@ -190,10 +190,13 @@ public class SubmissionPanel extends JPanel
 			}
 			
 			
-
+			/**
+			 * method that sends a file over the socket,
+			 * it prompts user to use file chooser to choose what file
+			 * to send. This is for the student to upload a submission
+			 */
 			public void sendFile()
 			{
-				System.out.println("Sending file");
 				JFileChooser fileBrowser = new JFileChooser();
 				File selectedFile = null; 
 					if(fileBrowser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
@@ -202,7 +205,6 @@ public class SubmissionPanel extends JPanel
 						String filename = selectedFile.getName();
 						String ex = filename.substring(filename.length() -4, filename.length());//gets the extention from file name
 						String name = filename.substring(0, filename.length()-4);//gets the extention from file name
-						System.out.println(name);
 						if(!ex.equals(".txt") && !ex.equals(".pdf"))
 						{
 							System.out.println("Unacceptable file");
@@ -227,7 +229,6 @@ public class SubmissionPanel extends JPanel
 							
 							out.writeObject(content);
 							out.flush();
-							System.out.println("File sent");
 						}catch(FileNotFoundException e)
 						{
 							e.printStackTrace();
@@ -239,6 +240,11 @@ public class SubmissionPanel extends JPanel
 					}	
 			}
 			
+			/**
+			 * method that receives a file to save over the socket,
+			 * it prompts user to use file chooser to choose where to 
+			 * save file. This is for the prof to save a submission they downloaded
+			 */
 			public void recieveFile()
 			{
 				try
