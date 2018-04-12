@@ -16,13 +16,34 @@ import javax.swing.JFileChooser;
 
 import server.Assignments;
 import server.Course;
-
+/**
+ * AssignmentListener handles actions if the back button is pressed in the courseView,
+ *  or if the assignment button is pressed, and facilitates sending files.
+ * @author Louis, Raemc
+ * @version 1.1
+ * @since April 9, 2018
+ */
 public class AssignmentListener implements ActionListener
 {
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectOutputStream out = null;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectInputStream in = null;
+	/**
+	 * panel used to access values on the courseView
+	 */
 	CourseViewPanel panel;
+	/**
+	 * the course object that the user is currently on
+	 */
 	Course course;
+	/**
+	 * the overall dashboard frame that contains everything
+	 */
 	DashboardFrame theFrame;
 	
 	AssignmentListener(CourseViewPanel p, ObjectOutputStream out, ObjectInputStream in, Course c, DashboardFrame theFrame)
@@ -39,27 +60,17 @@ public class AssignmentListener implements ActionListener
 		
 		if (e.getSource() == panel.svpanel.btnBack)
 		{
-			theFrame.cardLayout.show(theFrame.content, "courses");//check
+			theFrame.cardLayout.show(theFrame.content, "courses");
 			theFrame.middleBar.emailButton.setActionCommand("default");
 		}
 
 		if (e.getSource() == panel.assignmentpanel.btnAdd)
 		{
-			System.out.println("add button pushed");
 			try
 			{	
 				out.writeObject(new String("assignment"));
 				sendFile();
-				
-				
-			}
-				//out.writeObject("checkCourses");	//signal to MyCourseHandler
-				//ArrayList<Course> courses = (ArrayList<Course>)in.readObject();
-//				if (courses.size() != 0)
-//				{
-//					theFrame.myCourses.remove(theFrame.myCourses.emptyCourseMessage);
-//				}
-				
+			}	
 				
 			 catch ( IOException e1) {
 				e1.printStackTrace();

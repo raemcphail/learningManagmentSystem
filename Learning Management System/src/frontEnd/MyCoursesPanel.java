@@ -15,13 +15,37 @@ import javax.swing.SwingConstants;
 
 import server.Course;
 
+/**
+ * Displays the options for courses to select when the 'MyCourses'
+ * button is selected, and populates the contentPanel area.
+ * @author Louis, Raemc
+ * @version 1.1
+ * @since April 9, 2018
+ */
 public class MyCoursesPanel extends JPanel {
-
+	/**
+	 * the main frame
+	 */
 	DashboardFrame theFrame;
+	/**
+	 * an empty course message, if that student has no courses
+	 */
 	JLabel emptyCourseMessage;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectOutputStream out = null;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectInputStream in = null;
+	/**
+	 * the courses that user has
+	 */
 	ArrayList<Course> courses;
+	/**
+	 * the corresponding buttons for those courses
+	 */
 	JButton [] courseButtons;
 	
 	MyCoursesPanel(DashboardFrame theFrame, ObjectOutputStream out, ObjectInputStream in)
@@ -32,10 +56,12 @@ public class MyCoursesPanel extends JPanel {
 		courses = new ArrayList<Course>();
 		emptyCourseMessage = new JLabel("You have no courses at the moment!");
 		emptyCourseMessage.setHorizontalAlignment(SwingConstants.CENTER);
-		showCourses();//do the if/else for student vs. prof
+		showCourses();
 		
 	}
-	
+	/**
+	 * method to actually display courses on GUI
+	 */
 	@SuppressWarnings("unchecked")
 	public void showCourses()
 	{
@@ -85,7 +111,12 @@ public class MyCoursesPanel extends JPanel {
 			System.err.println("error in my courses panel");
 		}
 	}
-	
+	/**
+	 * inner action listener class to handle the functionality of the course selection
+	 * displays the course if active(student), and gives them their functionality
+	 * 
+	 * @author louis Rae
+	 */
 	public class CourseListener implements ActionListener
 	{
 		Course thatCourse;

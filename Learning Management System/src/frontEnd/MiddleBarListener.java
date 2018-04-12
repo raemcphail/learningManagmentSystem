@@ -16,15 +16,26 @@ import javax.swing.JButton;
 
 import server.Course;
 
+
 /**
  * listener to select the ContentPanel that displays the courses(or lack there of), or the 
- * create courses, **to add course catalog later
- * @author louis
- *
+ * create courses panel
+ * @author Louis, Raemc
+ * @version 1.1
+ * @since April 9, 2018
  */
 public class MiddleBarListener implements ActionListener {
+	/**
+	 * the main frame
+	 */
 	DashboardFrame theFrame;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectOutputStream out = null;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectInputStream in = null;
 	
 	MiddleBarListener(DashboardFrame theFrame, ObjectOutputStream out, ObjectInputStream in)
@@ -34,6 +45,10 @@ public class MiddleBarListener implements ActionListener {
 		this.out = out;
 
 	}
+	/**
+	 * if the mycourses button is pressed, switches the outer cardlayout within dashboard frame to display courses,
+	 * otherwise displays the creatCourse panel
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -50,16 +65,7 @@ public class MiddleBarListener implements ActionListener {
 				{
 					theFrame.myCourses.remove(theFrame.myCourses.emptyCourseMessage);
 				}
-//				//Iterator it = courses.iterator();
-//				//int i = 0;
-//				//while (it.hasNext())
-//				//{
-//				//	String name = it.next().toString();
-//					/*if (name)
-//					courseButtons[i] = new JButton(it.next().toString());
-//					add(courseButtons[i]);	//add to panel*/
-//					//i++;
-//				//}	
+
 			} catch (ClassNotFoundException | IOException e1) {
 				e1.printStackTrace();
 				System.err.println("error catching course in MiddleBarListener");
@@ -71,11 +77,6 @@ public class MiddleBarListener implements ActionListener {
 			theFrame.cardLayout.show(theFrame.content, "createCourses");
 			System.out.println("create courses");
 		}
-		/*	to add course catalog here****
-		if (e.getSource() == "MyCourses")
-		{
-			theFrame.cardLayout.show(theFrame.content, "courses");
-		}*/
 		
 	}
 

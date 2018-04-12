@@ -11,11 +11,26 @@ import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
+/**
+ * Listener to display various panels, such as assignments,
+ * student, dropbox, and grade
+ * @author Louis, Raemc
+ * @version 1.1
+ * @since April 9, 2018
+ */
 public class SideViewListener implements ActionListener 
 {
+	/**
+	 * the course panel
+	 */
 	CourseViewPanel coursePanel;
+	/**
+	 * the inner cardlayout
+	 */
 	CardLayout clayout;
+	/**
+	 * the panel that populates it
+	 */
 	JPanel selection;
 	
 	SideViewListener (CourseViewPanel p, CardLayout l, JPanel s)
@@ -24,7 +39,9 @@ public class SideViewListener implements ActionListener
 		clayout = l;
 		selection = s;
 	}
-	
+	/**
+	 * show the appropriate panel depending on which sideViewPanel button was pressed
+	 */
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == coursePanel.svpanel.btnAssignments)

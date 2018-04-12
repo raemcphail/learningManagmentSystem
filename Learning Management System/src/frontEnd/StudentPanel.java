@@ -27,18 +27,53 @@ import java.awt.GridLayout;
 import javax.swing.JSplitPane;
 import javax.swing.JList;
 import javax.swing.JSeparator;
-
+/**
+ * Panel to display the students, and enroll or unenroll them
+ * @author Louis, Raemc
+ * @version 1.1
+ * @since April 9, 2018
+ */
 public class StudentPanel extends JPanel
 {
+	/**
+	 * the field by which the user will search
+	 */
 	protected JTextField searchBar;
+	/**
+	 * the list within the JList
+	 */
 	DefaultListModel list;
+	/**
+	 * used to display student results
+	 */
 	JList results;
+	/**
+	 * the scrollpane the above items are contained within
+	 */
 	JScrollPane scrollpane;
+	/**
+	 * the search button
+	 */
 	JButton btnSearch;
+	/**
+	 * The 'Student" title
+	 */
 	JLabel title;
+	/**
+	 * an instance of the listener object when the search button is pressed
+	 */
 	StudentListener listener;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectInputStream in = null;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectOutputStream out = null;
+	/**
+	 * the current course
+	 */
 	Course course;
 
 	public StudentPanel(Course course, ObjectInputStream in, ObjectOutputStream out) 
@@ -80,7 +115,8 @@ public class StudentPanel extends JPanel
 	class MouseClicked implements MouseListener
 	{
 		/**
-		* required method to handle action, 
+		* required method to handle action, take the student id and send to database,
+		* to update studentenrollmenttable depending on selection made by prof
 		* @Override
 		*/
 		public void mouseClicked(MouseEvent e) {

@@ -13,21 +13,55 @@ import java.io.ObjectOutputStream;
 
 /**
  * CourseView Panel displays the information for when you select one of your courses
- * @author raemc
- *
+ * @author Louis, Raemc
+ * @version 1.1
+ * @since April 9, 2018
  */
 public class CourseViewPanel extends JPanel
 {
+	/**
+	 * the assignment panel
+	 */
 	AssignmentPanel assignmentpanel;
+	/**
+	 * the student panel
+	 */
 	StudentPanel studentpanel;
+	/**
+	 * the dropbox panel
+	 */
 	DropboxPanel dropboxpanel;
+	/**
+	 * the StudentGradePanel
+	 */
 	StudentGradePanel studentGrade;
+	/**
+	 * the sideViewPanel
+	 */
 	SideViewPanel svpanel;
+	/**
+	 * the inner card layout to switch between the above panels
+	 */
 	CardLayout c;
+	/**
+	 * the jpanel that will be displayed through the cardlayout
+	 */
 	JPanel selection = new JPanel();
+	/**
+	 * the course object that the user has clicked on
+	 */
 	Course course;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectInputStream in = null;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectOutputStream out = null;
+	/**
+	 * the main frame
+	 */
 	DashboardFrame theFrame;
 	public CourseViewPanel(DashboardFrame theFrame, Course course, ObjectInputStream in, ObjectOutputStream out) 
 	{

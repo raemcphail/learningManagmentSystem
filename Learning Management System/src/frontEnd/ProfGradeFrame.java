@@ -24,21 +24,55 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
 /**
- * the panel that is displayed when a student presses the Grade button within their course
- * @author louis
- *
+ * the panel that is displayed when a Prof presses the Grade button within their course
+ * @author Louis, Raemc
+ * @version 1.1
+ * @since April 9, 2018
  */
 public class ProfGradeFrame extends JFrame{
+	/**
+	 * that course
+	 */
 	Course course;
+	/**
+	 * the dashboard frame
+	 */
 	DashboardFrame theFrame;
+	/**
+	 * the comments title
+	 */
 	private JLabel Comments;
+	/**
+	 * the grades title
+	 */
 	private JLabel gradeLabel;	
+	/**
+	 * the textArea for writing comments
+	 */
 	private JTextArea commentArea;
+	/**
+	 * the grade field
+	 */
 	private JTextField gradeField;
+	/**
+	 * the submit button
+	 */
 	private JButton btnSubmit;
+	/**
+	 * the studentID for that assignment
+	 */
 	private int studentID;
+	/**
+	 * the timestamp when the user sent it
+	 */
 	private String timeStamp;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectInputStream in = null;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectOutputStream out = null;
 	public ProfGradeFrame(ObjectInputStream in, ObjectOutputStream out, Course c, DashboardFrame theFrame, String studentID, String timeStamp)
 	{

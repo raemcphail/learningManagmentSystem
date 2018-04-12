@@ -11,13 +11,37 @@ import javax.swing.SwingConstants;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Color;
-
+/**
+ * Initial frame that appears when a user(client) connects, which asks for a username,
+ * and password. And has a login button
+ * @author Louis, Raemc
+ * @version 1.1
+ * @since April 9, 2018
+ */
 public class LoginFrame extends JFrame {
+	/**
+	 * the user field
+	 */
 	private JTextField IUser;
+	/**
+	 * the password field
+	 */
 	private JPasswordField IPassword;
+	/**
+	 * password title
+	 */
 	private JLabel Password;
+	/**
+	 * the user title
+	 */
 	private JLabel User;
+	/**
+	 * the invalid message that pops up if the username or password is incorrect
+	 */
 	private JLabel invalidMessage;
+	/**
+	 * the login button
+	 */
 	private JButton btnLogin;
 	public LoginFrame()
 	{

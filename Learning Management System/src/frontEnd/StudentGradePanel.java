@@ -13,27 +13,28 @@ import javax.swing.Box;
 
 /**
  * the panel that is displayed when a student presses the Grade button within their course
- * @author louis
- *
+ * @author Louis, Raemc
+ * @version 1.1
+ * @since April 9, 2018
  */
-public class StudentGradePanel extends JPanel{
+public class StudentGradePanel extends JPanel {
+	/**
+	 * their course
+	 */
 	Course course;
+	/**
+	 * the curretn user
+	 */
 	User user;
+	/**
+	 * the main frame
+	 */
 	DashboardFrame theFrame;
-	private JLabel firstAssignment;
-	private JLabel secondAssignment;	
-	private JTextField firstGrade;
+
 	public StudentGradePanel(Course c, User u, DashboardFrame theFrame)
 	{
 		course = c;
 		user = u;
 		this.theFrame = theFrame;
-		//setLayout(new GridLayout(12, 2, 0, 0));
-		
-		
-		
-		
 	}
-	
-	
 }

@@ -9,11 +9,24 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import server.Student;
-
+/**
+ * Listener to handle when the student search button is pressed
+ * @author Louis, Raemc
+ * @version 1.1
+ * @since April 9, 2018
+ */
 public class StudentListener implements ActionListener{
-
+	/**
+	 * the student panel
+	 */
 	StudentPanel studentPanel;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectInputStream in = null;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectOutputStream out = null;
 
 	public StudentListener(StudentPanel student, ObjectInputStream in, ObjectOutputStream out) 
@@ -22,12 +35,13 @@ public class StudentListener implements ActionListener{
 		this.in = in;
 		this.out = out;
 	}
-
+	/**
+	 * searches for the student in the database based on the query, and returns the result on the screen
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void actionPerformed(ActionEvent obj) {
 		studentPanel.list.clear();
-		System.out.println("pressed search");
 		try {
 			out.writeObject("student");
 			String query = studentPanel.searchBar.getText();

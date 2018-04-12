@@ -2,6 +2,7 @@ package frontEnd;
 
 import javax.swing.*;
 
+
 import server.User;
 
 import java.awt.GridLayout;
@@ -10,6 +11,12 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
+/**
+ * Overall application frame that contains all user functionality
+ * @author Louis, Raemc
+ * @version 1.1
+ * @since April 9, 2018
+ */
 public class DashboardFrame extends JFrame {
 	/**
 	 * the overlaying panel
@@ -49,11 +56,11 @@ public class DashboardFrame extends JFrame {
 	 */
 	protected CreateCoursePanel createCourses;
 	/**
-	 * 
+	 * the current user, retrieved from the login information
 	 */
 	protected User user;
 	/**
-	 * 
+	 * the outer cardlayout to display different information in the contentpanel portion of the frame
 	 */
 	protected CardLayout cardLayout;
 	/**

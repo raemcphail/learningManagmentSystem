@@ -10,10 +10,24 @@ import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.BoxLayout;
 import javax.swing.DropMode;
 import java.awt.Color;
-
+/**
+ * Panel in upper portion of dashboard frame, used to display the user and welcome them to the application
+ * @author Louis, Raemc
+ * @version 1.1
+ * @since April 9, 2018
+ */
 public class TitlePanel extends JPanel {
+	/**
+	 * the welcome message title 
+	 */
 	private JTextField welcomeMessage;
+	/**
+	 * the user name to be updated
+	 */
 	private JTextField ClientName;
+	/**
+	 * the name attribute when the panel is constructed
+	 */
 	private String theUserName;
 	public TitlePanel(String firstname, String lastname) {
 		theUserName = firstname + " " + lastname;

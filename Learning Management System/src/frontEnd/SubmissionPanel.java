@@ -39,20 +39,61 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import java.awt.Font;
-
+/**
+ * Panel to show submissions when a dropbox folder is selected by a prof
+ * @author Louis, Raemc
+ * @version 1.1
+ * @since April 9, 2018
+ */
 public class SubmissionPanel extends JPanel
 {
+	/**
+	 * used to display submission results
+	 */
 	JList results;
+	/**
+	 * the scrollpane the above items are contained within
+	 */
 	JScrollPane scrollpane;
+	/**
+	 * the add button
+	 */
 	JButton btnAdd;
+	/**
+	 * the 'Submission' title and the assignment name
+	 */
 	JLabel title;
+	/**
+	 * the list within the JList
+	 */
 	DefaultListModel list;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectOutputStream out = null;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectInputStream in = null;
+	/**
+	 * the course view object
+	 */
 	CourseViewPanel courseView;
+	/**
+	 * the current course
+	 */
 	Course course;
+	/**
+	 * the main frame
+	 */
 	DashboardFrame theFrame;
+	/**
+	 * the assignment name from dropbox folder
+	 */
 	String assignName;
+	/**
+	 * the user type
+	 */
 	char type;
 	
 	public SubmissionPanel(CourseViewPanel courseView, ObjectInputStream i, ObjectOutputStream o, Course c, DashboardFrame theFrame, String AssignName) 
@@ -65,7 +106,6 @@ public class SubmissionPanel extends JPanel
 		out = o;
 		assignName = AssignName;
 		course = c;
-		//setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		title = new JLabel ("Submissions for " + AssignName);
 		title.setFont(new Font("Tahoma", Font.BOLD, 19));
 		add(title);
@@ -106,7 +146,11 @@ public class SubmissionPanel extends JPanel
 			e1.printStackTrace();
 		}
 	}
-		
+		/**
+		 * action event if the prof clicks the submission,
+		 * they can choose to download or grade
+		 * @author louis
+		 */
 		class MouseClicked implements MouseListener
 		{
 			/**
