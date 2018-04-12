@@ -5,15 +5,31 @@ import java.net.Socket;
 
 import dbManagers.CourseManager;
 
+/**
+ * handler responsible for course/database related actions
+ * @author louis rae
+ * @version 1.0
+ * @since April 11, 2018
+ */
 public class CreateCourseHandler {
-ObjectInputStream in = null;
-ObjectOutputStream out = null;
+	/**
+	 * objectinputstream to receive objects
+	 */
+	ObjectInputStream in = null;
+	/**
+	 * objectoutputstream to send objects
+	 */
+	ObjectOutputStream out = null;
+	
 	CreateCourseHandler(ObjectInputStream in, ObjectOutputStream out)
 	{
 		this.in = in;
 		this.out = out;
 	}
 	
+	/**
+	 * method that updates database when a course is added
+	 */
 	public void runHandler()
 	{
 		try {
@@ -29,23 +45,19 @@ ObjectOutputStream out = null;
 				{
 					courseDB.addItem(Prof_ID, name, true);//add the course to db	
 					Course course = new Course(name, true, Prof_ID);
-					System.out.println("active: " + course.getActive());
 					out.writeObject(course);
 				}
 				else
 				{
 					courseDB.addItem(Prof_ID, name, false);				
 					Course course = new Course(name, false, Prof_ID);
-					System.out.println("active: " + course.getActive());
 					out.writeObject(course);
 				}
-				System.out.println("Course added");
 				
 			}
 			else
 			{
 				out.writeObject(new Course("duplicate", false, -1));
-				System.out.println("Duplicate course");
 			}
 			
 			
@@ -56,11 +68,5 @@ ObjectOutputStream out = null;
 			System.err.println("exception in createCourse runHandler");
 		}
 	}
-	/**
-	 * method to add the course that was added to DB to the myCourses tab
-	 */
-	public void updateMyCourseGUI()
-	{
-		
-	}
+	
 }

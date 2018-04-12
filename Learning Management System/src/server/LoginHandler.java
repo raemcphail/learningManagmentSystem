@@ -7,10 +7,24 @@ import dbManagers.UserManager;
 
 import java.io.*;
 
-
+/**
+ * handler responsible for login/database related actions
+ * @author louis rae
+ * @version 1.0
+ * @since April 11, 2018
+ */
 public class LoginHandler {
+	/**
+	 * the user sending the email
+	 */
 	User user;
+	/**
+	 * objectoutputstream to send objects
+	 */
 	ObjectOutputStream out = null;
+	/**
+	 * objectinputstream to receive objects
+	 */
 	ObjectInputStream in = null;
 	
 	LoginHandler(ObjectOutputStream out, ObjectInputStream in)
@@ -19,10 +33,14 @@ public class LoginHandler {
 		this.in = in;
 	}
 	
+	/**
+	 * method that checks database for user with matching login information
+	 * then results in "success" where user can login or 
+	 * "failure where they have to return to login screen
+	 */
 	public User runHandler(User user) 
 	{
 		this.user = user;
-		System.out.println("Login Handler is running");
 		try
 		{
 			while(true)
@@ -66,8 +84,6 @@ public class LoginHandler {
 				out.writeObject("success");
 
 				out.writeObject(user);
-				//outObj.flush();
-				//outObj.close();
 				return user;
 			}
 			else
@@ -75,7 +91,7 @@ public class LoginHandler {
 				out.writeObject("failure");
 			}
 			
-		}	//end while
+		}//end while
 		}catch(ClassNotFoundException | IOException e)
 		{
 			e.printStackTrace();
@@ -85,6 +101,10 @@ public class LoginHandler {
 		
 	}
 	
+	/**
+	 * method that recieves actual password from database and the
+	 * password field from GUI then checks if they match
+	 */
 	 public boolean checkPassword(char [] password, String actualPassword)
 	 {
 		 if (actualPassword == null)

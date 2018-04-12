@@ -48,6 +48,7 @@ public class SideViewListener implements ActionListener
 			{
 				coursePanel.out.writeObject("showGrades");
 				coursePanel.out.writeObject(coursePanel.theFrame.user.getID());
+				coursePanel.studentGrade.removeAll();
 				ArrayList<String> names = (ArrayList<String>)coursePanel.in.readObject();
 				ArrayList<Integer> grades = (ArrayList<Integer>)coursePanel.in.readObject();
 				if(names.size()!=0 && names.size()==grades.size())

@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
 /**
  * This class represents all the data for a submission, each submission can be graded by
  * the professor and the grade can be viewed by the student.
+ * @author louis rae
+ * @version 1.0
+ * @since April 11, 2018
  */
 public class Submissions implements Serializable
 {
@@ -21,9 +24,17 @@ public class Submissions implements Serializable
 	 * professor requests to view that submission the server can send that file to the professor.
 	 */
 	String path;
-	
+	/**
+	 * the student id of the student who made the submission
+	 */
 	int student_id;
+	/**
+	 * name of the file the student sbumitted
+	 */
 	String title;
+	/**
+	 * the time the submission was made
+	 */
 	String timestamp;
 	public Submissions (String p, int student, String title, String time)
 	{
@@ -44,6 +55,9 @@ public class Submissions implements Serializable
 		
 	}
 	
+	/**
+	 * method that returns student id and timestamp as a String
+	 */
 	@Override
 	public String toString()
 	{

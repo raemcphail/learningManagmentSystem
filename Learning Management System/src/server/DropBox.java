@@ -6,6 +6,9 @@ import java.util.ArrayList;
  * This class represents a table in the database, each assignment 
  * the professor uploads will have a specific table. The table holds all the information
  * about a submission from each student
+ * @author louis rae
+ * @version 1.0
+ * @since April 11, 2018
  */
 public class DropBox implements Serializable
 {

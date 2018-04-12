@@ -15,33 +15,66 @@ import java.util.concurrent.ExecutorService;
  * A server for the program. This server waits for a client to 
  * connect then gives the user the login window, user must provide
  * a correct user name and password before the main page is displayed
- * @author raemc
- *
+ * @author louis rae
+ * @version 1.0
+ * @since April 11, 2018
  */
 public class Server implements Runnable{
-	
+	/**
+	 * the socket used for data exchange between the frontend and database handlers
+	 */
 	private Socket aSocket;
-	
+	/**
+	 * objectinputstream to receive objects
+	 */
 	ObjectInputStream in = null;
+	/**
+	 * objectoutputstream to send objects
+	 */
 	ObjectOutputStream out = null;
+	/**
+	 * Handler used to interact with database regarding login data 
+	 */
 	LoginHandler loginhandler;
+	/**
+	 * Handler used to interact with database regarding course data 
+	 */
 	public CreateCourseHandler createHandler;
+	/**
+	 * Handler used to interact with database regarding course data 
+	 */
 	public MyCourseHandler getCourseHandler;
+	/**
+	 * Handler used to interact with database regarding student data 
+	 */
 	public StudentHandler studentHandler;
+	/**
+	 * Handler used to interact with database regarding enrollment data 
+	 */
 	public StudentEnrollmentHandler enrollHandler;
+	/**
+	 * Handler used to interact with database regarding assignment data 
+	 */
 	public AssignmentHandler assignmentHandler;
+	/**
+	 * Handler used to interact with database regarding email data 
+	 */
 	public EmailHandler emailHandler;
+	/**
+	 * Handler used to interact with database regarding submission data 
+	 */
 	public SubmissionHandler submissionHandler;
+	/**
+	 * Handler used to interact with database regarding grade data 
+	 */
 	public GradesHandler gradeHandler;
 	
-	public Server ()
-	{
-		//many important things
-	}
 	
+	/**
+	 * method that creates thread pool and connects to clients 
+	 */
 	public static void runServer() throws IOException
 	{
-		//String line = "yo yo";
 		ServerSocket serverSocket = null;
 		ExecutorService pool = Executors.newCachedThreadPool();
 		try{
@@ -61,6 +94,11 @@ public class Server implements Runnable{
 		}
 	}
 	
+	/**
+	 * runnable method for the thread pool, has all the handlers the requires to update databse
+	 * opcodes are sent as Strings through the socket so that the server knows which handler 
+	 * methods to call
+	 */
 	@Override
 	public void run(){
 		try {
@@ -160,7 +198,6 @@ public class Server implements Runnable{
 						gradeHandler.getGrades();
 					}
 					Manager.connection.endRequest();
-					//Manager.connection.commit();
 					
 				}// end while
 			}

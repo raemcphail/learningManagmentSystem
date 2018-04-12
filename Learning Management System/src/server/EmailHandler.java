@@ -18,14 +18,30 @@ import javax.mail.internet.MimeMessage;
  * class to send emails to the user,
  * information is send through the actionevent class
  * which is an inner class within EmailFrame.
- * @author louis
+ * @author louis rae
+ * @version 1.0
+ * @since April 11, 2018
  *
  */
 public class EmailHandler {
+	/**
+	 * the user sending the email
+	 */
 	User user;
+	
+	/**
+	 * component of the email
+	 */
 	Session session;
+	/**
+	 * objectinputstream to receive objects
+	 */
 	ObjectInputStream in = null;
+	/**
+	 * objectoutputstream to send objects
+	 */
 	ObjectOutputStream out = null;
+	
 	EmailHandler(User u, ObjectInputStream in, ObjectOutputStream out)
 	{
 		this.in = in;
@@ -35,6 +51,9 @@ public class EmailHandler {
 		
 	}
 	
+	/**
+	 * method that allows user to send an email when user presses submit
+	 */
 	public void runHandler() throws IOException, ClassNotFoundException
 	{
 		try
@@ -57,8 +76,6 @@ public class EmailHandler {
 					return new PasswordAuthentication(senderAddress, user.getPassword());
 				}
 			});
-			System.out.println(senderAddress);
-			System.out.println(user.getPassword());
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(senderAddress));
 			if (receiverAddress.contains(";"))

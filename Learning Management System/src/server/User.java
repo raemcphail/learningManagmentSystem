@@ -6,8 +6,9 @@ import java.io.Serializable;
 
 /**
  * This class represents all the data for a User
- * @author raemc
- *
+ * @author louis rae
+ * @version 1.0
+ * @since April 11, 2018
  */
 public class User implements Serializable {
 	/**

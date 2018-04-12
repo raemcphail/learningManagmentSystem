@@ -10,8 +10,22 @@ import dbManagers.CourseManager;
 import dbManagers.GradesManager;
 import dbManagers.SubmissionManager;
 
+/**
+ * handler responsible for assignment/database related actions, including:
+ * adding an assignment to database,
+ * @author louis rae
+ * @version 1.0
+ * @since April 11, 2018
+ */
 public class GradesHandler {
+	
+	/**
+	 * objectoutputstream to send objects
+	 */
 	ObjectOutputStream out = null;
+	/**
+	 * objectinputstream to receive objects
+	 */
 	ObjectInputStream in = null;
 	
 	GradesHandler(ObjectInputStream in, ObjectOutputStream out)
@@ -20,6 +34,10 @@ public class GradesHandler {
 		this.in = in;
 	}
 	
+	/**
+	 * method that sends an ArrayList of grades over the socket for the student's 
+	 * grade panel to display
+	 */
 	public void getGrades()
 	{
 		GradesManager g = new GradesManager();
@@ -37,13 +55,11 @@ public class GradesHandler {
 		}
 	}
 	
+	/**
+	 * method that updates database with the grade and comment the prof assigned a submission
+	 */
 	public void updateSubGrade()
 	{
-		/*out.writeObject("updateGrade");	//send opCode
-						out.writeObject(studentID);	//sends the id as an int
-						out.writeObject(timeStamp);	//sends the timeStamp as a String
-						out.writeObject(Integer.parseInt(gradeField.getText())); //sends the assignment grade
-						out.writeObject(commentArea.getText());	//send the comment*/
 		try {
 			int StudentID = (int)in.readObject();
 			String timeStamp = (String)in.readObject();

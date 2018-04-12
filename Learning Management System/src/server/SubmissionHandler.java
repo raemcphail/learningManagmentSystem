@@ -15,9 +15,21 @@ import dbManagers.AssignmentManager;
 import dbManagers.CourseManager;
 import dbManagers.SubmissionManager;
 
+/**
+ * handler responsible for submission/database related actions
+ * @author louis rae
+ * @version 1.0
+ * @since April 11, 2018
+ */
 public class SubmissionHandler 
 {
+	/**
+	 * objectinputstream to receive objects
+	 */
 	ObjectInputStream in = null;
+	/**
+	 * objectoutputstream to send objects
+	 */
 	ObjectOutputStream out = null;
 		SubmissionHandler(ObjectInputStream in, ObjectOutputStream out)
 		{
@@ -25,16 +37,18 @@ public class SubmissionHandler
 			this.out = out;
 		}
 	
+	
+		/**
+		 * method that updates database with information receieved over the socket
+		 * about the submission and also receives file over the socket to be saved on server machine
+		 */
 	public void uploadSub()
 	{
 		try
 		{
 			String assignName = (String)in.readObject();
-			//System.out.println(title);
 			Course course = (Course)in.readObject();
-			//System.out.println(course.name);
 			int studentID = (Integer)in.readObject();
-			//System.out.println(studentID);
 			AssignmentManager a = new AssignmentManager();
 			CourseManager c = new CourseManager();
 			int courseID = c.findCourseID(course.name);
@@ -56,6 +70,12 @@ public class SubmissionHandler
 		}
 	}
 	
+	/**
+	 * method allows prof to download the submission, receives the studentid and timestamp
+	 * of the submission in order to retrieve path from database, we are under the assumption that
+	 * this will work in identifying a unique submission since one student can only submit
+	 * one thing at a time. Once the path is found the file is sent over the socket from the server machine
+	 */
 	public void downloadSub()
 	{
 		try
@@ -76,6 +96,9 @@ public class SubmissionHandler
 		}
 	}
 	
+	/**
+	 * method that receives a path to the file then sends that file over the socket
+	 */
 	public void sendFile(String path)
 	{
 		File selectedFile = new File(path);
@@ -97,6 +120,11 @@ public class SubmissionHandler
 		}
 	}
 	
+	/**
+	 * method that receives the course and assignment name then searches the database
+	 * and sends an arraylist of all submissions associated with that assignment and course
+	 * over the socket
+	 */
 	public void getSubs()
 	{
 		try
@@ -121,14 +149,17 @@ public class SubmissionHandler
 		}
 	}
 	
+	/**
+	 * method that receives a name and extension to save the file as
+	 * then receives that file over the socket and saves it. This is for the
+	 * server side, saves to a pre-specified place
+	 */
 	public String recieveFile (String name, String ex)
 	{
-		String STORAGEPATH = "C:\\" + File.separator + "Users\\" + File.separator + "louis\\" + File.separator + "Desktop\\" + File.separator + "serverComputer\\" + File.separator;
+		String STORAGEPATH = "C:\\" + File.separator + "Users\\" + File.separator + "raemc\\" + File.separator + "Desktop\\" + File.separator + "lmsSubmissions\\" + File.separator;
 		String NAME = name;
 		String EXTENSION = ex;
 		String path = STORAGEPATH + NAME + EXTENSION;
-		System.out.println(path);
-		System.out.println("Server is recieving file");
 		try
 		{
 			System.out.println("recieving file");

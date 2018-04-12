@@ -5,7 +5,9 @@ import java.util.ArrayList;
 /**
  * This is a class to represent all the data for a course that the student is 
  * enrolled in or the professor has created
- * @author raemc
+ * @author louis rae
+ * @version 1.0
+ * @since April 11, 2018
  *
  */
 public class Course implements Serializable
@@ -36,11 +38,19 @@ public class Course implements Serializable
 		assignments = new ArrayList<Assignments>();
 	}
 	
+	/**
+	 * method that returns course name
+	 */
 	@Override
 	public String toString()
 	{
 		return this.name;
 	}
+	
+	/**
+	 * method that makes active courses inactive
+	 * and makes inactive course active when called
+	 */
 	public void toggleActive()
 	{
 		if (active)
@@ -52,10 +62,14 @@ public class Course implements Serializable
 			active = true;
 		}
 	}
+	
+	
 	public boolean getActive()
 	{
 		return active;
 	}
+	
+	
 	public void setAssignments(ArrayList<Assignments> assignments)
 	{
 		this.assignments = assignments;

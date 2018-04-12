@@ -20,12 +20,19 @@ import dbManagers.CourseManager;
 /**
  * handler responsible for assignment/database related actions, including:
  * adding an assignment to database,
- * @author louis
- *
+ * @author louis rae
+ * @version 1.0
+ * @since April 11, 2018
  */
 public class AssignmentHandler 
 {
+	/**
+	 * objectinputstream to receive objects
+	 */
 	ObjectInputStream in = null;
+	/**
+	 * objectoutputstream to send objects
+	 */
 	ObjectOutputStream out = null;
 		AssignmentHandler(ObjectInputStream in, ObjectOutputStream out)
 		{
@@ -33,11 +40,13 @@ public class AssignmentHandler
 			this.out = out;
 		}
 		
+	/**
+	 * method that updates database when a assignment is added
+	 */
 	public void addHandler()
 	{
 		try
 		{
-		//String name = (String)in.readObject();
 		String ex = (String)in.readObject();
 		String title = (String)in.readObject();
 		Course course = (Course)in.readObject();
@@ -60,6 +69,10 @@ public class AssignmentHandler
 		
 	}
 	
+	/**
+	 * method that updates the Jlist in assignment panel
+	 * this is for the professor side, shows both active and inactive assignments 
+	 */
 	public void updateList()
 	{
 		try {
@@ -79,11 +92,12 @@ public class AssignmentHandler
 		}
 	}
 	
+	/**
+	 * method that allows students to download the assignment they clicked on in the Jlist 
+	 * on assignment panel
+	 */
 	public void downloadAssign()
 	{
-		//need to course name and assignment title to find assignment id
-		//when assignment id is found the path to the file can be found
-		//then that file can be sent over the socket
 		try
 		{
 			String title = (String)in.readObject();
@@ -105,10 +119,13 @@ public class AssignmentHandler
 		}
 	}
 	
+	/**
+	 * method that updates the Jlist in assignment panel
+	 * this is for the student side, shows only active assignments 
+	 */
 	public void updateActiveList()
 	{
 		try {
-			System.out.println("in updateActiveList");
 			String courseName = (String)in.readObject();
 			CourseManager courseDB = new CourseManager();
 			int CourseID = courseDB.findCourseID(courseName);
@@ -124,6 +141,10 @@ public class AssignmentHandler
 		}
 	}
 	
+	/**
+	 * method allows profs to change assignment from active to inactive
+	 * or inactive to active 
+	 */
 	public void updateActive()
 	{
 		try {
@@ -135,9 +156,7 @@ public class AssignmentHandler
 			
 			int AssignID = assignDB.GETAssignID(title, courseID);
 			boolean active = assignDB.isActive(AssignID);
-			System.out.println("the assign ID: " + AssignID);
-			System.out.println(title);
-			 if (active)
+			 if (active)//assignment is active
 			 {
 				int choice = JOptionPane.showConfirmDialog(null, "This assignment is ACTIVE.\n Do you want to deactivate it?", "deactivate", JOptionPane.YES_NO_OPTION);
 				if (choice == JOptionPane.YES_OPTION)
@@ -150,7 +169,7 @@ public class AssignmentHandler
 				}
 				
 			 }
-			 else	//student is NOT enrolled
+			 else	//assignment is not active
 			 {
 				int choice = JOptionPane.showConfirmDialog(null, "This assignment is NOT ACTIVE.\n Do you want to activate it?", "activate", JOptionPane.YES_NO_OPTION);
 				if (choice == JOptionPane.YES_OPTION)
@@ -171,6 +190,9 @@ public class AssignmentHandler
 		}
 	}
 	
+	/**
+	 * method that receives a path to the file then sends that file over the socket
+	 */
 	public void sendFile(String path)
 	{
 		File selectedFile = new File(path);
@@ -192,17 +214,19 @@ public class AssignmentHandler
 		}
 	}
 	
+	/**
+	 * method that receives a name and extension to save the file as
+	 * then receives that file over the socket and saves it. This is for the
+	 * server side, saves to a pre-specified place
+	 */
 	public String recieveFile (String name, String ex)
 	{
-		String STORAGEPATH = "C:\\" + File.separator + "Users\\" + File.separator + "louis\\" + File.separator + "Desktop\\" + File.separator + "serverComputer\\" + File.separator;
+		String STORAGEPATH = "C:\\" + File.separator + "Users\\" + File.separator + "raemc\\" + File.separator + "Desktop\\" + File.separator + "lmsServer\\" + File.separator;
 		String NAME = name;
 		String EXTENSION = ex;
 		String path = STORAGEPATH + NAME + EXTENSION;
-		System.out.println(path);
-		System.out.println("Server is recieving file");
 		try
 		{
-			System.out.println("recieving file");
 			byte[] content = (byte[]) in.readObject();
 			File newFile = new File(path);
 			if(! newFile.exists())

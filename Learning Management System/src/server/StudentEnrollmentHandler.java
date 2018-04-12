@@ -10,9 +10,20 @@ import javax.swing.JOptionPane;
 import dbManagers.CourseManager;
 import dbManagers.EnrollmentManager;
 import dbManagers.UserManager;
-
+/**
+ * handler responsible for enrollment/database related actions
+ * @author louis rae
+ * @version 1.0
+ * @since April 11, 2018
+ */
 public class StudentEnrollmentHandler {
+	/**
+	 * objectoutputstream to send objects
+	 */
 	ObjectOutputStream out = null;
+	/**
+	 * objectinputstream to receive objects
+	 */
 	ObjectInputStream in = null;
 	
 		public StudentEnrollmentHandler(ObjectOutputStream out, ObjectInputStream in)
@@ -21,6 +32,9 @@ public class StudentEnrollmentHandler {
 			this.in = in;
 		}
 		
+		/**
+		 * method that enrolls or unenrolls student based on prof's response to dialog box
+		 */
 		public void runHandler()
 		{
 					 int userID;
@@ -65,11 +79,14 @@ public class StudentEnrollmentHandler {
 			}
 		}
 		
+		/**
+		 * method that receives a course name over the socket then
+		 * sends arraylist of students enrolled in the course back over the socket
+		 */
 		public void getEnrolledStudents()
 		{
 			 try {
 				String courseName = (String)in.readObject();
-				System.out.println(courseName);
 				ArrayList<Student> students = new ArrayList<Student>();
 				CourseManager courseDB = new CourseManager();
 				EnrollmentManager enrollDB = new EnrollmentManager();
@@ -86,7 +103,6 @@ public class StudentEnrollmentHandler {
 					ArrayList<Student> student = userDB.getStudents(30000001);
 					students.add(student.get(0));
 				}
-				System.out.println(students.get(0));
 				out.writeObject(students);
 				
 			} catch (ClassNotFoundException | IOException e) {

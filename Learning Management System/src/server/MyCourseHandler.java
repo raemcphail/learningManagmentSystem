@@ -16,7 +16,9 @@ import dbManagers.EnrollmentManager;
 /**
  * handler continuously checks for new courses and fetches them from database to display on GUI,
  * by sending course names through sockets to the MyCoursesPanel.
- * @author louis
+ * @author louis rae
+ * @version 1.0
+ * @since April 11, 2018
  *
  */
 public class MyCourseHandler {
@@ -25,9 +27,12 @@ public class MyCourseHandler {
 	 */
 	User user;
 	/**
-	 * object I/O to send courses to the GUI
+	 * objectoutputstream to send objects
 	 */
 	ObjectOutputStream out = null;
+	/**
+	 * objectinputstream to receive objects
+	 */
 	ObjectInputStream in = null;
 	
 		public MyCourseHandler(ObjectOutputStream out, ObjectInputStream in, User user)
@@ -37,15 +42,16 @@ public class MyCourseHandler {
 			this.user = user;
 		}
 		
+		/**
+		 * method that writes an arrayList of courses the prof creates to 
+		 * GUI over the socket if user is a prof or writes an arraylist of courses the student 
+		 * is enrolled if the user is student
+		 */
 		public void runHandler()
 		{
 			try {
-				System.out.println("myCoursesHandler running");
 				CourseManager courseDB = new CourseManager();
 				ArrayList<Course> courses;
-				//gets the courses for mycourses
-				//prof has all the courses they created
-				//student has all course they are enrolled in
 				if(user.getType() == 'P')
 				{	
 					courses = courseDB.getUserCourses(user.getID());
@@ -85,7 +91,11 @@ public class MyCourseHandler {
 				courseDB.changeActive(0, courseID);
 			}
 		}
-		
+		/**
+		 * method that receives a course over the socket 
+		 * then checks the database and sends a boolean representing
+		 * if the course is active or not back through the socket 
+		 */
 		public void updateCourseState()
 		{
 			try {
@@ -93,7 +103,6 @@ public class MyCourseHandler {
 				CourseManager courseDB = new CourseManager();
 				int courseID = courseDB.findCourseID(course.name);
 				boolean courseState = courseDB.findCourseActive(courseID);
-				//System.out.println(courseState);
 				out.writeObject(courseState);
 				}	
 			catch (ClassNotFoundException | IOException e) {

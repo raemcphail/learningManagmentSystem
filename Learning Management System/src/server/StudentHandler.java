@@ -11,9 +11,21 @@ import dbManagers.CourseManager;
 import dbManagers.EnrollmentManager;
 import dbManagers.UserManager;
 
+/**
+ * handler responsible for student/database related actions
+ * @author louis rae
+ * @version 1.0
+ * @since April 11, 2018
+ */
 public class StudentHandler {
 
+	/**
+	 * objectoutputstream to send objects
+	 */
 	ObjectOutputStream out = null;
+	/**
+	 * objectinputstream to receive objects
+	 */
 	ObjectInputStream in = null;
 	
 		public StudentHandler(ObjectOutputStream out, ObjectInputStream in)
@@ -21,11 +33,14 @@ public class StudentHandler {
 			this.out = out;
 			this.in = in;
 		}
-		
+
+		/**
+		 * method that searches database for students and sends an arraylist of the students 
+		 * found back over the socket to the GUI
+		 */
 		public void runHandler()
 		{
 			try {
-				System.out.println("in StudentrunHandler");
 				String query = (String)in.readObject();
 				UserManager userDB = new UserManager();
 				 if (userDB.getStudents(query).size() != 0)		//check if the query is a matching lastname
