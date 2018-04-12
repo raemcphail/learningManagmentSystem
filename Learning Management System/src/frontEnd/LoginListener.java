@@ -10,7 +10,12 @@ import java.io.*;
 import java.net.Socket;
 import java.util.*;
 
-
+/**
+ * Listener handles when the login button is pressed
+ * @author Louis, Raemc
+ * @version 1.1
+ * @since April 9, 2018
+ */
 public class LoginListener implements ActionListener
 {
 	private LoginFrame login;
@@ -25,12 +30,16 @@ public class LoginListener implements ActionListener
 		this.in = in;
 
 	}
+	/**
+	 * checks the password typed to the value in the database, and determine if they match
+	 * if they do: dispose frame and pass user to client to initialize dashboard frame
+	 * otherwise display invalid message and do nothing
+	 */
 	public void actionPerformed(ActionEvent e)
 	{
 		try
 		{
 		char [] input = login.getpassword().getPassword(); 
-		System.out.println("login was pressed");
 		//sends LoginHandler the username over the socket to find in database then LoginHandler returns the expected password  
 		String username = login.getUserName().getText();
 		System.out.println(input);
@@ -50,10 +59,8 @@ public class LoginListener implements ActionListener
 			//read user object
 			try {
 				user = (User)in.readObject();
-				//in.close();
 				System.out.println(user.getEmail());
 			} catch (ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			System.out.println("Password is correct");

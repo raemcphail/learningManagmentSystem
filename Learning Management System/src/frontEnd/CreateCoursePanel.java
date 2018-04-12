@@ -3,14 +3,41 @@ package frontEnd;
 import java.awt.Dimension;
 
 import javax.swing.*;
-
+/**
+ * The panel that displays when the prof presses "create course" button,
+ * which gives choices for the user to create a course.
+ * @author Louis, Raemc
+ * @version 1.1
+ * @since April 9, 2018
+ */
 public class CreateCoursePanel extends JPanel {
+	/**
+	 * the course name title
+	 */
 	private JLabel lblCourseName;
+	/**
+	 * the course name field
+	 */
 	private JTextField ICourseName;
+	/**
+	 * the course number title
+	 */
 	private JLabel CourseNumber;
+	/**
+	 * the course name field
+	 */
 	private JTextField ICourseNumber;
+	/**
+	 * the yes radio button
+	 */
 	protected JRadioButton rdbtnYes;
+	/**
+	 * the no radio button
+	 */
 	protected JRadioButton rdbtnNo;
+	/**
+	 * the create button
+	 */
 	protected JButton btnCreate;
 
 	CreateCoursePanel()

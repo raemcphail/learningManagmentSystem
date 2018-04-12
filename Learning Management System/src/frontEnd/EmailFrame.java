@@ -12,10 +12,10 @@ import javax.swing.*;
 import server.User;
 
 /**
- * Main GUI class to display the main window, which asks User(Client) for input such as their email,
+ * GUI class to display the email window, which asks User(Client) for input such as their email,
  * the receivers email, and the subject, then submit.
  * @version 1.0
- * @author louis
+ * @author Louis Rae
  * @since April 9 2018
  */
 public class EmailFrame extends JFrame {
@@ -41,10 +41,16 @@ public class EmailFrame extends JFrame {
 		 */
 		User user;
 		/**
-		 * 
+		 * Object IO used to send objects across socket
 		 */
 		ObjectInputStream in;
+		/**
+		 * Object IO used to send objects across socket
+		 */
 		ObjectOutputStream out;
+		/**
+		 * the main frame
+		 */
 		DashboardFrame Frame;
 		/**
 		 * Contructor to build up the frame, and adding the Panels with their corresponding components.
@@ -112,7 +118,7 @@ public class EmailFrame extends JFrame {
 			 * Inner Listener class that will wait for the button Submit to be pressed, then handle that event
 			 * Implements ActionListener.
 			 * @version 1.0
-	 		 * @author louis
+	 		 * @author louis Rae
 	 		 * @since March 15 2018
 			 */
 			class MyActionListener implements ActionListener{
@@ -176,16 +182,7 @@ public class EmailFrame extends JFrame {
 					{
 						JOptionPane.showMessageDialog(null, "One or more fields is invalid", "Error",JOptionPane.ERROR_MESSAGE);
 					}
-					/*catch (IOException e)
-					{
-						e.printStackTrace();
-					}
-					catch (ClassNotFoundException e)
-					{
-						e.printStackTrace();
-					}*/
 						
-					}	
-				}
-
+				}	
+			}
 }

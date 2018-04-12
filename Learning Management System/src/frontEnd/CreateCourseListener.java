@@ -14,13 +14,29 @@ import server.CreateCourseHandler;
 import server.Server;
 import server.Course;
 import server.User;
-
+/**
+ * Listener for when you press the create button in the CreateCoursePanel
+ * @author Louis, Raemc
+ * @version 1.1
+ * @since April 9, 2018
+ */
 public class CreateCourseListener implements ActionListener {
+	/**
+	 * the main frame
+	 */
 	DashboardFrame theFrame;
+	/**
+	 * the user
+	 */
 	User user;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectOutputStream out = null;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectInputStream in = null;
-//this, user, out, in)
 	CreateCourseListener(DashboardFrame theFrame, User user, ObjectOutputStream out, ObjectInputStream in)
 	{
 		this.theFrame = theFrame;
@@ -28,8 +44,12 @@ public class CreateCourseListener implements ActionListener {
 		this.out = out;
 		this.in = in;
 	}
-	
-	@Override
+	/**
+	 *  if there is information in coursename and coursenumber, this action calls 
+	 *  the handler to add that course to the database, and creates the courseview panel
+	 *  with that unique course
+	 * 	@Override
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if (theFrame.createCourses.getName().equals(""))
 		{

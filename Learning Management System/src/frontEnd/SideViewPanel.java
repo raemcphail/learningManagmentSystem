@@ -13,24 +13,59 @@ import java.awt.Component;
 import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.Font;
+
 /**
  * Panel which is on the CourseView Panel and displays options for the user,
- * such as assignments, dropbox, and Student.
- * @author raemc
- *
+ * such as assignments, dropbox, and Student, depending on the user
+ * @author Louis, Raemc
+ * @version 1.1
+ * @since April 9, 2018
  */
 public class SideViewPanel extends JPanel
 {
+	/**
+	 * the activate/deactivate button for that course (prof only)
+	 */
 	JButton activation;
+	/**
+	 * the student button
+	 */
 	JButton btnStudent;
+	/**
+	 * the grade button
+	 */
 	JButton btnGrades;
+	/**
+	 * the dropbox button
+	 */
 	JButton btnDropbox;
+	/**
+	 * the assignment button
+	 */
 	JButton btnAssignments;
+	/**
+	 * the back button
+	 */
 	JButton btnBack;
+	/**
+	 * the course that is contained within the courseViewPanel
+	 */
 	Course course;
+	/**
+	 * the parent panel of this panel
+	 */
 	CourseViewPanel panel;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectOutputStream out = null;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectInputStream in = null;
+	/**
+	 * the main frame
+	 */
 	DashboardFrame theFrame;
 	
 	public SideViewPanel (CourseViewPanel p, ObjectOutputStream out, ObjectInputStream in, Course course, DashboardFrame theFrame)
@@ -119,11 +154,6 @@ public class SideViewPanel extends JPanel
 			btnStudent = new JButton("student");
 			add(btnStudent);
 		}
-		
-		
-		//Component verticalStrut_4 = Box.createVerticalStrut(20);
-		//add(verticalStrut_4);
-		
 		
 	
 	}

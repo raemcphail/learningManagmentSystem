@@ -4,15 +4,34 @@ import java.net.Socket;
 
 import server.User;
 
-
+/**
+ * Client is the user to connect, and the starting point for the application,
+ * NOTE: server must be running for client to connect too.
+ * @author Louis, Raemc
+ * @version 1.1
+ * @since April 9, 2018
+ */
 public class Client 
 {
+	/**
+	 * socket object to communicate to server
+	 */
 	private Socket aSocket;
-	private PrintWriter socketOut;
-	private BufferedReader stdin, socketIn;
+	/**
+	 * login frame to display upon connection
+	 */
 	private LoginFrame login;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectInputStream in = null;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectOutputStream out = null;
+	/**
+	 * the user that logs in
+	 */
 	User user;
 	
 	
@@ -21,7 +40,6 @@ public class Client
 		try 
 		{
 			aSocket = new Socket(servername, portnumber);
-			stdin = new BufferedReader(new InputStreamReader(System.in));
 			login = new LoginFrame();
 			out = new ObjectOutputStream(aSocket.getOutputStream());
 			in = new ObjectInputStream(aSocket.getInputStream());
@@ -31,11 +49,11 @@ public class Client
 		}
 		
 	}
-	
+	/**
+	 * the central method that runs the user program
+	 */
 	public void runClient()
 	{
-		//String line = "";
-		//String response = "";
 		login.setVisible(true);
 		LoginListener listener = new LoginListener(login, out, in);
 		login.getbtnLogin().addActionListener(listener);

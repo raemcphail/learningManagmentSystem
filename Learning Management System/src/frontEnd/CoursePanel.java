@@ -19,14 +19,41 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-
+/**
+ * The Middle bar that displays the main functionalities, such as viewing courses,
+ * and sending emails
+ * @author Louis, Raemc
+ * @version 1.1
+ * @since April 9, 2018
+ */
 public class CoursePanel extends JPanel {
+	/**
+	 * button that displays the courses that user has
+	 */
 	protected JButton btnMyCourses;
+	/**
+	 * the createCourse button, which will allow a prof to create a course
+	 */
 	protected JButton btnNewButton;
+	/**
+	 * the email button, which will allow a user to send an email
+	 */
 	protected JButton emailButton;
+	/**
+	 * the current user
+	 */
 	User user;
+	/**
+	 * the current users type
+	 */
 	char type;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectInputStream in;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectOutputStream out;
 	
 	public CoursePanel(User u, ObjectInputStream in, ObjectOutputStream out, DashboardFrame Frame) {
@@ -124,7 +151,10 @@ public class CoursePanel extends JPanel {
 				});
 		
 	}
-	
+	/**
+	 * method adds an email icon to the button
+	 * @param path - to the image file
+	 */
 	protected static ImageIcon createImageIcon(String path)
 	{
 		java.net.URL imgURL = CoursePanel.class.getResource(path);

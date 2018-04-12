@@ -16,7 +16,12 @@ import javax.swing.JFileChooser;
 
 import server.Assignments;
 import server.Course;
-
+/**
+ * Listener to handle when the dropbox button on the sideviewpanel is pressed.
+ * @author Louis, Raemc
+ * @version 1.1
+ * @since April 9, 2018
+ */
 public class DropboxListener implements ActionListener
 {
 	ObjectOutputStream out = null;

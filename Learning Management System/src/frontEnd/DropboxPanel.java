@@ -35,7 +35,13 @@ import javax.swing.JSplitPane;
 import javax.swing.JList;
 import javax.swing.JSeparator;
 import java.awt.Font;
-
+/**
+ * Panel that displays when the dropbox button is pressed, which contains a list of dropbox folders,
+ * which are the names of the assignments for that course
+ * @author Louis, Raemc
+ * @version 1.1
+ * @since April 9, 2018
+ */
 public class DropboxPanel extends JPanel
 {
 	JList results;

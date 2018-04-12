@@ -32,19 +32,59 @@ import javax.swing.JSplitPane;
 import javax.swing.JList;
 import javax.swing.JSeparator;
 import java.awt.Font;
-
+/**
+ * Assignment panel displays when the assignment button is pressed,
+ *  and displays a list of assignments, active ones if student,
+ *  all if prof, and also displays add button if prof.
+ * @author Louis, Raemc
+ * @version 1.1
+ * @since April 9, 2018
+ */
 public class AssignmentPanel extends JPanel
 {
+	/**
+	 * the list to show the assignment name
+	 */
 	JList results;
+	/**
+	 * the scollpane contains the result list
+	 */
 	JScrollPane scrollpane;
+	/**
+	 * the add button shows on the prof view, adds an assignment from file
+	 */
 	JButton btnAdd;
+	/**
+	 * displays 'Assignments"
+	 */
 	JLabel title;
+	/**
+	 * list is contained with results
+	 */
 	DefaultListModel list;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectOutputStream out = null;
+	/**
+	 * Object IO used to send objects across socket
+	 */
 	ObjectInputStream in = null;
+	/**
+	 * the current course view panel
+	 */
 	CourseViewPanel courseView;
+	/**
+	 * the course object that the user is currently on
+	 */
 	Course course;
+	/**
+	 * the overall dashboard frame that contains everything
+	 */
 	DashboardFrame theFrame;
+	/**
+	 * the user type- Student or Prof
+	 */
 	char type;
 	
 	public AssignmentPanel(CourseViewPanel courseView, ObjectInputStream i, ObjectOutputStream o, Course c, DashboardFrame theFrame) 
@@ -77,12 +117,14 @@ public class AssignmentPanel extends JPanel
 		}
 		
 	}
+	/**
+	 * if the user selects an assignment, if they are a prof, it prompts them to
+	 * either activate or deactivate that assignment, otherwise if student,
+	 * to download.
+	 */
 		class MouseClicked implements MouseListener
 		{
-			/**
-			* required method to handle action, 
-			* @Override
-			*/
+			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (results.isSelectionEmpty()) {
 					return;
@@ -94,7 +136,6 @@ public class AssignmentPanel extends JPanel
 						String Title = (String)(results.getSelectedValue());
 						out.writeObject(Title);	//send the title
 						out.writeObject(course);//send the course
-//						out.writeObject(course.toString());
 					}
 					else
 					{
@@ -137,10 +178,6 @@ public class AssignmentPanel extends JPanel
 						}
 					}
 					
-//					FileOutputStream writer = new FileOutputStream(newFile);
-//					BufferedOutputStream bos = new BufferedOutputStream(writer);
-//					bos.write(content);
-//					bos.close();
 				}catch(IOException e)
 				{
 					e.printStackTrace();
