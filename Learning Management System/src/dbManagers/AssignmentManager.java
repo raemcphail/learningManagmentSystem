@@ -7,15 +7,29 @@ import java.util.Iterator;
 
 import server.Assignments;
 import server.Student;
-
+/**
+ * AssignmentManager is a sub class which extends Manager,
+ * it is responsible for adding, checking, and updating
+ * the AssignmentTable
+ * @author Louis, Raemc
+ * @version 1.0
+ * @since April 2, 2018
+ */
 public class AssignmentManager extends Manager
 {
+	/**
+	 * the table name
+	 */
 	private final String tableName = "assignmenttable";
 	public AssignmentManager()
 	{
 		super();
 	}
-	
+	/**
+	 * updates the path within the assignment table
+	 * @param assignID
+	 * @param line
+	 */
 	public void addPath(int assignID, String line)
 	{
 		try 
@@ -32,7 +46,11 @@ public class AssignmentManager extends Manager
 		}
 		
 	}
-	
+	/**
+	 * retrieves the path at the given table id
+	 * @param id - primary id of the table
+	 * @return - the path as a String
+	 */
 	public String getPath(int id)
 	{
 		String sql = "SELECT path FROM " + tableName + " WHERE ID=" + id;
@@ -49,7 +67,11 @@ public class AssignmentManager extends Manager
 		} catch (SQLException e) { e.printStackTrace(); }
 		return s;
 	}
-
+	/**
+	 * update the value of the active bit at the given id
+	 * @param value - either 1 or 0
+	 * @param AssignID - id of the table
+	 */
 	public void changeActive(int value, int AssignID)
 	{
 		try 
@@ -65,7 +87,12 @@ public class AssignmentManager extends Manager
 		}
 	
 	}
-	
+	/**
+	 * add the below parameters to the table and generate an id
+	 * @param course
+	 * @param title
+	 * @param active
+	 */
 	public void addItem (int course, String title, boolean active)
 	{
 		String sql = "INSERT IGNORE INTO " + tableName + "(course_id, title, active)" +
@@ -82,6 +109,13 @@ public class AssignmentManager extends Manager
 	}
 	
  }
+	/**
+	 * return true if there is a matching course and student id,
+	 * in the table. false otherwise
+	 * @param student
+	 * @param course
+	 * @return
+	 */
 	public boolean checkEnrollment (int student, int course)
 	{
 			String sql = "SELECT * FROM " + tableName + " WHERE student_id=" + student;
@@ -100,6 +134,11 @@ public class AssignmentManager extends Manager
 			} catch (SQLException e) { e.printStackTrace(); }
 			return enrolled;
 	}
+	/**
+	 * returns the active value of the user at that id
+	 * @param i - the table id
+	 * @return
+	 */
 	public boolean isActive (int i)
 	{
 		String sql = "SELECT * FROM " + tableName + " WHERE id like" + "'" + i + "%'";
@@ -115,7 +154,12 @@ public class AssignmentManager extends Manager
 		}	catch (SQLException e) { e.printStackTrace(); }
 		return false;
 	}
-	
+	/**
+	 * retrieve the assignment id from the assignment title and courseid
+	 * @param title
+	 * @param courseID
+	 * @return
+	 */
 	public int GETAssignID (String title, int courseID)
 	{
 		String sql = "SELECT * FROM " + tableName + " WHERE title like" + "'" + title + "%' AND course_id like " + 
@@ -134,7 +178,10 @@ public class AssignmentManager extends Manager
 		System.out.println(s);
 		return s;
 	}
-	
+	/**
+	 * get the most recent table id
+	 * @return
+	 */
 	public int recentID()
 	{
 		String sql = "SELECT MAX(id) AS largest FROM " + tableName;
@@ -151,6 +198,12 @@ public class AssignmentManager extends Manager
 			} catch (SQLException e) { e.printStackTrace(); }
 			return s;
 	}
+	/**
+	 * create and return all assignment objects based on data in table at
+	 * the given course_ID
+	 * @param Course_ID
+	 * @return
+	 */
 	public ArrayList<Assignments> getAssignments(int Course_ID)
 	{
 		String sql = "SELECT * FROM " + tableName + " WHERE course_id like" + "'" + Course_ID + "%'";
@@ -173,7 +226,11 @@ public class AssignmentManager extends Manager
 		}
 		return assignments;
 	}
-	
+	/**
+	 * return an arraylist of assignment titles at the corresponding id values
+	 * @param ids - arraylist of table id's
+	 * @return
+	 */
 	public ArrayList<String> getNames (ArrayList<Integer> ids)
 	{
 		Iterator it = ids.iterator();
@@ -194,7 +251,11 @@ public class AssignmentManager extends Manager
 		}
 		return names;
 	}
-	
+	/**
+	 * return an arraylist of active assignments, for that given course_ID
+	 * @param Course_ID
+	 * @return
+	 */
 	public ArrayList<Assignments> getActiveAssignments(int Course_ID)
 	{
 		String sql = "SELECT * FROM " + tableName + " WHERE course_id like" + "'" + Course_ID + "%'";
