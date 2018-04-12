@@ -7,14 +7,20 @@ import java.util.ArrayList;
 import server.Course;
 import server.Student;
 import server.User;
-
+/**
+ * UserManager is a sub class which extends Manager,
+ * it is responsible for adding, checking, and updating
+ * the UserTable
+ * @author Louis, Raemc
+ * @version 1.0
+ * @since April 2, 2018
+ */
 public class UserManager extends Manager {
-	private final String tableName = "usertable";
 	/**
-	* Returns a string containing the password of the client
-	* corresponding to that ID, to display in the search results.
-	*/
-	
+	 * the table name
+	 */
+	private final String tableName = "usertable";
+
 	/**
 	 * default constructor connects to the database using the code in Managers		
 	 */
@@ -22,7 +28,11 @@ public class UserManager extends Manager {
 	{
 		super();
 	}
-	
+	/**
+	 * returns the client password given the table id
+	 * @param UserID
+	 * @return
+	 */
 	public String findClientPassword(int UserID)
 	{
 		String sql = "SELECT password FROM " + tableName + " WHERE ID=" + UserID;
@@ -38,6 +48,11 @@ public class UserManager extends Manager {
 		} catch (SQLException e) { e.printStackTrace(); }
 		return s;
 	}
+	/**
+	 * returns the student with the user_id, in the form of an ArrayList
+	 * @param User_ID
+	 * @return
+	 */
 	public ArrayList<Student> getStudents(int User_ID)
 	{
 		String sql = "SELECT * FROM " + tableName + " WHERE id=" + User_ID;
@@ -67,7 +82,11 @@ public class UserManager extends Manager {
 		}
 		return students;
 	}
-	
+	/**
+	 * returns the students with the same lastname, in the form of an ArrayList
+	 * @param last
+	 * @return
+	 */
 	public ArrayList<Student> getStudents(String last)
 	{
 		String sql = "SELECT * FROM " + tableName + " WHERE lastname like" + "'" + last + "%'";
@@ -97,7 +116,11 @@ public class UserManager extends Manager {
 		}
 		return students;
 	}
-	
+	/**
+	 * retrieves the client email, given the userID
+	 * @param UserID
+	 * @return
+	 */
 	public String findClientEmail(int UserID)
 	{
 		String sql = "SELECT email FROM " + tableName + " WHERE ID=" + UserID;
@@ -113,7 +136,11 @@ public class UserManager extends Manager {
 		} catch (SQLException e) { e.printStackTrace(); }
 		return s;
 	}
-	
+	/**
+	 * retrieves the users firstname, given the table id
+	 * @param UserID
+	 * @return
+	 */
 	public String findClientFirstname(int UserID)
 	{
 		String sql = "SELECT firstname FROM " + tableName + " WHERE ID=" + UserID;
@@ -129,7 +156,11 @@ public class UserManager extends Manager {
 		} catch (SQLException e) { e.printStackTrace(); }
 		return s;
 	}
-	
+	/**
+	 * retrieves the users lastname, given the table id
+	 * @param UserID
+	 * @return
+	 */
 	public String findClientLastname(int UserID)
 	{
 		String sql = "SELECT lastname FROM " + tableName + " WHERE ID=" + UserID;
@@ -145,7 +176,11 @@ public class UserManager extends Manager {
 		} catch (SQLException e) { e.printStackTrace(); }
 		return s;
 	}
-	
+	/**
+	 * returns the client type, P or S, given the table id
+	 * @param UserID
+	 * @return
+	 */
 	public char[] findClientType(int UserID)
 	{
 		String sql = "SELECT type FROM " + tableName + " WHERE ID=" + UserID;
@@ -161,30 +196,5 @@ public class UserManager extends Manager {
 		} catch (SQLException e) { e.printStackTrace(); }
 		return s;
 	}
-	/**
-	********* NOT USED- TO BE COPIED TO OTHER MANAGERS****
-	* adds the user to the table.
-	* @param - user to add to the dataBase.
-	
-	public void addItem(User client)
-	{
-		System.out.println(client.getPhoneNumber());
-		String sql = "INSERT IGNORE INTO " + tableName + "(id, password, email, , PHONENUMBER, CLIENTTYPE)" +
-					 " VALUES ('" + client.getFirstName() + "', '" + 
-					 		client.getLastName() + "', '" + 
-					 		client.getAddress() + "', '" + 
-					 		client.getPostalCode() + "', '" + 
-					 		client.getPhoneNumber() + "', '" + 
-					 		client.getClientType() + "');";
-		
-		try{
-			statement = connection.prepareStatement(sql);
-			statement.executeUpdate();
-		}
-		catch(SQLException e)
-		{
-			e.printStackTrace();
-		}
-	}*/
 	
 }

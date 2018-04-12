@@ -7,7 +7,14 @@ import java.util.ArrayList;
 
 import server.Assignments;
 import server.Submissions;
-
+/**
+ * SubbmissionManager is a sub class which extends Manager,
+ * it is responsible for adding, checking, and updating
+ * the SubmissionTable
+ * @author Louis, Raemc
+ * @version 1.0
+ * @since April 2, 2018
+ */
 public class SubmissionManager  extends Manager
 {
 	private final String tableName = "submissiontable";
@@ -16,8 +23,11 @@ public class SubmissionManager  extends Manager
 	{
 		super();
 	}
-	
-	
+	/**
+	 * getSubmission array where assignID matches
+	 * @param assignID
+	 * @return
+	 */
 	public ArrayList<Submissions> getSubmissions(int assignID)
 	{
 		String sql = "SELECT * FROM " + tableName + " WHERE assign_id like" + "'" + assignID + "%'";
@@ -42,7 +52,12 @@ public class SubmissionManager  extends Manager
 		}
 		return submissions;
 	}
-	
+	/**
+	 * insert an item with the below parameters, and generate an id
+	 * @param assignment
+	 * @param title
+	 * @param student
+	 */
 	public void addItem (int assignment, String title, int student)
 	{
 		LocalDateTime obj = LocalDateTime.now();
@@ -88,7 +103,10 @@ public class SubmissionManager  extends Manager
 	}
 	
 	}//end of addItem
-	
+	/**
+	 * get the largest id
+	 * @return
+	 */
 	public int recentID()
 	{
 		String sql = "SELECT MAX(id) AS largest FROM " + tableName;
@@ -105,7 +123,12 @@ public class SubmissionManager  extends Manager
 		} catch (SQLException e) { e.printStackTrace(); }
 		return s;
 	}	
-	
+	/**
+	 * return the assignment id, given a matching student_id and timestamp
+	 * @param studentID
+	 * @param time
+	 * @return
+	 */
 	public int getAssignID(int studentID, String time)
 	{
 		String sql = "SELECT assign_id FROM " + tableName + " WHERE student_id=" + studentID + " AND timestamp like '" + time + "';";
@@ -123,7 +146,12 @@ public class SubmissionManager  extends Manager
 		} catch (SQLException e) { e.printStackTrace(); }
 		return s;
 	}
-	
+	/**
+	 * return the string path, given a matching student_id and timestamp
+	 * @param studentID
+	 * @param time
+	 * @return
+	 */
 	public String getPath (int studentID, String time)
 	{
 		String sql = "SELECT path FROM " + tableName + " WHERE student_id=" + studentID + " AND timestamp= '" + time + "'";
@@ -141,6 +169,11 @@ public class SubmissionManager  extends Manager
 		} catch (SQLException e) { e.printStackTrace(); }
 		return s;
 	}
+	/**
+	 * update path given table id, with line parameter
+	 * @param subID
+	 * @param line
+	 */
 	public void addPath(int subID, String line)
 	{
 		try 

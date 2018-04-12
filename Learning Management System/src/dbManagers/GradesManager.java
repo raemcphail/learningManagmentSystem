@@ -7,15 +7,30 @@ import java.util.ArrayList;
 import server.Assignments;
 import server.Student;
 
-//GradesManager contains id, assign_id, student_id, course_id, assignment_grade. All int
+/**
+ * GradesManager is a sub class which extends Manager,
+ * it is responsible for adding, checking, and updating
+ * the GradeTable
+ * @author Louis, Raemc
+ * @version 1.0
+ * @since April 2, 2018
+ */
 public class GradesManager extends Manager {
-	 
+	 /**
+	  * the table name
+	  */
 	 private final String tableName = "gradetable";
 	 public GradesManager()
 	 {
 	 	super();
 	 }
-	 
+	 /**
+	  * inserts the below parameters into the table and generates an id
+	  * @param assign_id
+	  * @param student_id
+	  * @param course_id
+	  * @param assignment_grade
+	  */
 	public void addItem (int assign_id, int student_id, int course_id, int assignment_grade)
 	{
 		String sql = "INSERT IGNORE INTO " + tableName + "(assign_id, student_id, course_id, assignment_grade)" +
@@ -53,7 +68,11 @@ public class GradesManager extends Manager {
 		
 		return s;
 	}
-	
+	/**
+	 * return the assignment ids for the given student id
+	 * @param studentID
+	 * @return
+	 */
 	public ArrayList<Integer> getAssignIDs(int studentID)
 	{
 		String sql = "SELECT * FROM " + tableName + " WHERE student_id= " + studentID;
@@ -70,7 +89,11 @@ public class GradesManager extends Manager {
 		} catch (SQLException e) { e.printStackTrace(); }
 		return ids;
 	}
-	
+	/**
+	 * return the grades for the given student id
+	 * @param studentID
+	 * @return
+	 */
 	public ArrayList<Integer> getGrades(int studentID)
 	{
 		String sql = "SELECT * FROM " + tableName + " WHERE student_id= " + studentID;
@@ -87,8 +110,14 @@ public class GradesManager extends Manager {
 		} catch (SQLException e) { e.printStackTrace(); }
 		return ids;
 	}
-	
-	
+	/**
+	 * update the assignment_grade where the student_id and assign_id exists,
+	 * or add if it doesn't exist
+	 * @param assignID
+	 * @param StudentID
+	 * @param courseID
+	 * @param SubGrade
+	 */
 	public void UpdateGrades(int assignID, int StudentID, int courseID, int SubGrade)
 	{
 		String sql = "SELECT * FROM " + tableName + " WHERE student_id= " + StudentID + " AND assign_id= " + assignID;

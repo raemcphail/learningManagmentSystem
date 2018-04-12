@@ -5,14 +5,28 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import server.Course;
-
+/**
+ * EnrollmentManager is a sub class which extends Manager,
+ * it is responsible for adding, checking, and updating
+ * the StudentEnrollmentTable
+ * @author Louis, Raemc
+ * @version 1.0
+ * @since April 2, 2018
+ */
 public class EnrollmentManager extends Manager {
+	/**
+	 * the table name
+	 */
 	private final String tableName = "studentenrollmenttable";
 	public EnrollmentManager()
 	{
 		super();
 	}
-	
+	/**
+	 * add the below parameter to the table and generate an id
+	 * @param student
+	 * @param course
+	 */
 	public void addItem (int student, int course)
 	{
 		String sql = "INSERT IGNORE INTO " + tableName + "(student_id, course_id)" +
@@ -27,7 +41,12 @@ public class EnrollmentManager extends Manager {
 		e.printStackTrace();
 	}
  }
-	
+	/**
+	 * return if that student is enrolled based on the student_id and the course_id exist
+	 * @param student
+	 * @param course
+	 * @return
+	 */
 	public boolean checkEnrollment (int student, int course)
 	{
 			String sql = "SELECT * FROM " + tableName + " WHERE student_id=" + student;
@@ -46,7 +65,10 @@ public class EnrollmentManager extends Manager {
 			} catch (SQLException e) { e.printStackTrace(); }
 			return enrolled;
 	}
-	
+	/**
+	 * delete the table for the given id
+	 * @param ID
+	 */
 	public void removeItem(int ID)
 	{
 		try
@@ -60,7 +82,11 @@ public class EnrollmentManager extends Manager {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * return a list of courseID's based on the given user_id
+	 * @param User_ID
+	 * @return
+	 */
 	public ArrayList<Integer> getCourseID(int User_ID)
 	{
 		String sql = "SELECT * FROM " + tableName + " WHERE student_id=" + "'" + User_ID + "'";
@@ -83,7 +109,7 @@ public class EnrollmentManager extends Manager {
 	}
 	
 	/**
-	 * 
+	 * get the enrollment id if a userID and courseID exist in a row
 	 * @param User_ID
 	 * @param course_ID
 	 * @return the enrollment id
