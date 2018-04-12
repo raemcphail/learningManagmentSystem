@@ -67,30 +67,9 @@ public class MyCoursesPanel extends JPanel {
 					{
 						courseButtons[i].setActionCommand("notActive");
 					}
-					courseButtons[i].addActionListener(new ActionListener() {
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							if (e.getActionCommand().equals("active"))	//if the course is active, or the user is a prof
-							{
-								CourseViewPanel courseView = new CourseViewPanel(theFrame, temp, in, out);
-								theFrame.middleBar.emailButton.setActionCommand("courseSelected");   //set the emailbutton to include the prof
-								theFrame.content.add((courseView), "theCourse");
-								theFrame.cardLayout.show(theFrame.content, "theCourse");
-							}
-							else if (e.getActionCommand().equals("prof"))
-							{
-								CourseViewPanel courseView = new CourseViewPanel(theFrame, temp, in, out);
-								theFrame.middleBar.emailButton.setActionCommand(temp.name);   //set the emailbutton to include the prof
-								theFrame.content.add((courseView), "theCourse");
-								theFrame.cardLayout.show(theFrame.content, "theCourse");
-							}
-							else if (e.getActionCommand().equals("notActive"))
-							{
-								JOptionPane.showMessageDialog(null, "This course is not active.", "Not Active", JOptionPane.ERROR_MESSAGE);
-							}
-							
-						}
-					});
+					CourseListener listener = new CourseListener(temp);
+					courseButtons[i].addActionListener(listener);
+					
 					add(courseButtons[i]);	//add to panel
 					i++;
 				}
@@ -105,6 +84,61 @@ public class MyCoursesPanel extends JPanel {
 			e.printStackTrace();
 			System.err.println("error in my courses panel");
 		}
+	}
+	
+	public class CourseListener implements ActionListener
+	{
+		Course thatCourse;
+		public CourseListener(Course course)
+		{
+			thatCourse = course;
+		}
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			boolean active = true;
+			try {
+				out.writeObject("getBool");	//send opcode
+				out.writeObject(thatCourse);
+				active = (boolean)in.readObject();
+			} catch (IOException | ClassNotFoundException e1) {
+				e1.printStackTrace();
+			}	
+			if (theFrame.user.getType() == 'S' && !active)	//if the course has been deactivated by prof
+			{
+				JOptionPane.showMessageDialog(null, "This course is not active.", "Not Active", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			else if (theFrame.user.getType() == 'S' && active)
+			{
+				CourseViewPanel courseView = new CourseViewPanel(theFrame, thatCourse, in, out);
+				theFrame.middleBar.emailButton.setActionCommand("courseSelected");   //set the emailbutton to include the prof
+				theFrame.content.add((courseView), "theCourse");
+				theFrame.cardLayout.show(theFrame.content, "theCourse");
+			}
+			
+			
+			
+			else if (e.getActionCommand().equals("active"))	//if the course is active
+			{
+				CourseViewPanel courseView = new CourseViewPanel(theFrame, thatCourse, in, out);
+				theFrame.middleBar.emailButton.setActionCommand("courseSelected");   //set the emailbutton to include the prof
+				theFrame.content.add((courseView), "theCourse");
+				theFrame.cardLayout.show(theFrame.content, "theCourse");
+			}
+			else if (e.getActionCommand().equals("prof"))
+			{
+				CourseViewPanel courseView = new CourseViewPanel(theFrame, thatCourse, in, out);
+				theFrame.middleBar.emailButton.setActionCommand(thatCourse.name);   //set the emailbutton to include the prof
+				theFrame.content.add((courseView), "theCourse");
+				theFrame.cardLayout.show(theFrame.content, "theCourse");
+			}
+			else if (e.getActionCommand().equals("notActive"))
+			{
+				JOptionPane.showMessageDialog(null, "This course is not active.", "Not Active", JOptionPane.ERROR_MESSAGE);
+			}
+			
+		}
+		
 	}
 	
 	protected void setVisible() {

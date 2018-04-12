@@ -71,6 +71,7 @@ public class SideViewPanel extends JPanel
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							course.toggleActive();   //flip bit to true or to false;
+							System.out.println("course toggle: " + course.getActive());
 							if (activation.getText().equals("Deactivate"))
 							{
 								activation.setText("Activate");
@@ -82,6 +83,7 @@ public class SideViewPanel extends JPanel
 							try {
 								out.writeObject("updateCourse");
 								out.writeObject(course);
+								out.writeObject(course.getActive());
 							} catch (IOException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();

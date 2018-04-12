@@ -72,16 +72,34 @@ public class MyCourseHandler {
 		public void toggleActive() throws ClassNotFoundException, IOException
 		{
 			Course course = (Course)in.readObject();
+			boolean courseVal = (Boolean)in.readObject();
 			CourseManager courseDB = new CourseManager();
 			int courseID = courseDB.findCourseID(course.name);
-			if (course.getActive())	//if the course is not active
+			if (courseVal)	//if the course was not active, but has been toggled true
 			{
 				courseDB.changeActive(1, courseID);
+				System.out.println(courseDB.findCourseActive(courseID));
 			}
 			else
 			{
 				courseDB.changeActive(0, courseID);
 			}
+		}
+		
+		public void updateCourseState()
+		{
+			try {
+				Course course = (Course)in.readObject();
+				CourseManager courseDB = new CourseManager();
+				int courseID = courseDB.findCourseID(course.name);
+				boolean courseState = courseDB.findCourseActive(courseID);
+				//System.out.println(courseState);
+				out.writeObject(courseState);
+				}	
+			catch (ClassNotFoundException | IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 		}
 	
 }
